@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Lunch List</string>
+    <string name="tv_name">Name:</string>
+    <string name="tv_address">Address:</string>
+    <string name="tv_type">Type:</string>
+    <string name="rb_take">Take-Out</string>
+    <string name="rb_sit">Sit-Down</string>
+    <string name="rb_delivery">Delivery</string>
+    <string name="tv_notes">Notes:</string>
+    <string name="bt_save">Save</string>
+    <string name="mn_it_toast">Raise Toast</string>
+</resources>
