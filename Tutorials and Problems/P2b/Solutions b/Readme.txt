@@ -1,1 +1,0 @@
-The second phase in the Lunch List App construction

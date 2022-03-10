@@ -1,0 +1,6 @@
+/*class Floating .......
+
+fun main() {
+  val floating =   ...............
+  println(floating)
+}*/
