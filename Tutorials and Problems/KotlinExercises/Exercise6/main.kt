@@ -1,4 +1,4 @@
-/*class Robot( ... ) {
+class Robot( ... ) {
   .....
   
   fun crossBoundary( ... ): ... {
@@ -21,4 +21,4 @@
 
 fun main() {
   ...
-}*/
+}
