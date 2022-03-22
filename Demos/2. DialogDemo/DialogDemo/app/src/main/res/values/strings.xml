@@ -1,0 +1,8 @@
+<resources>
+  <string name="app_name">Dialog Demo</string>
+  <string name="dialog_title">Get Name</string>
+  <string name="hello_button">Say Hello</string>
+  <string name="initial_name">Your Name</string>
+  <string name="dlg_result_format">Hello, %s!</string>
+  <string name="done_button">Done</string>
+</resources>
