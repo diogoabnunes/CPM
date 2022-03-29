@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/details"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="5dp"
+    android:stretchColumns="1">
+  <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+    <TextView android:text="@string/tv_name" />
+    <EditText
+        android:id="@+id/ed_name"
+        android:inputType="text" />
+  </TableRow>
+  <TableRow
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+    <TextView android:text="@string/tv_address" />
+    <EditText
+        android:id="@+id/ed_address"
+        android:inputType="text" />
+  </TableRow>
+  <TableRow>
+    <TextView android:text="@string/tv_type" />
+    <RadioGroup android:id="@+id/rg_types">
+      <RadioButton
+          android:id="@+id/rb_take"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:checked="true"
+          android:text="@string/rb_take" />
+      <RadioButton
+          android:id="@+id/rb_sit"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/rb_sit" />
+      <RadioButton
+          android:id="@+id/rb_delivery"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/rb_delivery" />
+    </RadioGroup>
+  </TableRow>
+  <TableRow>
+    <TextView android:text="@string/tv_notes" />
+    <EditText
+        android:id="@+id/ed_notes"
+        android:gravity="top"
+        android:inputType="textMultiLine"
+        android:lines="2"
+        android:maxLines="2" />
+  </TableRow>
+  <Button
+      android:id="@+id/bt_save"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/bt_save" />
+</TableLayout>
