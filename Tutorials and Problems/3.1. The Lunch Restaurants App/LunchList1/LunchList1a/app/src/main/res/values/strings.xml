@@ -1,6 +1,0 @@
-<resources>
-  <string name="app_name">Lunch List 1a</string>
-  <string name="tv_name">Name:</string>
-  <string name="tv_address">Address:</string>
-  <string name="bt_save">Save</string>
-</resources>

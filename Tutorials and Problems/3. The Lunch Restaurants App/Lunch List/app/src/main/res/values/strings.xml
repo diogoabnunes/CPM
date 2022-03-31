@@ -7,4 +7,5 @@
     <string name="rb_takeout">Take-Out</string>
     <string name="rb_sitdown">Sit-Down</string>
     <string name="rb_delivery">Delivery</string>
+    <string name="symbol">Symbol</string>
 </resources>
