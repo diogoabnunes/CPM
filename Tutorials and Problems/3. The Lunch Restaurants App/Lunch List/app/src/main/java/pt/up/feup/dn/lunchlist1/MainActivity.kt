@@ -3,18 +3,19 @@ package pt.up.feup.dn.lunchlist1
 import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
     private val rests = arrayListOf<Restaurant>()
+    private var current: Restaurant? = null
     private val adapter by lazy { RestaurantAdapter() }
     private val edName by lazy { findViewById<EditText>(R.id.edit_name) }
     private val edAddress by lazy { findViewById<EditText>(R.id.edit_address) }
     private val rgTypes by lazy { findViewById<RadioGroup>(R.id.rg_types) }
+    private val edNotes by lazy { findViewById<EditText>(R.id.edit_notes) }
 
     private val tabs by lazy { findViewById<TabLayout>(R.id.tabs) }
     private val listTab by lazy { tabs.newTab().setText("List") }
@@ -40,19 +41,35 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
         tab1.setOnItemClickListener { _, _, pos, _ -> onRestItemClick(pos) }
     }
 
+    // Main Menu Methods
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        MenuInflater(this).inflate(R.menu.main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.raise_toast) {
+            val message = current?.notes ?: "No restaurant selected"
+            Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+            return true
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
     // Listener Functions
 
     private fun onButtonSaveClick() {
-        val r = Restaurant()
-        r.name = edName.text.toString()
-        r.address = edAddress.text.toString()
-        r.type = when(rgTypes.checkedRadioButtonId) {
+        val type = when(rgTypes.checkedRadioButtonId) {
             R.id.rb_take_out -> "take-out"
             R.id.rb_sit_down -> "sit-down"
             R.id.rb_delivery -> "delivery"
             else -> ""
         }
+        val r = Restaurant(edName.text.toString(), edAddress.text.toString(), type, edNotes.text.toString())
+
         adapter.add(r)
+        current = r
         clearKeyboard(this)
         listTab.select()
     }
@@ -66,6 +83,8 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
             "sit-down" -> rgTypes.check(R.id.rb_sit_down)
             "delivery" -> rgTypes.check(R.id.rb_delivery)
         }
+        edNotes.setText(r.notes)
+        current = r
         detailsTab.select()
     }
 

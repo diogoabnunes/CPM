@@ -123,6 +123,31 @@
 
                         </RadioGroup>
                     </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:labelFor="@id/edit_notes"
+                            android:text="@string/tv_notes" />
+
+                        <EditText
+                            android:id="@+id/edit_notes"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="top"
+                            android:ems="10"
+                            android:imeOptions="actionDone"
+                            android:inputType="textMultiLine"
+                            android:lines="2"
+                            android:maxLines="2"
+                            android:importantForAutofill="no" />
+
+                    </TableRow>
+
                 </TableLayout>
             </ScrollView>
 
