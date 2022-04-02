@@ -10,4 +10,6 @@
     <string name="symbol">Symbol</string>
     <string name="tv_notes">Notes:</string>
     <string name="raise_toast">Raise Toast</string>
+    <string name="lv_empty_msg">Activate the menu item to add a restaurant!</string>
+    <string name="add_new_restaurant">Add new restaurant</string>
 </resources>

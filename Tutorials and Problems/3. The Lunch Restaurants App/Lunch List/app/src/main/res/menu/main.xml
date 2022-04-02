@@ -6,4 +6,7 @@
         android:icon="@drawable/toast"
         android:title="@string/raise_toast"
         android:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/add"
+        android:title="@string/add_new_restaurant" />
 </menu>
