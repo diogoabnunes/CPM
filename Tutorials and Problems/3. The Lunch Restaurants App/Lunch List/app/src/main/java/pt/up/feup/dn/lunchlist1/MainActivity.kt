@@ -41,6 +41,18 @@ class MainActivity : AppCompatActivity(), TabLayout.OnTabSelectedListener {
         tab1.setOnItemClickListener { _, _, pos, _ -> onRestItemClick(pos) }
     }
 
+    // Rotate save/restore
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putSerializable("current", current)
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        current = savedInstanceState.getSerializable("current") as Restaurant?
+    }
+
     // Main Menu Methods
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

@@ -5,5 +5,5 @@
         android:id="@+id/raise_toast"
         android:icon="@drawable/toast"
         android:title="@string/raise_toast"
-        app:showAsAction="ifRoom" />
+        android:showAsAction="ifRoom" />
 </menu>
