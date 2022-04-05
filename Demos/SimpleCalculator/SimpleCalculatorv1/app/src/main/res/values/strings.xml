@@ -1,0 +1,9 @@
+<resources>
+  <string name="app_name">Simple Calculator v1</string>
+  <string name="add">+</string>
+  <string name="sub">-</string>
+  <string name="mul">*</string>
+  <string name="div">/</string>
+  <string name="store">STO</string>
+  <string name="recall">RCL</string>
+</resources>

@@ -1,0 +1,9 @@
+<resources>
+  <string name="app_name">ZX Code Generator</string>
+  <string name="tv_title">Content for bar/qr code</string>
+  <string name="ed_bar_hint">Bar Code - enter an 11 digit number</string>
+  <string name="ed_qr_hint">QR Code - enter a text message</string>
+  <string name="tv_or">or</string>
+  <string name="bt_bar">Generate Bar</string>
+  <string name="bt_qr">Generate QR</string>
+</resources>

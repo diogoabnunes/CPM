@@ -1,0 +1,9 @@
+<resources>
+  <string name="app_name">NFC Card</string>
+  <string name="service_name">Simple CardEmulation</string>
+  <string name="card_title">Sample Loyalty Card</string>
+  <string name="account_number">Account Number</string>
+  <string name="but_save">Save</string>
+  <string name="tv_state_ready">Ready</string>
+  <string name="tv_state_template">%s\nSaved Acc Nr: %s</string>
+</resources>

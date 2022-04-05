@@ -1,0 +1,7 @@
+<resources>
+  <string name="app_name">Dialog Fragment Demo</string>
+  <string name="bt_hello">Say hello</string>
+  <string name="bt_done">Done</string>
+  <string name="dlg_title">Get Name</string>
+  <string name="dlg_item_hint">Your name</string>
+</resources>

@@ -1,0 +1,113 @@
+<resources>
+  <string name="app_name">Views Demo</string>
+  <string name="main_activity">Use Navigation Drawer</string>
+  <string name="act1_name">Date and Time</string>
+  <string name="act2_name">Sliding Drawer</string>
+  <string name="act3_name">Flipper</string>
+  <string name="act4_name">Flipper Auto</string>
+  <string name="act5_name">List View</string>
+  <string name="act6_name">Grid View</string>
+  <string name="act7_name">Progress Bar</string>
+  <string name="act8_name">Plain Tabs</string>
+  <string name="act9_name">Dynamic Tabs</string>
+  <string name="act10_name">Action Tabs</string>
+  <string name="act11_name">Snack Bars</string>
+  <string name="act12_name">Swipe Views</string>
+  <string name="act13_name">Recycler and Card List</string>
+  <string name="act14_name">Preferences (fragment)</string>
+  <string name="bt_first">first</string>
+  <string name="bt_last">last</string>
+  <string name="bt_flip">Flip Me!</string>
+  <string name="bt_progress">Navigate</string>
+  <string name="bt_simple_snackbar">Simple Snackbar</string>
+  <string name="bt_action_callback">With Action Callback</string>
+  <string name="bt_custom_snackbar">Custom Color</string>
+  <string name="but_setdate">Set the Date</string>
+  <string name="but_settime">Set the Time</string>
+  <string name="but_tabname">This is a big button</string>
+  <string name="menu_settings">Settings</string>
+  <string name="row_icon">Icon</string>
+  <string name="sz_template">Size: %d</string>
+  <string name="tv_flp_pan1">This is the first panel</string>
+  <string name="tv_flp_pan2">This is the second panel</string>
+  <string name="tv_flp_pan3">This is the third panel</string>
+  <string name="tv_preferences_label">Use menu to modify preferences ...</string>
+  <string name="tv_progress">See this progress:</string>
+  <string name="tv_rec_sel_label">Selection:</string>
+
+  <!-- Strings related to Settings -->
+
+  <string name="title_edittext_preference">Edit text preference</string>
+  <string name="summary_edittext_preference">An example that uses an edit text dialog</string>
+  <string name="dialog_title_edittext_preference">Enter your favorite animal</string>
+  <string name="title_checkbox_preference">Checkbox preference</string>
+  <string name="summary_checkbox_preference">This is a checkbox</string>
+  <string name="inline_preferences">In-line preferences</string>
+  <string name="dialog_based_preferences">Dialog-based preferences</string>
+  <string name="launch_preferences">Launch preferences</string>
+  <string name="preference_attributes">Preference attributes</string>
+  <string name="title_list_preference">List preference</string>
+  <string name="summary_list_preference">An example that uses a list dialog</string>
+  <string name="dialog_title_list_preference">Choose one</string>
+  <string name="title_screen_preference">Screen preference</string>
+  <string name="summary_screen_preference">Shows another screen of preferences</string>
+  <string name="title_fragment_preference">Fragment preference</string>
+  <string name="summary_fragment_preference">Shows another fragment of preferences</string>
+  <string name="title_next_screen_toggle_preference">Toggle preference</string>
+  <string name="summary_next_screen_toggle_preference">Preference that is on the next screen but same hierarchy</string>
+  <string name="title_intent_preference">Intent preference</string>
+  <string name="summary_intent_preference">Launches an Activity from an Intent</string>
+  <string name="title_my_preference">My preference</string>
+  <string name="summary_my_preference">This is a custom counter preference</string>
+  <string name="title_advanced_toggle_preference">Haunted preference</string>
+  <string name="summary_on_advanced_toggle_preference">I\'m on! :)</string>
+  <string name="summary_off_advanced_toggle_preference">I\'m off! :(</string>
+  <string name="title_parent_preference">Parent checkbox preference</string>
+  <string name="summary_parent_preference">This is visually a parent</string>
+  <string name="title_child_preference">Child checkbox preference</string>
+  <string name="summary_child_preference">This is visually a child</string>
+  <string name="title_activity_settings2">Settings</string>
+
+  <string-array name="options_array">
+    <item>Chrono Demo</item>
+    <item>Sliding Drawer Demo</item>
+    <item>Flipper Demo</item>
+    <item>Flipper Auto Demo</item>
+    <item>ListView Demo</item>
+    <item>GridView Demo</item>
+    <item>Progress Demo</item>
+    <item>Tabs Demo</item>
+    <item>Dynamic Tabs Demo</item>
+    <item>Action Tabs Demo</item>
+    <item>Snack Bar Demo</item>
+    <item>Swipe Demo</item>
+    <item>Recycler and Card Demo</item>
+    <item>Preferences Demo</item>
+  </string-array>
+  <string-array name="list_items">
+    <item>lorem</item>
+    <item>ipsum</item>
+    <item>dolor</item>
+    <item>sit</item>
+    <item>amet</item>
+    <item>consectetuer</item>
+    <item>adipiscing</item>
+    <item>elit</item>
+    <item>morbi</item>
+    <item>vel</item>
+    <item>ligula</item>
+    <item>vitae</item>
+    <item>arcu</item>
+    <item>aliquet</item>
+    <item>mollis</item>
+    <item>etiam</item>
+    <item>erat</item>
+    <item>placerat</item>
+    <item>ante</item>
+    <item>porttitor</item>
+    <item>sodales</item>
+    <item>pellentesque</item>
+    <item>augue</item>
+    <item>purus</item>
+  </string-array>
+</resources>

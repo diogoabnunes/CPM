@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="10dip"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="200dip"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="numberDecimal|numberSigned" >
+            <requestFocus />
+        </EditText>
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="200dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:ems="10"
+            android:inputType="numberDecimal|numberSigned" />
+    </LinearLayout>
+
+		<TextView
+		    android:id="@+id/result"
+		    android:layout_width="190dip"
+		    android:layout_height="wrap_content"
+		    android:layout_marginLeft="10dip"
+		    android:layout_marginTop="10dip"
+		    android:singleLine="true"
+		    android:textSize="20sp" />
+		<LinearLayout
+		    android:layout_width="match_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_marginTop="10dip" >
+
+			<Button
+					android:id="@+id/button1"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_margin="5dp"
+					android:onClick="PlusOnClick"
+					android:text="@string/add" />
+
+			<Button
+					android:id="@+id/button2"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_margin="5dp"
+					android:onClick="MinusOnClick"
+					android:text="@string/sub" />
+
+			<Button
+					android:id="@+id/button3"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_margin="5dp"
+					android:onClick="MultiplyOnClick"
+					android:text="@string/mul" />
+
+			<Button
+					android:id="@+id/button4"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_margin="5dp"
+					android:onClick="DivideOnClick"
+					android:text="@string/div" />
+
+			<Button
+					android:id="@+id/button5"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="30dip"
+					android:layout_marginTop="5dp"
+					android:layout_marginRight="5dp"
+					android:layout_marginBottom="5dp"
+					android:onClick="StoreOnClick"
+					android:text="@string/store" />
+
+			<Button
+					android:id="@+id/button6"
+					android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+					android:layout_margin="5dp"
+					android:onClick="RecallOnClick"
+					android:text="@string/recall" />
+		</LinearLayout>
+
+</LinearLayout>

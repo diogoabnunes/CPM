@@ -1,0 +1,13 @@
+<resources>
+  <string name="app_name">Crypto Demo</string>
+  <string name="tv_keys_generated">"Keys present: "</string>
+  <string name="bt_generate">Generate Keys</string>
+  <string name="mn_it_show">Show Keys</string>
+  <string name="mn_it_clear">Clear</string>
+  <string name="mn_it_gen_content">Generate Content</string>
+  <string name="mn_it_enc">Encrypt</string>
+  <string name="mn_it_dec">Decrypt</string>
+  <string name="mn_it_sign">Sign content</string>
+  <string name="mn_it_verify">Verify signature</string>
+  <string name="mn_it_cert">Show certificate</string>
+</resources>

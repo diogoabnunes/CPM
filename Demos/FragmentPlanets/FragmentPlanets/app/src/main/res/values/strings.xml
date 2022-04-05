@@ -1,0 +1,6 @@
+<resources>
+  <string name="app_name">Fragment Planets</string>
+  <string name="main_name">Planets</string>
+  <string name="music_text">Music by\nGustav Holst\nThe Planets suite (1916)\nMars excerpt</string>
+  <string name="mn_about">about the music</string>
+</resources>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+  <item
+      android:id="@+id/mn_it_show"
+      android:title="@string/mn_it_show"
+      app:showAsAction="never" />
+  <item
+      android:id="@+id/mn_it_gen_content"
+      android:title="@string/mn_it_gen_content"
+      app:showAsAction="never" />
+  <item
+      android:id="@+id/mn_it_enc"
+      android:title="@string/mn_it_enc"
+      app:showAsAction="never" />
+  <item
+      android:id="@+id/mn_it_dec"
+      android:title="@string/mn_it_dec"
+      app:showAsAction="never" />
+  <item
+      android:id="@+id/mn_it_sign"
+      android:title="@string/mn_it_sign" />
+  <item
+      android:id="@+id/mn_it_verify"
+      android:title="@string/mn_it_verify" />
+  <item
+      android:id="@+id/mn_it_cert"
+      android:title="@string/mn_it_cert" />
+  <item
+      android:id="@+id/mn_it_clear"
+      android:title="@string/mn_it_clear"
+      app:showAsAction="never" />
+
+</menu>

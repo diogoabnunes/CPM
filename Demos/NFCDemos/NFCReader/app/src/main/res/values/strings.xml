@@ -1,0 +1,11 @@
+<resources>
+  <string name="app_name">NFC Reader</string>
+  <string name="intro_message">
+            Low-level NFC card reader, using an applet AID.\n\n
+            An AID is sent, establishing communication with the card.
+    </string>
+  <string name="card_title">Sample Loyalty Card</string>
+  <string name="account_number">Account Number</string>
+  <string name="tv_accnr">Waiting...</string>
+  <string name="bt_clear">Clear</string>
+</resources>
