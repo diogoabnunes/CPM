@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Lunch List</string>
+    <string name="tv_name">Name:</string>
+    <string name="tv_address">Address:</string>
+    <string name="tv_type">Type:</string>
+    <string name="rb_take">Take-Out</string>
+    <string name="rb_sit">Sit-Down</string>
+    <string name="rb_delivery">Delivery</string>
+    <string name="tv_notes">Notes:</string>
+    <string name="bt_save">Save</string>
+    <string name="mn_it_toast">Raise Toast</string>
+    <string name="mn_it_add">Add new restaurant</string>
+    <string name="lv_empty_msg">Activate the menu item to add a restaurant!</string>
+    <string name="ed_name_hint">Name</string>
+    <string name="ed_address_hint">Address</string>
+    <string name="ed_notes_hint">Notes</string>
+</resources>
