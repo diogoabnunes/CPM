@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="org.feup.apm.callhttp.MainActivity" >
+
+  <EditText
+      android:id="@+id/edt_IP"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="@string/edt_IP_address"
+      android:imeOptions="actionNext"
+      android:inputType="phone" />
+
+  <LinearLayout
+      android:id="@+id/inputs"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal">
+
+    <EditText
+        android:id="@+id/edt_id"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="@string/edt_id"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:textSize="12sp" />
+
+    <EditText
+        android:id="@+id/edt_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="@string/edt_name"
+        android:textSize="12sp" />
+
+  </LinearLayout>
+
+  <TextView
+      android:id="@+id/tv_response"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/tv_start_value" />
+
+</LinearLayout>

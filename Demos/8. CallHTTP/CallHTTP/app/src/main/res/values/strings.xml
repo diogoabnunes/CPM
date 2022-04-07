@@ -1,0 +1,13 @@
+<resources>
+  <string name="app_name">Call HTTP</string>
+  <string name="tv_start_value">--></string>
+  <string name="action_getusers">Get Users (GET)</string>
+  <string name="action_getuser">Get User (GET)</string>
+  <string name="action_adduser">Add User (POST)</string>
+  <string name="action_deluser">Delete User (DELETE)</string>
+  <string name="action_changeuser">Change User (PUT)</string>
+  <string name="action_clear">Clear</string>
+  <string name="edt_IP_address">IP Address</string>
+  <string name="edt_id">User Id</string>
+  <string name="edt_name">User Name</string>
+</resources>

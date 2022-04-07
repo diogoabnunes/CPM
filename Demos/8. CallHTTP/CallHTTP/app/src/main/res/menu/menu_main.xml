@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="org.feup.apm.testrestservice.MainActivity" >
+
+  <item android:id="@+id/getusers" app:showAsAction="never" android:title="@string/action_getusers"/>
+  <item android:id="@+id/getuser" app:showAsAction="never" android:title="@string/action_getuser"/>
+  <item android:id="@+id/adduser" app:showAsAction="never" android:title="@string/action_adduser"/>
+  <item android:id="@+id/deluser" app:showAsAction="never" android:title="@string/action_deluser"/>
+  <item android:id="@+id/changeuser" app:showAsAction="never" android:title="@string/action_changeuser"/>
+  <item android:id="@+id/clear" app:showAsAction="never" android:title="@string/action_clear"/>
+
+</menu>
