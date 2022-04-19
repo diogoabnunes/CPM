@@ -1,0 +1,5 @@
+<resources>
+  <string name="app_name">Send Broadcast</string>
+  <string name="mn_clear">clear</string>
+  <string name="mn_broadcast">broadcast</string>
+</resources>
