@@ -4,5 +4,15 @@
     <string name="password">Password</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="log_in">Log In</string>
-    <string name="register">register</string>
+    <string name="register">Register</string>
+    <string name="need_account">Need an account? Sign Up</string>
+    <string name="name">Name</string>
+    <string name="fiscal_number">Fiscal Number</string>
+    <string name="address">Address</string>
+    <string name="city">City</string>
+    <string name="post_code">Postcode</string>
+    <string name="country">Country</string>
+    <string name="credit_card_number">Credit Card Number</string>
+    <string name="credit_card_validity">Validity</string>
+    <string name="credit_card_type">Credit Card Type</string>
 </resources>
