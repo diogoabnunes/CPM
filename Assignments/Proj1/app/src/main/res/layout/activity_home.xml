@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Home">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_home"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        app:title="Home"
+        app:titleTextColor="#000000" />
+
+    <Button
+        android:id="@+id/shopping_cart_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="20dp"
+        android:background="#00008b"
+        android:enabled="false"
+        android:text="Shopping Cart"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+    <Button
+        android:id="@+id/past_transitions_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/shopping_cart_button"
+        android:background="#00008b"
+        android:enabled="false"
+        android:text="Past Transitions"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+    <Button
+        android:id="@+id/wallet_button"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginRight="20dp"
+        android:layout_below="@+id/past_transitions_button"
+        android:background="#00008b"
+        android:enabled="false"
+        android:text="Wallet"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        tools:ignore="DuplicateSpeakableTextCheck" />
+
+</RelativeLayout>
