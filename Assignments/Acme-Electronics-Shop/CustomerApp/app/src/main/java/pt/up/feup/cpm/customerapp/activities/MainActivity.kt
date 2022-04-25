@@ -1,9 +1,10 @@
-package pt.up.feup.cpm.customerapp
+package pt.up.feup.cpm.customerapp.activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import pt.up.feup.cpm.customerapp.R
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
