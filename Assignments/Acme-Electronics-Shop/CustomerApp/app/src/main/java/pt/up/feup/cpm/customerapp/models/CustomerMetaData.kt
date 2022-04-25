@@ -3,8 +3,10 @@ package pt.up.feup.cpm.customerapp.models
 import java.security.KeyPair
 import java.security.KeyPairGenerator
 import java.security.NoSuchAlgorithmException
+import java.util.*
 
 class CustomerMetaData {
+    private var uuid: UUID? = null
     private var name: String? = null
     private var address: String? = null
     private var fiscalNumber: String? = null
@@ -13,6 +15,7 @@ class CustomerMetaData {
     private var keyPair: KeyPair? = null
 
     constructor(name: String?, address: String?, fiscalNumber: String?, username: String?, password: String?) {
+        this.uuid = UUID.randomUUID()
         this.name = name
         this.address = address
         this.fiscalNumber = fiscalNumber
