@@ -1,10 +1,9 @@
 package pt.up.feup.cpm.customerapp.models
 
-import pt.up.feup.cpm.customerapp.interfaces.QRCodeInterface
 import java.util.*
 
 
-class Customer : QRCodeInterface {
+class Customer {
     private var metaData: CustomerMetaData? = null
     private var paymentData: CustomerPaymentData? = null
 
@@ -21,9 +20,5 @@ class Customer : QRCodeInterface {
 
     fun getUsername(): String? {
         return metaData!!.getUsername()
-    }
-
-    override fun encode(): String? {
-        return ""
     }
 }
