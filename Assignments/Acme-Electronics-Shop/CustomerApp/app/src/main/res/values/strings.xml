@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Proj1</string>
-    <string name="email">Email</string>
+    <string name="app_name">The Acme Electronics Shop</string>
+    <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="log_in">Log In</string>
@@ -9,10 +9,10 @@
     <string name="name">Name</string>
     <string name="fiscal_number">Fiscal Number</string>
     <string name="address">Address</string>
-    <string name="city">City</string>
-    <string name="post_code">Postcode</string>
-    <string name="country">Country</string>
+    <string name="credit_card_type">Credit Card Type</string>
     <string name="credit_card_number">Credit Card Number</string>
     <string name="credit_card_validity">Validity</string>
-    <string name="credit_card_type">Credit Card Type</string>
+    <string name="shopping_cart">Shopping Cart</string>
+    <string name="past_transitions">Past Transitions</string>
+    <string name="wallet">Wallet</string>
 </resources>
