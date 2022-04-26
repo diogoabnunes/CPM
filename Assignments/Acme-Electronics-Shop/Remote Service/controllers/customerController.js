@@ -1,13 +1,13 @@
 const express = require('express');
-var router = express.Router()
-const mongoose = require('mongoose')
-const Customer = mongoose.model("Customer")
+var router = express.Router();
+const mongoose = require('mongoose');
+const Customer = mongoose.model("Customer");
 
 router.get('/', (req, res) => {
     res.render('customer/addOrEdit', {
         viewTitle: 'Insert Customer'
     })
-})
+});
 
 router.post('/', (req, res) => {
     if (req.body._id == '') {
@@ -15,7 +15,7 @@ router.post('/', (req, res) => {
     } else {
         updateRecord(req, res)
     }
-})
+});
 
 function insertRecord(req, res) {
     var customer = new Customer()
@@ -30,7 +30,7 @@ function insertRecord(req, res) {
         } else {
             console.log('Error during insert: ' + err);
         }
-    })
+    });
 }
 
 function updateRecord(req, res) {
@@ -57,7 +57,7 @@ router.get('/list', (req, res) => {
         } else {
             console.log('Error in retrieval: ' + err);
         }
-    })
+    });
 })
 
 router.get('/:id', (req, res) => {
@@ -69,7 +69,7 @@ router.get('/:id', (req, res) => {
             })
             console.log(doc);
         }
-    })
+    });
 })
 
 router.get('/delete/:id', (req, res) => {
