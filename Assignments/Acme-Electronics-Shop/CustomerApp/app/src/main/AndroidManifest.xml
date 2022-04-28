@@ -10,7 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CustomerApp">
         <activity
+            android:name=".activities.Home"
+            android:exported="false" />
+        <activity
             android:name=".activities.Register"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Login"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
