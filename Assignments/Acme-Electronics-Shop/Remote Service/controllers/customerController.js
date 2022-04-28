@@ -75,7 +75,7 @@ router.get('/:id', (req, res) => {
 router.get('/delete/:id', (req, res) => {
     Customer.findByIdAndRemove(req.params.id, (err, doc) => {
         if (!err) {
-            res.redirect("customer/list");
+            res.redirect("/customer/list");
         } else {
             console.log("Error in deletion" + err);
         }
