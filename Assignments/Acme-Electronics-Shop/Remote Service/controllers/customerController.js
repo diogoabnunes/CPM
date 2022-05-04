@@ -19,11 +19,16 @@ router.post('/', (req, res) => {
 
 function insertRecord(req, res) {
     var customer = new Customer()
+    customer.userID = req.body.userID
     customer.name = req.body.name
-    customer.email = req.body.email
     customer.address = req.body.address
     customer.fiscalNumber = req.body.fiscalNumber
-    customer.username = req.body.username
+    customer.email = req.body.email
+    customer.password = req.body.password
+    customer.publicKey = req.body.publicKey
+    customer.cardType = req.body.cardType
+    customer.cardNumber = req.body.cardNumber
+    customer.cardValidity = req.body.cardValidity
     customer.save((err, doc) => {
         if (!err) {
             res.redirect('customer/list');

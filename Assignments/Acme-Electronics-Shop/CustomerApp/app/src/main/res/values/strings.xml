@@ -15,4 +15,6 @@
     <string name="shopping_cart">Shopping Cart</string>
     <string name="past_transitions">Past Transitions</string>
     <string name="wallet">Wallet</string>
+    <string name="tv_start_value"><![CDATA[-->]]></string>
+    <string name="email">email</string>
 </resources>

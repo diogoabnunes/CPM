@@ -20,14 +20,13 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar_login"
         android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:layout_marginTop="60dp"
+        android:layout_marginRight="20dp"
+        android:autofillHints=""
         android:drawablePadding="10dp"
-        android:hint="@string/username"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
-        android:paddingBottom="20dp"
-        android:autofillHints="">
-    </EditText>
+        android:paddingBottom="20dp"></EditText>
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
@@ -79,6 +78,12 @@
         android:text="@string/need_account"
         android:textAlignment="center"
         android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/tv_response"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/tv_start_value" />
 
 
 </RelativeLayout>

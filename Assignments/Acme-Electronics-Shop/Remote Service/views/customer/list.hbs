@@ -2,23 +2,33 @@
 <table class="table table-striped">
     <thead>
         <tr>
+            <th>User ID</th>
             <th>Name</th>
-            <th>Email</th>
             <th>Address</th>
             <th>Fiscal Number</th>
-            <th>Username</th>
+            <th>Email</th>
+            <th>Password</th>
+            <th>Public Key</th>
+            <th>Card Type</th>
+            <th>Card Number</th>
+            <th>Card Validity</th>
         </tr>
     </thead>
     <tbody>
         {{#each list}}
         <tr>
+            <td>{{this.userID}}</td>
             <td>{{this.name}}</td>
-            <td>{{this.email}}</td>
             <td>{{this.address}}</td>
             <td>{{this.fiscalNumber}}</td>
-            <td>{{this.username}}</td>
+            <td>{{this.email}}</td>
+            <td>{{this.password}}</td>
+            <td>{{this.publicKey}}</td>
+            <td>{{this.cardType}}</td>
+            <td>{{this.cardNumber}}</td>
+            <td>{{this.CardValidity}}</td>
             <td>
-                <a class="btn btn-primary btn-sm" href="/customer({{this.id}}">Edit</a>
+                <a class="btn btn-primary btn-sm" href="/customer/{{this.id}}">Edit</a>
                 <a class="btn btn-primary btn-sm" href="/customer/delete/{{this.id}}"
                     onclick="return confirm('Are you sure you want to delete this record?');">Delete</a>
             </td>

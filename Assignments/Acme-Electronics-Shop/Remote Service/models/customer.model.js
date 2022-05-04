@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 
 var customerSchema = new mongoose.Schema({
-    name: {
+    userID: {
         type: String,
         required: 'This field is required'
     },
-    email: {
+    name: {
         type: String,
         required: 'This field is required'
     },
@@ -17,7 +17,27 @@ var customerSchema = new mongoose.Schema({
         type: Number,
         required: 'This field is required'
     },
-    username: {
+    email: {
+        type: String,
+        required: 'This field is required'
+    },
+    password: {
+        type: String,
+        required: 'This field is required'
+    },
+    publicKey: {
+        type: String,
+        required: 'This field is required'
+    },
+    cardType: {
+        type: String,
+        required: 'This field is required'
+    },
+    cardNumber: {
+        type: String,
+        required: 'This field is required'
+    },
+    cardValidity: {
         type: String,
         required: 'This field is required'
     }
