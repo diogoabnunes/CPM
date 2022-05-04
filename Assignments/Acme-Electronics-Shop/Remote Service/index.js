@@ -18,8 +18,41 @@ app.use(bodyparser.json());
 
 app.get('/', (req, res) => {
     res.send(`
-    <h2>Welcome to CPM Database!</h2>
-    <h3>Click here to get access to the <b> <a href="/customer/list">Database</a></b></h3>`);
+    <!DOCTYPE html>
+
+    <html>
+
+        <head>
+            <title>CPM Proj1 DB</title>
+            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
+                integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+            <style>
+                #box {
+                    background-color: #fff;
+                    margin-top: 25px;
+                    padding: 20px;
+                    -webkit-box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0.75);
+                    -moz-box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0.75);
+                    box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0.75);
+                    border-radius: 10px 10px 10px 10px;
+                    -moz-border-radius: 10px 10px 10px 10px;
+                    -webkit-border-radius: 10px 10px 10px 10px;
+                    border: 0px solid #000000;
+                }
+            </style>
+        </head>
+
+        <body class="bg-info">
+            <div id='box' class="col-md-8 offset-md-2">
+                <h2>Welcome to CPM Proj1 Database!</h2><br>
+                <h3><b> <a href="/customer/list">Customers Database</a></b></h3>
+                <h3><b> <a href="/product/list">Products Database</a></b></h3>
+                <h3><b> <a href="/transaction/list">Transactions Database</a></b></h3>
+            </div>
+        </body>
+
+    </html>
+    `);
 });
 
 app.set('views', path.join(__dirname, '/views/'));
