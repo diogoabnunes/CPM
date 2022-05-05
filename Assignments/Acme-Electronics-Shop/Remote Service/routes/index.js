@@ -1,10 +1,11 @@
 import customer from "./customer.js";
+import product from "./product.js";
 
 export default {
-    customer
+    customer,
+    product
+
     // address,
     // cart,
     // images,
-    // products,
-    // users,
 };

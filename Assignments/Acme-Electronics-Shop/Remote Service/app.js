@@ -48,3 +48,4 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/customer", routes.customer)
+app.use("/product", routes.product)
