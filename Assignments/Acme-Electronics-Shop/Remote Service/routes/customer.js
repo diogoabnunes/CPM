@@ -1,13 +1,20 @@
 import express from "express";
+import { ObjectId } from "mongodb";
 const router = express.Router();
 import Customer from "../models/Customer.js";
 
-router.get('/all', async (req, res) => {
+router.get('/get-all', async (req, res) => {
     const customers = await Customer.find({});
     res.status(200).json({customers:customers, message:'Succeeded'});
 });
 
-router.post('/add', async (req, res) => {
+router.get('/get/:userID', async (req, res) => {
+    const customers = await Customer.find({userID: req.params.userID});
+    res.status(200).json({customers:customers, message:'Succeeded'});
+})
+
+router.post('/register', async (req, res) => {
+
     const newCustomer = await new Customer(
         {userID: req.body.userID,
         name: req.body.name,
@@ -20,7 +27,7 @@ router.post('/add', async (req, res) => {
         cardNumber: req.body.cardNumber,
         cardValidity: req.body.cardValidity}
     );
-    // encrypt password, verifications
+
     await newCustomer.save();
     res.status(201).json({message:'Succeeded'});
 });

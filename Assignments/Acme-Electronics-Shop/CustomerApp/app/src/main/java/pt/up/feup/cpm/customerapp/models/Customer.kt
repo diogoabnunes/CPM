@@ -13,9 +13,7 @@ class Customer {
     private var fiscalNumber: String? = null
     private var email: String? = null
     private var password: String? = null
-    private var cardType: String? = null
-    private var cardNumber = 0
-    private var cardValidity: Date? = null
+    private var card: Card? = null
     private var publicKey: KeyPair? = null
 
     constructor(name: String?, address: String?, fiscalNumber: String?,
@@ -27,10 +25,8 @@ class Customer {
         this.fiscalNumber = fiscalNumber
         this.email = username
         this.password = password
+        this.card = Card(cardType, cardNumber, cardValidity)
         this.generateKeyPair()
-        this.cardType = cardType
-        this.cardNumber = cardNumber
-        this.cardValidity = cardValidity
     }
 
     private fun generateKeyPair() {
