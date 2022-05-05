@@ -1,76 +1,50 @@
-require('./models/db')
+import "dotenv/config";
+import express from "express";
+import path from "path";
+import cookieParser from "cookie-parser";
+import logger from "morgan";
+import cors from "cors";
+import mongoose from "mongoose";
 
-const express = require('express');
-const path = require('path');
-const handlebars = require('handlebars');
-const exphbs = require('express-handlebars');
-const {
-    allowInsecurePrototypeAccess
-} = require('@handlebars/allow-prototype-access');
-const bodyparser = require('body-parser');
+import routes from "./routes/index.js";
 
-const customerController = require('./controllers/customerController');
+const __dirname = path.resolve();
 
-var app = express();
+const dbUri =
+    process.env.DB_URL ||
+    `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
 
-app.use(bodyparser.urlencoded({extended: false}));
-app.use(bodyparser.json());
+console.log(dbUri);
 
-app.get('/', (req, res) => {
-    res.send(`
-    <!DOCTYPE html>
-
-    <html>
-
-        <head>
-            <title>CPM Proj1 DB</title>
-            <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" 
-                integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-            <style>
-                #box {
-                    background-color: #fff;
-                    margin-top: 25px;
-                    padding: 20px;
-                    -webkit-box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0.75);
-                    -moz-box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0.75);
-                    box-shadow: 10px 10px 20px 1px rgba(0, 0, 0, 0.75);
-                    border-radius: 10px 10px 10px 10px;
-                    -moz-border-radius: 10px 10px 10px 10px;
-                    -webkit-border-radius: 10px 10px 10px 10px;
-                    border: 0px solid #000000;
-                }
-            </style>
-        </head>
-
-        <body class="bg-info">
-            <div id='box' class="col-md-8 offset-md-2">
-                <h2>Welcome to CPM Proj1 Database!</h2><br>
-                <h3><b> <a href="/customer/list">Customers Database</a></b></h3>
-                <h3><b> <a href="/product/list">Products Database</a></b></h3>
-                <h3><b> <a href="/transaction/list">Transactions Database</a></b></h3>
-            </div>
-        </body>
-
-    </html>
-    `);
-});
-
-app.set('views', path.join(__dirname, '/views/'));
-
-app.engine(
-    "hbs",
-    exphbs.engine({
-        handlebars: allowInsecurePrototypeAccess(handlebars),
-        extname: "hbs",
-        defaultLayout: 'MainLayout',
-        layoutsDir: __dirname + '/views/layouts/',
+mongoose
+    .connect(dbUri, {
+        user: process.env.DB_USER,
+        pass: process.env.DB_PASS,
+        dbName: process.env.DB_NAME,
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        // useCreateIndex: true,
     })
-);
+    .then(() => {
+        console.log("Mongoose: connection ok!");
+    })
+    .catch((err) => {
+        console.log("Mongoose: failure in initial connection to the DB");
+        console.error(err);
+    });
 
-app.set("view engine", "hbs");
+const app = express();
+const port = process.env.PORT || "3000";
 
-app.listen(3000, () => {
-    console.log("Express server started at port 3000");
+app.listen(port, () => {
+    console.log(`Application running in port ${port}.`);
 });
 
-app.use('/customer', customerController);
+app.use(cors());
+app.use(logger("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use("/customer", routes.customer)
