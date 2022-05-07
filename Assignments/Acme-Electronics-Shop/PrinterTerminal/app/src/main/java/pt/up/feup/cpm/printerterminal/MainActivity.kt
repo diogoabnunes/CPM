@@ -1,5 +1,6 @@
 package pt.up.feup.cpm.printerterminal
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,7 +21,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         setupPermissions()
-        //codeScanner()
+        codeScanner()
+    }
+
+    private fun codeScanner(){
         val scannerView = findViewById<CodeScannerView>(R.id.scanner_view)
 
         codeScanner = CodeScanner(this, scannerView)
@@ -30,14 +34,17 @@ class MainActivity : AppCompatActivity() {
         codeScanner.formats = CodeScanner.ALL_FORMATS // list of type BarcodeFormat,
         // ex. listOf(BarcodeFormat.QR_CODE)
         codeScanner.autoFocusMode = AutoFocusMode.SAFE // or CONTINUOUS
-        codeScanner.scanMode = ScanMode.SINGLE // or CONTINUOUS or PREVIEW
+        codeScanner.scanMode = ScanMode.CONTINUOUS // or CONTINUOUS or PREVIEW
         codeScanner.isAutoFocusEnabled = true // Whether to enable auto focus or not
         codeScanner.isFlashEnabled = false // Whether to enable flash or not
 
         // Callbacks
         codeScanner.decodeCallback = DecodeCallback {
             runOnUiThread {
-                Toast.makeText(this, "Scan result: ${it.text}", Toast.LENGTH_LONG).show()
+                val intent = Intent(this, ShowScanInfo::class.java)
+                intent.putExtra("info",it.text)
+                startActivity(intent)
+                //Toast.makeText(this, "Scan result: ${it.text}", Toast.LENGTH_LONG).show()
             }
         }
         codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS
@@ -50,35 +57,7 @@ class MainActivity : AppCompatActivity() {
         scannerView.setOnClickListener {
             codeScanner.startPreview()
         }
-
-
     }
-    /*private fun codeScanner(){
-        codeScanner=CodeScanner(this, scanner_view)
-        codeScanner.apply {
-            camera = CodeScanner.CAMERA_BACK
-            formats= CodeScanner.ALL_FORMATS
-
-            autoFocusMode = AutoFocusMode.SAFE
-            scanMode= ScanMode.CONTINUOUS
-            isAutoFocusEnabled = true
-            isFlashEnabled = false
-
-
-            decodeCallback= DecodeCallback {
-                runOnUiThread{
-                    text_view.text=it.text
-                }
-
-            }
-
-            errorCallback = ErrorCallback {
-                runOnUiThread{
-                    Log.e("Main", "Camera initiation erro: ${it.message}")
-                }
-            }
-        }
-    }*/
 
     override fun onResume() {
         super.onResume()
@@ -100,14 +79,4 @@ class MainActivity : AppCompatActivity() {
     private fun makeRequest(){
         ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), CAMERA_REQUEST_CODE)
     }
-
-   /* override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        when(requestCode){
-            CAMERA_REQUEST_CODE -> {
-                if(grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED){
-                    Toast.makeText(this,"You need the camera permission to be able to use the scanner!",Toast.LENGTH_LONG)
-                }
-            }
-        }
-    }*/
 }
