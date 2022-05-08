@@ -7,7 +7,6 @@ import java.util.*
 
 
 class Customer {
-    private var userID: UUID? = null
     private var name: String? = null
     private var address: String? = null
     private var fiscalNumber: String? = null
@@ -18,8 +17,7 @@ class Customer {
 
     constructor(name: String?, address: String?, fiscalNumber: String?,
                  username: String?, password: String?,
-                 cardType: String?, cardNumber: Int, cardValidity: Date?) {
-        this.userID = UUID.randomUUID()
+                 cardType: String?, cardNumber: String?, cardValidity: String?) {
         this.name = name
         this.address = address
         this.fiscalNumber = fiscalNumber

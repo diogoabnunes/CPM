@@ -9,12 +9,14 @@
     <string name="name">Name</string>
     <string name="fiscal_number">Fiscal Number</string>
     <string name="address">Address</string>
-    <string name="credit_card_type">Credit Card Type</string>
-    <string name="credit_card_number">Credit Card Number</string>
-    <string name="credit_card_validity">Validity</string>
+    <string name="card_type">Credit Card Type</string>
+    <string name="card_number">Credit Card Number</string>
+    <string name="card_validity">Validity</string>
     <string name="shopping_cart">Shopping Cart</string>
     <string name="past_transitions">Past Transitions</string>
     <string name="wallet">Wallet</string>
     <string name="tv_start_value"><![CDATA[-->]]></string>
     <string name="email">Email</string>
+    <string name="credit">Credit</string>
+    <string name="debit">Debit</string>
 </resources>

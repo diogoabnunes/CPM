@@ -24,12 +24,12 @@ private fun readStream(input: InputStream): String {
     return response.toString()
 }
 
-class GetCustomers(val act: Login, val baseAddress: String): Runnable {
+class GetCustomers(val act: Login): Runnable {
     override fun run() {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL("http://$baseAddress:3000/customer/list")
+            url = URL("http://localhost:3000/customer/list")
             act.writeText("GET " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doInput = true
@@ -48,12 +48,12 @@ class GetCustomers(val act: Login, val baseAddress: String): Runnable {
     }
 }
 
-class GetCustomer(val act: Login, val baseAddress: String, val userID: Customer): Runnable {
+class GetCustomer(val act: Login, val userID: Customer): Runnable {
     override fun run() {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL("http://$baseAddress:3000/customer/$userID")
+            url = URL("http://localhost:3000/customer/$userID")
             act.writeText("GET " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doInput = true
@@ -72,7 +72,7 @@ class GetCustomer(val act: Login, val baseAddress: String, val userID: Customer)
     }
 }
 
-class AddCustomer(val act: Register, val baseAddress: String, val customer: Customer) : Runnable {
+class AddCustomer(val act: Register, val customer: Customer) : Runnable {
     override fun run() {
         val url: URL
         var urlConnection: HttpURLConnection? = null
@@ -87,6 +87,42 @@ class AddCustomer(val act: Register, val baseAddress: String, val customer: Cust
             urlConnection.useCaches = false
             val outputStream = DataOutputStream(urlConnection.outputStream)
             val payload = "\"" + customer.getName() + "\""
+            act.appendText("payload: $payload")
+            outputStream.writeBytes(payload)
+            outputStream.flush()
+            outputStream.close()
+
+            // get response
+            val responseCode = urlConnection.responseCode
+            if (responseCode == 200)
+                act.appendText(readStream(urlConnection.inputStream))
+            else
+                act.appendText("Code: $responseCode")
+        }
+        catch (e: java.lang.Exception) {
+            act.appendText(e.toString())
+        }
+        finally {
+            urlConnection?.disconnect()
+        }
+    }
+}
+
+class LoginCustomer(val act: Login, val email: String, password: String): Runnable {
+    override fun run() {
+        val url: URL
+        var urlConnection: HttpURLConnection? = null
+        try {
+            url = URL("http://localhost:3000/customer/login")
+            act.writeText("POST " + url.toExternalForm())
+            urlConnection = url.openConnection() as HttpURLConnection
+            urlConnection.doOutput = true
+            urlConnection.doInput = true
+            urlConnection.requestMethod = "POST"
+            urlConnection.setRequestProperty("Content-Type", "application/json")
+            urlConnection.useCaches = false
+            val outputStream = DataOutputStream(urlConnection.outputStream)
+            val payload = "\"" + email + "\""
             act.appendText("payload: $payload")
             outputStream.writeBytes(payload)
             outputStream.flush()
