@@ -2,6 +2,7 @@ package pt.up.feup.cpm.customerapp.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -16,7 +17,47 @@ class Login : AppCompatActivity() {
         setContentView(R.layout.activity_login)
         setupHyperlink()
         setupLoginButton()
+
+        //go to Home directly--REMOVER
+        val linkTextView = findViewById<TextView>(R.id.activity_link)
+        linkTextView.setOnClickListener {
+            val intent = Intent(this, Home::class.java)
+            startActivity(intent)
+        }
+        //---------------------
+
+        findViewById<Button>(R.id.bt_qr).setOnClickListener { vw -> onButtonClick(vw) }
+
+
+        val linkTextView2 = findViewById<TextView>(R.id.bt_scan)
+        linkTextView2.setOnClickListener {
+            val intent = Intent(this, Scan::class.java)
+            startActivity(intent)
+        }
+        //---------------------
+
     }
+    private fun onButtonClick(vw: View) {
+        val title: String
+        val author: String
+        val categories: List<String>
+
+        title="Hello"
+        author="World"
+        categories= listOf("123","me llamo jeff")
+
+
+        val intent = Intent(this, ShowQR::class.java)
+        when (vw.id) {
+            R.id.bt_qr -> { intent.putExtra("type", 1)
+
+                val value="Category [title: ${title}, author: ${author}, categories: ${categories}]"
+                intent.putExtra("value", value)
+            }
+        }
+        startActivity(intent)
+    }
+
 
     fun setupHyperlink() {
         val linkTextView = findViewById<TextView>(R.id.activity_main_link)

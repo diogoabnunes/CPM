@@ -125,7 +125,7 @@ class AddCustomer(val act: Register, val customer: Customer) : Runnable {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL("http://10.0.2.2:3000/customer/register")
+            url = URL("http://127.0.0.1:3000/customer/register")
             act.writeText("POST " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doOutput = true
