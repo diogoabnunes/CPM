@@ -19,4 +19,10 @@
     <string name="email">Email</string>
     <string name="credit">Credit</string>
     <string name="debit">Debit</string>
+    <string name="add_item">Add Item</string>
+    <string name="pay">Pay</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="price_10">Price : 10</string>
 </resources>
