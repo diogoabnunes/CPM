@@ -3,7 +3,9 @@ package pt.up.feup.cpm.customerapp.activities
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.utils.*
@@ -28,18 +30,15 @@ class Login : AppCompatActivity() {
 
     fun setupLoginButton() {
         val loginButton = findViewById<Button>(R.id.login_button)
-//        loginButton.setOnClickListener {
-//            val userName = findViewById<EditText>(R.id.email).text.toString()
-//            val password = findViewById<EditText>(R.id.password).text.toString()
-//            if (userName == "cpm@feup.pt" && password == "1234") {
-//                startActivity(Intent(this, Home::class.java))
-//                Toast.makeText(this, "Login Success!", Toast.LENGTH_SHORT).show()
-//            } else {
-//                Toast.makeText(this, "Login Failed!", Toast.LENGTH_SHORT).show()
-//            }
-//        }
         loginButton.setOnClickListener {
-            Thread(GetProducts()).start()
+            val userName = findViewById<EditText>(R.id.email).text.toString()
+            val password = findViewById<EditText>(R.id.password).text.toString()
+            if (userName == "cpm@feup.pt" && password == "1234") {
+                startActivity(Intent(this, Home::class.java))
+                Toast.makeText(this, "Login Success!", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Login Failed!", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

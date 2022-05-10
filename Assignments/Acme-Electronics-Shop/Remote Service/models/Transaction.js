@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
-import { productSchema } from "./Product";
 
-export const orderSchema = new mongoose.Schema({
+export const transactionSchema = new mongoose.Schema({
     userID: {
         type: String,
         required: true
@@ -17,9 +16,13 @@ export const orderSchema = new mongoose.Schema({
                 required: true
             }
         }
-    ]
+    ],
+    date: {
+        type: Date,
+        required: true
+    }
 });
 
-let Order = mongoose.model("Order", orderSchema);
+let Transaction = mongoose.model("Transaction", transactionSchema);
 
-export default Order;
+export default Transaction;

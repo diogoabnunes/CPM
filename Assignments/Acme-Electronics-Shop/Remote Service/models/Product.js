@@ -7,19 +7,19 @@ export const productSchema = new mongoose.Schema({
     },
     price: {
         type: Number,
-        required: true
+        required: false
     },
     make: {
         type: String,
-        required: true
+        required: false
     },
     model: {
         type: String,
-        required: true
+        required: false
     },
     characteristics: {
         type: String,
-        required: true
+        required: false
     }
 });
 
