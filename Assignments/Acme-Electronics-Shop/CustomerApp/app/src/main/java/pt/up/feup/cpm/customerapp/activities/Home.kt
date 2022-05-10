@@ -1,6 +1,9 @@
 package pt.up.feup.cpm.customerapp.activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import pt.up.feup.cpm.customerapp.R
 
@@ -8,5 +11,23 @@ class Home : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
+        setupShoppingCart()
+        setupPastTransitions()
+    }
+
+    fun setupShoppingCart() {
+        val shoppingCartBtn = findViewById<Button>(R.id.shopping_cart_button)
+        shoppingCartBtn.setOnClickListener {
+            val intent = Intent(this, ShoppingCart::class.java)
+            startActivity(intent)
+        }
+    }
+
+    fun setupPastTransitions() {
+        val pastTransitionsBtn = findViewById<Button>(R.id.past_transitions_button)
+        pastTransitionsBtn.setOnClickListener {
+            val intent = Intent(this, PastTransitions::class.java)
+            startActivity(intent)
+        }
     }
 }

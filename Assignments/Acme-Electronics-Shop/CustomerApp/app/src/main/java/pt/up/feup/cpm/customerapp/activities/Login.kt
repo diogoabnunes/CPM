@@ -14,14 +14,10 @@ import pt.up.feup.cpm.customerapp.R
 
 class Login : AppCompatActivity() {
     val tvResponse by lazy { findViewById<TextView>(R.id.tv_response) }
-    /*val loginbtn = findViewById<Button>(R.id.login_button)
-    val email by lazy { findViewById<EditText>(R.id.email) }
-    val password by lazy { findViewById<EditText>(R.id.password) }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        //login()
         setupHyperlink()
     }
 
@@ -41,17 +37,6 @@ class Login : AppCompatActivity() {
         runOnUiThread { tvResponse.text = value }
     }
 
-    /*fun login(){
-        loginbtn.setOnClickListener(){
-            if(email.text.toString().equals("cpm@feup.pt") && password.text.equals("feup")) {
-                val intent = Intent(this, Home::class.java)
-                startActivity(intent)
-            }
-            else{
-                Toast.makeText(this, "LOGIN FAILED!!", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }*/
     fun onclick(view: View) {
         login(
             findViewById<EditText>(R.id.email).text.toString(),
