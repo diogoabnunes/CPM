@@ -30,18 +30,18 @@ class GetCustomers(val act: Login): Runnable {
         var urlConnection: HttpURLConnection? = null
         try {
             url = URL("http://localhost:3000/customer/list")
-            act.writeText("GET " + url.toExternalForm())
+            System.out.println("GET " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doInput = true
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.useCaches = false
             val responseCode = urlConnection.responseCode
             if (responseCode == 200)
-                act.appendText(readStream(urlConnection.inputStream))
+                System.out.println(readStream(urlConnection.inputStream))
             else
-                act.appendText("Code: $responseCode")
+                System.out.println("Code: $responseCode")
         } catch (e: Exception) {
-            act.appendText(e.toString())
+            System.out.println(e.toString())
         } finally {
             urlConnection?.disconnect()
         }
@@ -54,18 +54,18 @@ class GetCustomer(val act: Login, val userID: Customer): Runnable {
         var urlConnection: HttpURLConnection? = null
         try {
             url = URL("http://localhost:3000/customer/$userID")
-            act.writeText("GET " + url.toExternalForm())
+            System.out.println("GET " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doInput = true
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.useCaches = false
             val responseCode = urlConnection.responseCode
             if (responseCode == 200)
-                act.appendText(readStream(urlConnection.inputStream))
+                System.out.println(readStream(urlConnection.inputStream))
             else
-                act.appendText("Code: $responseCode")
+                System.out.println("Code: $responseCode")
         } catch (e: Exception) {
-            act.appendText(e.toString())
+            System.out.println(e.toString())
         } finally {
             urlConnection?.disconnect()
         }
@@ -77,8 +77,8 @@ class AddCustomer(val act: Register, val customer: Customer) : Runnable {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL("http://localhost:3000/customer/add")
-            act.writeText("POST " + url.toExternalForm())
+            url = URL("localhost:3000/customer/add")
+            System.out.println("POST " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doOutput = true
             urlConnection.doInput = true
@@ -87,20 +87,20 @@ class AddCustomer(val act: Register, val customer: Customer) : Runnable {
             urlConnection.useCaches = false
             val outputStream = DataOutputStream(urlConnection.outputStream)
             val payload = "\"" + customer.getName() + "\""
-            act.appendText("payload: $payload")
+            System.out.println("payload: $payload")
             outputStream.writeBytes(payload)
             outputStream.flush()
             outputStream.close()
 
             // get response
             val responseCode = urlConnection.responseCode
-            if (responseCode == 200)
-                act.appendText(readStream(urlConnection.inputStream))
+            if (responseCode == 201)
+                System.out.println(readStream(urlConnection.inputStream))
             else
-                act.appendText("Code: $responseCode")
+                System.out.println("Code: $responseCode")
         }
         catch (e: java.lang.Exception) {
-            act.appendText(e.toString())
+            System.out.println(e.toString())
         }
         finally {
             urlConnection?.disconnect()
@@ -114,7 +114,7 @@ class LoginCustomer(val act: Login, val email: String, password: String): Runnab
         var urlConnection: HttpURLConnection? = null
         try {
             url = URL("http://localhost:3000/customer/login")
-            act.writeText("POST " + url.toExternalForm())
+            System.out.println("POST " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doOutput = true
             urlConnection.doInput = true
@@ -123,7 +123,7 @@ class LoginCustomer(val act: Login, val email: String, password: String): Runnab
             urlConnection.useCaches = false
             val outputStream = DataOutputStream(urlConnection.outputStream)
             val payload = "\"" + email + "\""
-            act.appendText("payload: $payload")
+            System.out.println("payload: $payload")
             outputStream.writeBytes(payload)
             outputStream.flush()
             outputStream.close()
@@ -131,12 +131,12 @@ class LoginCustomer(val act: Login, val email: String, password: String): Runnab
             // get response
             val responseCode = urlConnection.responseCode
             if (responseCode == 200)
-                act.appendText(readStream(urlConnection.inputStream))
+                System.out.println(readStream(urlConnection.inputStream))
             else
-                act.appendText("Code: $responseCode")
+                System.out.println("Code: $responseCode")
         }
         catch (e: java.lang.Exception) {
-            act.appendText(e.toString())
+            System.out.println(e.toString())
         }
         finally {
             urlConnection?.disconnect()

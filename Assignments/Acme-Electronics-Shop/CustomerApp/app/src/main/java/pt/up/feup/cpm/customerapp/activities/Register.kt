@@ -23,7 +23,6 @@ class Register : AppCompatActivity() {
     val card_number by lazy { findViewById<EditText>(R.id.card_number) }
     val card_validity by lazy { findViewById<EditText>(R.id.card_validity) }
     val register_button by lazy { findViewById<Button>(R.id.register_button) }
-    val tvResponse by lazy { findViewById<TextView>(R.id.tv_response) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,16 +34,9 @@ class Register : AppCompatActivity() {
             Thread(AddCustomer(this, Customer(name.text.toString(), address.text.toString(),
                             fiscal_number.text.toString(), email.text.toString(),
                             password.text.toString(), card_type.toString(),
-                            card_number.toString(), card_validity.text.toString())));
+                            card_number.toString(), card_validity.text.toString()))).start();
+            val intent = Intent(this, Home::class.java)
+            startActivity(intent)
         }
     }
-
-    fun appendText(value: String) {
-        runOnUiThread { tvResponse.text = tvResponse.text.toString() + "\n" + value }
-    }
-
-    fun writeText(value: String) {
-        runOnUiThread { tvResponse.text = value }
-    }
-
 }
