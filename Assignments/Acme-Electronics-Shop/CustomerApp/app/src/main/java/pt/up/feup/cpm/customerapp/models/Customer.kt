@@ -39,4 +39,32 @@ class Customer {
     fun getName(): String? {
         return this.name
     }
+
+    fun getAddress(): String? {
+        return this.address
+    }
+
+    fun getFiscalNumber(): String? {
+        return this.fiscalNumber
+    }
+
+    fun getEmail(): String? {
+        return this.email
+    }
+
+    fun getPassword(): String? {
+        return this.password
+    }
+
+    fun getCardType(): String? {
+        return card?.getType()
+    }
+
+    fun getCardNumber(): String? {
+        return card?.getNumber()
+    }
+
+    fun getCardValidity(): String? {
+        return card?.getValidity()
+    }
 }

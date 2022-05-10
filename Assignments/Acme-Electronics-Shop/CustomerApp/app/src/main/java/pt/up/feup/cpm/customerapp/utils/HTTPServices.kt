@@ -77,8 +77,8 @@ class AddCustomer(val act: Register, val customer: Customer) : Runnable {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL("localhost:3000/customer/add")
-            System.out.println("POST " + url.toExternalForm())
+            url = URL("http://10.0.2.2:3000/customer/add")
+            act.writeText("POST " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doOutput = true
             urlConnection.doInput = true
@@ -86,8 +86,16 @@ class AddCustomer(val act: Register, val customer: Customer) : Runnable {
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.useCaches = false
             val outputStream = DataOutputStream(urlConnection.outputStream)
-            val payload = "\"" + customer.getName() + "\""
-            System.out.println("payload: $payload")
+            val payload: String? = "\"{" +
+                    "name: \"${customer.getName()}\"," +
+                    "address: \"${customer.getAddress()}\"," +
+                    "fiscalNumber: \"${customer.getFiscalNumber()}\"," +
+                    "email: \"${customer.getEmail()}\"," +
+                    "password: \"${customer.getPassword()}\"," +
+                    "cardType: \"${customer.getCardType()}\"," +
+                    "cardNumber: \"${customer.getCardNumber()}\"," +
+                    "cardValidity: \"${customer.getCardValidity()}\"" + "}\""
+            act.appendText("payload: $payload")
             outputStream.writeBytes(payload)
             outputStream.flush()
             outputStream.close()
@@ -95,12 +103,12 @@ class AddCustomer(val act: Register, val customer: Customer) : Runnable {
             // get response
             val responseCode = urlConnection.responseCode
             if (responseCode == 201)
-                System.out.println(readStream(urlConnection.inputStream))
+                act.appendText(readStream(urlConnection.inputStream))
             else
-                System.out.println("Code: $responseCode")
+                act.appendText("Code: $responseCode")
         }
         catch (e: java.lang.Exception) {
-            System.out.println(e.toString())
+            act.appendText(e.toString())
         }
         finally {
             urlConnection?.disconnect()

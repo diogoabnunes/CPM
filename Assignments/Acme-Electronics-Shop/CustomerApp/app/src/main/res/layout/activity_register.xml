@@ -178,6 +178,12 @@
                 android:textSize="20sp"
                 tools:ignore="DuplicateSpeakableTextCheck" />
 
+            <TextView
+                android:id="@+id/tv_response"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/register_button" />
+
         </RelativeLayout>
     </ScrollView>
 </RelativeLayout>
