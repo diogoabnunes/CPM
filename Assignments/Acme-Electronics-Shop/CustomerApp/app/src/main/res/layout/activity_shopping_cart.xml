@@ -15,10 +15,10 @@
         app:titleTextColor="#000000" />
 
     <ListView
-        android:layout_width="match_parent"
         android:id="@+id/list_item"
-        android:layout_below="@+id/toolbar_car"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_car"
         tools:listitem="@layout/list_item" />
 
     <LinearLayout
