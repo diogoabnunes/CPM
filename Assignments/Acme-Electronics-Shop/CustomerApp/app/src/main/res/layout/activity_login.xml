@@ -24,6 +24,7 @@
         android:layout_marginRight="20dp"
         android:autofillHints=""
         android:drawablePadding="10dp"
+        android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:paddingBottom="20dp"></EditText>
     <EditText
@@ -61,6 +62,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginRight="20dp"
         android:background="#00008b"
+        android:onClick="onclick"
         android:text="@string/log_in"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
