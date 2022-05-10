@@ -15,6 +15,7 @@ import pt.up.feup.cpm.customerapp.R
 class Login : AppCompatActivity() {
     val tvResponse by lazy { findViewById<TextView>(R.id.tv_response) }
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -39,18 +40,16 @@ class Login : AppCompatActivity() {
 
     fun onclick(view: View) {
         login(
-            findViewById<EditText>(R.id.email).text.toString(),
-            findViewById<EditText>(R.id.password).text.toString()
+            email.text.toString(),
+            password.text.toString()
         )
     }
-    fun login(userName: String, password: String) {
-        if (userName == "cpm@feup.pt" && password == "1234") {
+    fun login(email: String, password: String) {
+        if (email == "cpm@feup.pt" && password == "1234") {
             startActivity(Intent(this, Home::class.java))
             Toast.makeText(this, "Login Success!", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(this, "Login Failed!", Toast.LENGTH_SHORT).show()
         }
     }
-
-
 }
