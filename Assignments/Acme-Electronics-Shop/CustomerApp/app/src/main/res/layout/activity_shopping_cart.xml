@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context=".activities.ShoppingCart">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_car"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        app:title="Shopping Cart"
+        app:titleTextColor="#000000" />
+
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/list_item"
+        android:layout_below="@+id/toolbar_car"
+        android:layout_height="wrap_content"
         tools:listitem="@layout/list_item" />
 
     <LinearLayout
