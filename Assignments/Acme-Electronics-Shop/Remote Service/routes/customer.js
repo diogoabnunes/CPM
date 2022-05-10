@@ -23,7 +23,6 @@ router.post('/register', async (req, res) => {
         fiscalNumber: req.body.fiscalNumber,
         email: req.body.email,
         password: hashedPassword,
-        publicKey: req.body.publicKey,
         cardType: req.body.cardType,
         cardNumber: req.body.cardNumber,
         cardValidity: req.body.cardValidity}

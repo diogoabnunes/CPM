@@ -2,6 +2,7 @@ package pt.up.feup.cpm.customerapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import pt.up.feup.cpm.customerapp.R
 
 class PastTransitions : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

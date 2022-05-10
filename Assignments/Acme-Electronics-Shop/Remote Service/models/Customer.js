@@ -26,10 +26,6 @@ export const customerSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    publicKey: {
-        type: String,
-        required: true
-    },
     cardType: {
         type: String,
         required: true
