@@ -26,7 +26,7 @@
         android:drawablePadding="10dp"
         android:hint="@string/email"
         android:inputType="textEmailAddress"
-        android:paddingBottom="20dp"></EditText>
+        android:paddingBottom="20dp"/>
     <EditText
         android:id="@+id/password"
         android:layout_width="match_parent"
