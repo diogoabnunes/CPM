@@ -5,7 +5,6 @@
     android:layout_height="fill_parent"
     tools:context=".activities.ShoppingCart">
 
-
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -18,16 +17,14 @@
         android:layout_alignParentBottom="true">
 
         <Button
-            android:id="@+id/Button02"
-            style="?android:attr/buttonBarButtonStyle"
+            android:id="@+id/add_item_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/add_item"></Button>
 
         <Button
-            android:id="@+id/Button03"
-            style="?android:attr/buttonBarButtonStyle"
+            android:id="@+id/pay_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"

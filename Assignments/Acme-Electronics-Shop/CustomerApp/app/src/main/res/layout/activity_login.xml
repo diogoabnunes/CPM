@@ -79,11 +79,5 @@
         android:textAlignment="center"
         android:textSize="15sp" />
 
-    <TextView
-        android:id="@+id/tv_response"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/tv_start_value" />
-
 
 </RelativeLayout>

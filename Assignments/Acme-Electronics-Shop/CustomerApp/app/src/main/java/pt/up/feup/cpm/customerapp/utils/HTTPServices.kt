@@ -24,12 +24,36 @@ private fun readStream(input: InputStream): String {
     return response.toString()
 }
 
-class GetCustomers(val act: Login): Runnable {
+class GetCustomers(): Runnable {
     override fun run() {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL("http://localhost:3000/customer/list")
+            url = URL("http://10.0.2.2:3000/customer/get-all")
+            System.out.println("GET " + url.toExternalForm())
+            urlConnection = url.openConnection() as HttpURLConnection
+            urlConnection.doInput = true
+            urlConnection.setRequestProperty("Content-Type", "application/json")
+            urlConnection.useCaches = false
+            val responseCode = urlConnection.responseCode
+            if (responseCode == 200)
+                System.out.println(readStream(urlConnection.inputStream))
+            else
+                System.out.println("Code: $responseCode")
+        } catch (e: Exception) {
+            System.out.println(e.toString())
+        } finally {
+            urlConnection?.disconnect()
+        }
+    }
+}
+
+class GetProducts(): Runnable {
+    override fun run() {
+        val url: URL
+        var urlConnection: HttpURLConnection? = null
+        try {
+            url = URL("http://10.0.2.2:3000/product/get-all")
             System.out.println("GET " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doInput = true
@@ -53,7 +77,31 @@ class GetCustomer(val act: Login, val userID: Customer): Runnable {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL("http://localhost:3000/customer/$userID")
+            url = URL("http://10.0.2.2:3000/customer/$userID")
+            System.out.println("GET " + url.toExternalForm())
+            urlConnection = url.openConnection() as HttpURLConnection
+            urlConnection.doInput = true
+            urlConnection.setRequestProperty("Content-Type", "application/json")
+            urlConnection.useCaches = false
+            val responseCode = urlConnection.responseCode
+            if (responseCode == 200)
+                System.out.println(readStream(urlConnection.inputStream))
+            else
+                System.out.println("Code: $responseCode")
+        } catch (e: Exception) {
+            System.out.println(e.toString())
+        } finally {
+            urlConnection?.disconnect()
+        }
+    }
+}
+
+class GetProduct(val act: Login, val productID: Product): Runnable {
+    override fun run() {
+        val url: URL
+        var urlConnection: HttpURLConnection? = null
+        try {
+            url = URL("http://10.0.2.2:3000/product/$productID")
             System.out.println("GET " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doInput = true
@@ -77,8 +125,8 @@ class AddCustomer(val act: Register, val customer: Customer) : Runnable {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL("localhost:3000/customer/add")
-            System.out.println("POST " + url.toExternalForm())
+            url = URL("http://10.0.2.2:3000/customer/register")
+            act.writeText("POST " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doOutput = true
             urlConnection.doInput = true
@@ -86,21 +134,29 @@ class AddCustomer(val act: Register, val customer: Customer) : Runnable {
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.useCaches = false
             val outputStream = DataOutputStream(urlConnection.outputStream)
-            val payload = "\"" + customer.getName() + "\""
-            System.out.println("payload: $payload")
-            outputStream.writeBytes(payload)
+            val body = "{ " +
+                    "\"name\": \"${customer.getName()}\", " +
+                    "\"address\": \"${customer.getAddress()}\", " +
+                    "\"fiscalNumber\": \"${customer.getFiscalNumber()}\", " +
+                    "\"email\": \"${customer.getEmail()}\", " +
+                    "\"password\": \"${customer.getPassword()}\", " +
+                    "\"cardType\": \"${customer.getCardType()}\", " +
+                    "\"cardNumber\": \"${customer.getCardNumber()}\", " +
+                    "\"cardValidity\": \"${customer.getCardValidity()}\"" + " }"
+            act.appendText("body: $body")
+            outputStream.writeBytes(body)
             outputStream.flush()
             outputStream.close()
 
             // get response
             val responseCode = urlConnection.responseCode
             if (responseCode == 201)
-                System.out.println(readStream(urlConnection.inputStream))
+                act.appendText(readStream(urlConnection.inputStream))
             else
-                System.out.println("Code: $responseCode")
+                act.appendText("Code: $responseCode")
         }
         catch (e: java.lang.Exception) {
-            System.out.println(e.toString())
+            act.appendText(e.toString())
         }
         finally {
             urlConnection?.disconnect()
@@ -108,7 +164,7 @@ class AddCustomer(val act: Register, val customer: Customer) : Runnable {
     }
 }
 
-class LoginCustomer(val act: Login, val email: String, password: String): Runnable {
+class LoginCustomer(val act: Login, val email: String, val password: String): Runnable {
     override fun run() {
         val url: URL
         var urlConnection: HttpURLConnection? = null
@@ -122,9 +178,11 @@ class LoginCustomer(val act: Login, val email: String, password: String): Runnab
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.useCaches = false
             val outputStream = DataOutputStream(urlConnection.outputStream)
-            val payload = "\"" + email + "\""
-            System.out.println("payload: $payload")
-            outputStream.writeBytes(payload)
+            val body = "{ " +
+                    "\"email\": \"$email\", " +
+                    "\"password\": \"$password\"" + " }"
+            act.appendText("body: $body")
+            outputStream.writeBytes(body)
             outputStream.flush()
             outputStream.close()
 

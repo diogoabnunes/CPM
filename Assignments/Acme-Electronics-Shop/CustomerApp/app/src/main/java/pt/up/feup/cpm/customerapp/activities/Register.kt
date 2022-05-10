@@ -23,6 +23,7 @@ class Register : AppCompatActivity() {
     val card_number by lazy { findViewById<EditText>(R.id.card_number) }
     val card_validity by lazy { findViewById<EditText>(R.id.card_validity) }
     val register_button by lazy { findViewById<Button>(R.id.register_button) }
+    val tvResponse by lazy { findViewById<TextView>(R.id.tv_response) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,12 +32,23 @@ class Register : AppCompatActivity() {
 
 
         register_button.setOnClickListener {
+            val selected = card_type.checkedRadioButtonId
+            var type: String? = null
+            type = if (selected == R.id.credit_card) "Credit"
+            else "Debit"
+
             Thread(AddCustomer(this, Customer(name.text.toString(), address.text.toString(),
                             fiscal_number.text.toString(), email.text.toString(),
-                            password.text.toString(), card_type.toString(),
-                            card_number.toString(), card_validity.text.toString()))).start();
-            val intent = Intent(this, Home::class.java)
-            startActivity(intent)
+                            password.text.toString(), type,
+                            card_number.text.toString(), card_validity.text.toString()))).start()
         }
+    }
+
+    fun appendText(value: String) {
+        runOnUiThread { tvResponse.text = tvResponse.text.toString() + "\n" + value }
+    }
+
+    fun writeText(value: String) {
+        runOnUiThread { tvResponse.text = value }
     }
 }

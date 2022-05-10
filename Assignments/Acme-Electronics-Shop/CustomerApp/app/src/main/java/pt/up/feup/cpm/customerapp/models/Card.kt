@@ -12,4 +12,16 @@ class Card {
         this.number = number
         this.validity = validity
     }
+
+    fun getType(): String? {
+        return this.type
+    }
+
+    fun getNumber(): String? {
+        return this.number
+    }
+
+    fun getValidity(): String? {
+        return this.validity
+    }
 }
