@@ -7,6 +7,7 @@ import java.util.*
 
 
 class Customer {
+    private var userID: String? = null
     private var name: String? = null
     private var address: String? = null
     private var fiscalNumber: String? = null
@@ -15,9 +16,10 @@ class Customer {
     private var card: Card? = null
     private var publicKey: KeyPair? = null
 
-    constructor(name: String?, address: String?, fiscalNumber: String?,
+    constructor(userID: String?, name: String?, address: String?, fiscalNumber: String?,
                  username: String?, password: String?,
                  cardType: String?, cardNumber: String?, cardValidity: String?) {
+        this.userID = userID
         this.name = name
         this.address = address
         this.fiscalNumber = fiscalNumber
@@ -34,6 +36,10 @@ class Customer {
         } catch (e: NoSuchAlgorithmException) {
             e.printStackTrace()
         }
+    }
+
+    fun getUserID(): String? {
+        return this.userID
     }
 
     fun getName(): String? {

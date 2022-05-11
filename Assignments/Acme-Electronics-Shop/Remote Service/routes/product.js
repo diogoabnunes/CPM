@@ -1,6 +1,7 @@
 import express from "express";
 const router = express.Router();
 import Product from "../models/Product.js";
+import crypto from "crypto";
 
 router.get('/get-all', async (req, res) => {
     const products = await Product.find({});
@@ -15,7 +16,8 @@ router.get('/get/:_id', async (req, res) => {
 router.post('/add', async (req, res) => {
 
     const newProduct = await new Product(
-        {name: req.body.name,
+        {productID: crypto.randomUUID(),
+        name: req.body.name,
         price: req.body.price,
         make: req.body.make,
         model: req.body.model,

@@ -1,7 +1,5 @@
 package pt.up.feup.cpm.customerapp.models
 
-import java.util.*
-
 class Card {
     private var type: String? = null
     private var number: String? = null
