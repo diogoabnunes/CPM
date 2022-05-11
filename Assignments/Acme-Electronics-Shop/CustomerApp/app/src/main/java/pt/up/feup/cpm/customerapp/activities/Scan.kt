@@ -1,68 +1,81 @@
 package pt.up.feup.cpm.customerapp.activities
 
-import android.app.AlertDialog
-import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.net.Uri
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.TextView
+import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import com.budiyev.android.codescanner.*
 import pt.up.feup.cpm.customerapp.R
 
-private const val ACTION_SCAN = "com.google.zxing.client.android.SCAN"
+private const val CAMERA_REQUEST_CODE=101
 
 class Scan : AppCompatActivity() {
-    private val tvMessage by lazy { findViewById<TextView>(R.id.tv_message) }
+    private lateinit var codeScanner: CodeScanner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scan)
-        findViewById<Button>(R.id.bt_scan_qr).setOnClickListener { _ -> scan(true) }
-        findViewById<Button>(R.id.bt_scan_bar).setOnClickListener { _ -> scan(false) }
-    }
-    override fun onSaveInstanceState(bundle: Bundle) {
-        bundle.putCharSequence("Message", tvMessage.text)
-        super.onSaveInstanceState(bundle)
+
+        setupPermissions()
+        codeScanner()
     }
 
-    override fun onRestoreInstanceState(bundle: Bundle) {
-        super.onRestoreInstanceState(bundle)
-        tvMessage.text = bundle.getCharSequence("Message")
-    }
+    private fun codeScanner(){
+        val scannerView = findViewById<CodeScannerView>(R.id.scanner_view)
 
-    fun scan(qrcode: Boolean) {
-        try {
-            val intent = Intent(ACTION_SCAN)
-            intent.putExtra("SCAN_MODE", if (qrcode) "QR_CODE_MODE" else "PRODUCT_MODE")
-            startActivity(intent)
-            startActivityForResult(intent, 0)
-        }
-        catch (anfe: ActivityNotFoundException) {
-            showDialog(this, "No Scanner Found", "Download a scanner code activity?", "Yes", "No").show()
-        }
-    }
+        codeScanner = CodeScanner(this, scannerView)
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == 0) {
-            if (resultCode == RESULT_OK) {
-                val contents = data?.getStringExtra("SCAN_RESULT") ?: ""
-                val format = data?.getStringExtra("SCAN_RESULT_FORMAT") ?: ""
-                tvMessage.text = "Format: $format\nMessage: $contents"
+        // Parameters (default values)
+        codeScanner.camera = CodeScanner.CAMERA_BACK // or CAMERA_FRONT or specific camera id
+        codeScanner.formats = CodeScanner.ALL_FORMATS // list of type BarcodeFormat,
+        // ex. listOf(BarcodeFormat.QR_CODE)
+        codeScanner.autoFocusMode = AutoFocusMode.SAFE // or CONTINUOUS
+        codeScanner.scanMode = ScanMode.CONTINUOUS // or CONTINUOUS or PREVIEW
+        codeScanner.isAutoFocusEnabled = true // Whether to enable auto focus or not
+        codeScanner.isFlashEnabled = false // Whether to enable flash or not
+
+        // Callbacks
+        codeScanner.decodeCallback = DecodeCallback {
+            runOnUiThread {
+                val intent = Intent(this, ShowScanInfo::class.java)
+                intent.putExtra("info",it.text)
+                startActivity(intent)
+                //Toast.makeText(this, "Scan result: ${it.text}", Toast.LENGTH_LONG).show()
             }
         }
+        codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS
+            runOnUiThread {
+                Toast.makeText(this, "Camera initialization error: ${it.message}",
+                    Toast.LENGTH_LONG).show()
+            }
+        }
+
+        scannerView.setOnClickListener {
+            codeScanner.startPreview()
+        }
     }
 
-    private fun showDialog(act: AppCompatActivity, title: CharSequence, message: CharSequence, buttonYes: CharSequence, buttonNo: CharSequence): AlertDialog {
-        val downloadDialog = AlertDialog.Builder(act)
-        downloadDialog.setTitle(title)
-        downloadDialog.setMessage(message)
-        downloadDialog.setPositiveButton(buttonYes) { _, _ ->
-            val uri = Uri.parse("market://search?q=pname:com.google.zxing.client.android")
-            val intent = Intent(Intent.ACTION_VIEW, uri)
-            act.startActivity(intent)
+    override fun onResume() {
+        super.onResume()
+        codeScanner.startPreview()
+    }
+
+    override fun onPause() {
+        codeScanner.releaseResources()
+        super.onPause()
+    }
+
+    private fun setupPermissions() {
+        val permission = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
+        if(permission!= PackageManager.PERMISSION_GRANTED){
+            makeRequest()
         }
-        downloadDialog.setNegativeButton(buttonNo, null)
-        return downloadDialog.show()
+    }
+
+    private fun makeRequest(){
+        ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.CAMERA), CAMERA_REQUEST_CODE)
     }
 }
