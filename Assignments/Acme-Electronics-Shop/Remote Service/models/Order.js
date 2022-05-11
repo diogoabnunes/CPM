@@ -2,20 +2,11 @@ import mongoose from "mongoose";
 import { productSchema } from "./Product";
 
 export const orderSchema = new mongoose.Schema({
-    userID: {
-        type: String,
-        required: true
-    },
+    userID: { type: String, required: true },
     content: [
         {
-            product: {
-                type: productSchema,
-                required: true
-            },
-            quantity: {
-                type: Number,
-                required: true
-            }
+            product: { type: productSchema, required: true },
+            quantity: { type: Number, required: true }
         }
     ]
 });
