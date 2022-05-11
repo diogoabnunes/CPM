@@ -133,7 +133,6 @@ class AddCustomer(val act: Register, val customer: Customer) : Runnable {
             urlConnection.requestMethod = "POST"
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.useCaches = false
-            urlConnection
             val outputStream = DataOutputStream(urlConnection.outputStream)
             val body = "{ " +
                     "\"name\": \"${customer.getName()}\", " +
@@ -165,7 +164,7 @@ class AddCustomer(val act: Register, val customer: Customer) : Runnable {
     }
 }
 
-class LoginCustomer(val act: Login, val email: String, password: String): Runnable {
+class LoginCustomer(val act: Login, val email: String, val password: String): Runnable {
     override fun run() {
         val url: URL
         var urlConnection: HttpURLConnection? = null
@@ -179,9 +178,11 @@ class LoginCustomer(val act: Login, val email: String, password: String): Runnab
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.useCaches = false
             val outputStream = DataOutputStream(urlConnection.outputStream)
-            val payload = "\"" + email + "\""
-            System.out.println("payload: $payload")
-            outputStream.writeBytes(payload)
+            val body = "{ " +
+                    "\"email\": \"$email\", " +
+                    "\"password\": \"$password\"" + " }"
+            act.appendText("body: $body")
+            outputStream.writeBytes(body)
             outputStream.flush()
             outputStream.close()
 

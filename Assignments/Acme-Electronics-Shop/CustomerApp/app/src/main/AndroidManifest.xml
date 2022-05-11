@@ -27,7 +27,12 @@
             android:exported="false" />
         <activity
             android:name=".activities.ShoppingCart"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".activities.Home" />
+        <activity
+            android:name=".activities.PastTransactions"
+            android:exported="false"
+            android:parentActivityName=".activities.Home" />
         <activity
             android:name=".activities.Home"
             android:exported="false" />

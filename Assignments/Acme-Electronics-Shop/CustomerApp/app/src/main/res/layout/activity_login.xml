@@ -86,11 +86,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_main_link"
         android:layout_marginTop="30dp"
-        android:text="@string/need_account"
+        android:text="Home"
         android:textAlignment="center"
         android:textSize="15sp" />
 
-    <Button
+   <!-- <Button
         android:id="@+id/bt_qr"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
         android:layout_weight="1"
         android:layout_marginTop="10dp"
         android:layout_below="@+id/bt_qr"
-        android:text="SCAN CODE" />
+        android:text="SCAN CODE" />-->
 
 
 </RelativeLayout>

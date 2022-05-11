@@ -13,10 +13,19 @@
     <string name="card_number">Credit Card Number</string>
     <string name="card_validity">Validity</string>
     <string name="shopping_cart">Shopping Cart</string>
-    <string name="past_transitions">Past Transitions</string>
     <string name="wallet">Wallet</string>
     <string name="tv_start_value"><![CDATA[-->]]></string>
     <string name="email">Email</string>
     <string name="credit">Credit</string>
     <string name="debit">Debit</string>
+    <string name="add_item">Add Item</string>
+    <string name="pay">Pay</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
+    <string name="price_10">Price : 10</string>
+    <string name="past_transactions">Past Transactions</string>
+    <string name="transaction_number">Transaction #PT56748</string>
+    <string name="date_example">13/03/2022</string>
+    <string name="price_example">189,99€</string>
 </resources>

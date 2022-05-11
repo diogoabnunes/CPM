@@ -32,7 +32,7 @@
         android:textSize="20sp" />
 
     <Button
-        android:id="@+id/past_transitions_button"
+        android:id="@+id/past_transactions_button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginLeft="20dp"
@@ -40,7 +40,7 @@
         android:layout_marginRight="20dp"
         android:layout_marginBottom="40dp"
         android:background="#00008b"
-        android:text="@string/past_transitions"
+        android:text="@string/past_transactions"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="20sp" />
