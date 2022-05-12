@@ -43,7 +43,7 @@ class Scan : AppCompatActivity() {
                 val intent = Intent(this, ShowScanInfo::class.java)
                 intent.putExtra("info",it.text)
                 startActivity(intent)
-                //Toast.makeText(this, "Scan result: ${it.text}", Toast.LENGTH_LONG).show()
+                Toast.makeText(this, "Scan result: ${it.text}", Toast.LENGTH_LONG).show()
             }
         }
         codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS

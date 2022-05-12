@@ -18,6 +18,7 @@ class ShoppingCart : AppCompatActivity() {
         addItemHandler()
 
     }
+
     private fun addItemHandler(){
         val linkTextView2 = findViewById<TextView>(R.id.add_item_btn)
         linkTextView2.setOnClickListener {

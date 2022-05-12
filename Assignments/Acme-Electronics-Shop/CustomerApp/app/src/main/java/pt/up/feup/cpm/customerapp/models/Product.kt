@@ -16,4 +16,28 @@ class Product {
         this.make = make
         this.model = model
     }
+
+    fun getProductID(): String? {
+        return this.productID
+    }
+
+    fun getName(): String? {
+        return this.name
+    }
+
+    fun getPrice(): Double? {
+        return this.price
+    }
+
+    fun getCharacteristics(): String? {
+        return this.characteristics
+    }
+
+    fun getMake(): String? {
+        return this.make
+    }
+
+    fun getModel(): String? {
+        return this.model
+    }
 }
