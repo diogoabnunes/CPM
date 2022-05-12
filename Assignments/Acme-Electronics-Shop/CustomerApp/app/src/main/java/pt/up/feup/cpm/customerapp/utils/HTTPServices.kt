@@ -1,12 +1,10 @@
 package pt.up.feup.cpm.customerapp.utils
 
-import pt.up.feup.cpm.customerapp.activities.*
-import pt.up.feup.cpm.customerapp.models.*
 import java.io.*
-import java.net.HttpURLConnection
-import java.net.URL
 
-private fun readStream(input: InputStream): String {
+var SERVER = "https://f415-89-153-186-47.eu.ngrok.io"
+
+fun readStream(input: InputStream): String {
     var reader: BufferedReader? = null
     var line: String?
     val response = StringBuilder()

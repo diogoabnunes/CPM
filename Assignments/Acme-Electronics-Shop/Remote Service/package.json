@@ -21,6 +21,7 @@
     "express-handlebars": "^6.0.5",
     "handlebars": "^4.7.7",
     "mongoose": "^6.3.1",
+    "ngrok": "^4.3.1",
     "nodemon": "^2.0.16",
     "path": "^0.12.7"
   },

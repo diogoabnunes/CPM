@@ -23,9 +23,6 @@
             android:name=".activities.ShowQR"
             android:exported="false" />
         <activity
-            android:name=".activities.PastTransitions"
-            android:exported="false" />
-        <activity
             android:name=".activities.ShoppingCart"
             android:exported="false"
             android:parentActivityName=".activities.Home" />
