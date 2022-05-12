@@ -1,7 +1,6 @@
 import express from "express";
 const router = express.Router();
 import Product from "../models/Product.js";
-import crypto from "crypto";
 import shortid from "shortid";
 
 router.get('/get-all', async (req, res) => {

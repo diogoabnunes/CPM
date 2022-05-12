@@ -20,15 +20,15 @@ class ShowScanInfo : AppCompatActivity() {
         textView.text=productID
 
         getDBProducts()
-
-        for (product in products!!) {
-            if (productID == product.getProductID()) {
-                showProduct(product)
-            }
-            else {
-                textView.text = "There is no product with id " + productID
-            }
-        }
+        
+//        for (product in products!!) {
+//            if (productID == product.getProductID()) {
+//                showProduct(product)
+//            }
+//            else {
+//                textView.text = "There is no product with id " + productID
+//            }
+//        }
     }
 
     private fun getDBProducts() {
