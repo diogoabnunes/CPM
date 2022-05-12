@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import pt.up.feup.cpm.customerapp.R
 
+
 class ShoppingCart : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,5 +44,6 @@ class ShoppingCart : AppCompatActivity() {
             }
         }
         startActivity(intent)
+
     }
 }
