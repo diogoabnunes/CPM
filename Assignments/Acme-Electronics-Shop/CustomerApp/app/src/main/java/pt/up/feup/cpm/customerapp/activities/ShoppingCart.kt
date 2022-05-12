@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import pt.up.feup.cpm.customerapp.R
 
 
@@ -28,6 +29,17 @@ class ShoppingCart : AppCompatActivity() {
     }
 
     private fun onButtonClick(vw: View) {
+        var random =(0..100).shuffled().random()
+        if(random<95){
+            Toast.makeText(this, "Payment Success! ${random}", Toast.LENGTH_SHORT).show()
+            generateQR(vw)
+        }
+        else
+            Toast.makeText(this, "Payment Failed! ${random}", Toast.LENGTH_SHORT).show()
+
+    }
+
+    private fun generateQR(vw: View) {
         val title: String
         val author: String
         val categories: List<String>
@@ -45,6 +57,5 @@ class ShoppingCart : AppCompatActivity() {
             }
         }
         startActivity(intent)
-
     }
 }
