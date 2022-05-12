@@ -23,7 +23,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/personName"
+                    android:id="@+id/productName"
                     android:text="Item1"
                     android:textColor="@color/black"
                     android:textSize="20sp"
@@ -37,13 +37,37 @@
                     android:textStyle="bold"></TextView>
 
             </LinearLayout>
+            <Button
+                android:id="@+id/increase_btn"
+                android:layout_width="0dp"
+                android:layout_height="28dp"
+                android:layout_gravity="left|center_vertical"
+                android:background="@drawable/ic_add_white_16dp"
+                android:layout_weight="0.01"/>
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="150dp"
-                android:layout_alignParentRight="true"
-                android:padding="15dp"
-                android:text="Btn Quantidade" />
+                android:id="@+id/quantity"
+                android:text="1"
+                android:textSize="20sp"
+                android:layout_marginTop="12dp"
+                android:textStyle="bold"></TextView>
+            <Button
+                android:id="@+id/decrease_btn"
+                android:layout_width="0dp"
+                android:layout_height="28dp"
+                android:layout_gravity="left|center_vertical"
+                android:background="@drawable/ic_remove_white_16dp"
+                android:layout_weight="0.01"/>
+
+            <Button
+                android:id="@+id/remove_btn"
+                android:layout_width="0dp"
+                android:layout_height="28dp"
+                android:layout_gravity="left|center_vertical"
+                android:background="@drawable/ic_baseline_delete_outline_24"
+                android:layout_weight="0.01" />
         </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

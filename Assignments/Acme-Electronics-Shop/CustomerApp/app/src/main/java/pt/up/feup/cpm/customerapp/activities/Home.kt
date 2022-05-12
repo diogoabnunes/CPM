@@ -24,7 +24,7 @@ class Home : AppCompatActivity() {
     }
 
     fun setupPastTransitions() {
-        val pastTransitionsBtn = findViewById<Button>(R.id.past_transitions_button)
+        val pastTransitionsBtn = findViewById<Button>(R.id.past_transactions_button)
         pastTransitionsBtn.setOnClickListener {
             val intent = Intent(this, PastTransactions::class.java)
             startActivity(intent)

@@ -14,11 +14,20 @@
         android:theme="@style/Theme.CustomerApp"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activities.PastTransactions"
+            android:name=".activities.ShowScanInfo"
+            android:exported="false" />
+        <activity
+            android:name=".activities.Scan"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ShowQR"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ShoppingCart"
             android:exported="false"
             android:parentActivityName=".activities.Home" />
         <activity
-            android:name=".activities.ShoppingCart"
+            android:name=".activities.PastTransactions"
             android:exported="false"
             android:parentActivityName=".activities.Home" />
         <activity
