@@ -11,22 +11,27 @@ import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.models.Product
 import java.util.ArrayList
 
-
 class ShoppingCart : AppCompatActivity() {
-    var content: ArrayList<Pair<Product, Int>>? = null
+    var cartContent: ArrayList<Pair<Product, Int>>? = null
+    var httpResponse : String? = null
+
+    private val payButton by lazy { findViewById<Button>(R.id.pay_btn) }
+    private val addItemButton by lazy { findViewById<TextView>(R.id.add_item_btn) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shopping_cart)
 
-        findViewById<Button>(R.id.pay_btn).setOnClickListener { vw -> onButtonClick(vw) }
-        addItemHandler()
-
+        setupPay()
+        setupAddItem()
     }
 
-    private fun addItemHandler(){
-        val linkTextView2 = findViewById<TextView>(R.id.add_item_btn)
-        linkTextView2.setOnClickListener {
+    private fun setupPay() {
+        payButton.setOnClickListener { view -> onButtonClick(view) }
+    }
+
+    private fun setupAddItem() {
+        addItemButton.setOnClickListener {
             val intent = Intent(this, Scan::class.java)
             startActivity(intent)
         }
@@ -37,7 +42,6 @@ class ShoppingCart : AppCompatActivity() {
         val title = "Hello"
         val author = "World"
         val categories: List<String> = listOf("123","me llamo jeff")
-
 
         val intent = Intent(this, ShowQR::class.java)
         when (vw.id) {
