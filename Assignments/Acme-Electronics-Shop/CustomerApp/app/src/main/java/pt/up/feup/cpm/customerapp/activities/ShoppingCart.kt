@@ -7,9 +7,13 @@ import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import pt.up.feup.cpm.customerapp.R
+import pt.up.feup.cpm.customerapp.models.Product
+import java.util.ArrayList
 
 
 class ShoppingCart : AppCompatActivity() {
+    var content: ArrayList<Pair<Product, Int>>? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shopping_cart)
@@ -28,13 +32,10 @@ class ShoppingCart : AppCompatActivity() {
     }
 
     private fun onButtonClick(vw: View) {
-        val title: String
-        val author: String
-        val categories: List<String>
 
-        title="Hello"
-        author="World"
-        categories= listOf("123","me llamo jeff")
+        val title = "Hello"
+        val author = "World"
+        val categories: List<String> = listOf("123","me llamo jeff")
 
 
         val intent = Intent(this, ShowQR::class.java)

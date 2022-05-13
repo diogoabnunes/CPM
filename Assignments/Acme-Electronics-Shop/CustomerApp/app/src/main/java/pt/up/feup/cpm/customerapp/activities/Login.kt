@@ -38,9 +38,10 @@ class Login : AppCompatActivity() {
     fun setupLoginButton() {
         val loginButton = findViewById<Button>(R.id.login_button)
         loginButton.setOnClickListener {
-            val userName = findViewById<EditText>(R.id.email).text.toString()
+            val email = findViewById<EditText>(R.id.email).text.toString()
             val password = findViewById<EditText>(R.id.password).text.toString()
-            if (userName == "cpm@feup.pt" && password == "1234") {
+
+            if (email == "cpm@feup.pt" && password == "1234") {
                 startActivity(Intent(this, Home::class.java))
                 Toast.makeText(this, "Login Success!", Toast.LENGTH_SHORT).show()
             } else {

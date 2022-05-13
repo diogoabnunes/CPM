@@ -15,7 +15,7 @@ class Home : AppCompatActivity() {
         setupPastTransitions()
     }
 
-    fun setupShoppingCart() {
+    private fun setupShoppingCart() {
         val shoppingCartBtn = findViewById<Button>(R.id.shopping_cart_button)
         shoppingCartBtn.setOnClickListener {
             val intent = Intent(this, ShoppingCart::class.java)
@@ -23,7 +23,7 @@ class Home : AppCompatActivity() {
         }
     }
 
-    fun setupPastTransitions() {
+    private fun setupPastTransitions() {
         val pastTransitionsBtn = findViewById<Button>(R.id.past_transactions_button)
         pastTransitionsBtn.setOnClickListener {
             val intent = Intent(this, PastTransactions::class.java)

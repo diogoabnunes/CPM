@@ -4,8 +4,13 @@ import Product from "../models/Product.js";
 import shortid from "shortid";
 
 router.get('/get-all', async (req, res) => {
-    const products = await Product.find({});
-    res.status(200).json({products:products, message:'Succeeded'});
+    try {
+        const products = await Product.find();
+        res.status(200).json(products);
+    }
+    catch (error) {
+        res.status(400).message({message: error.message});
+    }
 });
 
 router.get('/get/:_id', async (req, res) => {
@@ -24,8 +29,13 @@ router.post('/add', async (req, res) => {
         characteristics: req.body.characteristics}
     );
 
-    await newProduct.save();
-    res.status(201).json({message:'Succeeded'});
+    try {
+        const data = await newProduct.save();
+        res.status(201).json(data);
+    }
+    catch (error) {
+        res.status(400).json({message: error.message})
+    }
 });
 
 export default router;

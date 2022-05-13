@@ -8,7 +8,6 @@ import pt.up.feup.cpm.customerapp.models.Product
 import pt.up.feup.cpm.customerapp.utils.GetProducts
 
 class ShowScanInfo : AppCompatActivity() {
-    private var products : ArrayList<Product>? = null
     private val result by lazy { findViewById<TextView>(R.id.result) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,6 +20,8 @@ class ShowScanInfo : AppCompatActivity() {
 
         getDBProducts()
         
+        
+
 //        for (product in products!!) {
 //            if (productID == product.getProductID()) {
 //                showProduct(product)

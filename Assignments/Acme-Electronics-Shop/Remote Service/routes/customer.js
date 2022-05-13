@@ -5,8 +5,13 @@ import bcrypt from "bcrypt";
 import crypto from "crypto";
 
 router.get('/get-all', async (req, res) => {
-    const customers = await Customer.find({});
-    res.status(200).json({customers:customers, message:'Succeeded'});
+    try {
+        const customers = await Customer.find({});
+        res.json(customers);
+    }
+    catch (error) {
+        res.status(400).json({message: error.message});
+    }
 });
 
 router.get('/get/:userID', async (req, res) => {
@@ -28,8 +33,13 @@ router.post('/register', async (req, res) => {
         cardValidity: req.body.cardValidity}
     );
 
-    await newCustomer.save();
-    res.status(201).json({message:'Customer Registered'});
+    try {
+        const data = await newCustomer.save();
+        res.status(200).json(data);
+    }
+    catch (error) {
+        res.status(400).json({message: error.message})
+    }
 });
 
 router.post('/login', async (req, res) => {

@@ -11,7 +11,7 @@ class GetProducts(val result: ShowScanInfo): Runnable {
         var urlConnection: HttpURLConnection? = null
         try {
             url = URL(SERVER + "/product/get-all")
-            result.writeText("GET " + url.toExternalForm())
+//            result.writeText("GET " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doInput = true
             urlConnection.setRequestProperty("Content-Type", "application/json")
