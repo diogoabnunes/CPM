@@ -37,10 +37,10 @@ class Register : AppCompatActivity() {
             type = if (selected == R.id.credit_card) "Credit"
             else "Debit"
 
-            Thread(AddCustomer(this, Customer(name.text.toString(), address.text.toString(),
-                            fiscal_number.text.toString(), email.text.toString(),
-                            password.text.toString(), type,
-                            card_number.text.toString(), card_validity.text.toString()))).start()
+            Thread(AddCustomer(this, Customer("1", name.text.toString(), address.text.toString(),
+                fiscal_number.text.toString(), email.text.toString(),
+                password.text.toString(), type,
+                card_number.text.toString(), card_validity.text.toString()))).start()
         }
     }
 
