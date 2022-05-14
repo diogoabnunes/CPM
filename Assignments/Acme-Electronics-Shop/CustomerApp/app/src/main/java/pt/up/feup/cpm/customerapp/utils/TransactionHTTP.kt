@@ -10,24 +10,23 @@ import java.io.DataOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
-class GetTransactions(): Runnable {
+class GetTransactions(val result: Home): Runnable {
     override fun run() {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL(SERVER + "/transaction/get-all")
-            System.out.println("GET " + url.toExternalForm())
+            url = URL("$SERVER/transaction/get-all")
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doInput = true
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.useCaches = false
             val responseCode = urlConnection.responseCode
             if (responseCode == 200)
-                System.out.println(readStream(urlConnection.inputStream))
+                result.writeText(readStream(urlConnection.inputStream))
             else
-                System.out.println("Code: $responseCode")
+                result.writeText("Code: $responseCode")
         } catch (e: Exception) {
-            System.out.println(e.toString())
+            result.writeText(e.toString())
         } finally {
             urlConnection?.disconnect()
         }
@@ -39,7 +38,7 @@ class GetTransaction(val transactionID: Transaction): Runnable {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL(SERVER + "/transaction/$transactionID")
+            url = URL("$SERVER/transaction/$transactionID")
             System.out.println("GET " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doInput = true
@@ -63,7 +62,7 @@ class AddTransaction(val transaction: Transaction) : Runnable {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL(SERVER + "/transaction/add")
+            url = URL("$SERVER/transaction/add")
             System.out.println("POST " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doOutput = true

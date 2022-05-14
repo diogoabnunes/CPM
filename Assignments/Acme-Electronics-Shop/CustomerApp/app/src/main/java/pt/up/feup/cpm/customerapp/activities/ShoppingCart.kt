@@ -9,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.models.Product
+import pt.up.feup.cpm.customerapp.utils.GetProducts
 import java.util.ArrayList
 
 class ShoppingCart : AppCompatActivity() {
@@ -39,6 +40,7 @@ class ShoppingCart : AppCompatActivity() {
 
     private fun onButtonClick(vw: View) {
 
+        // to delete
         val title = "Hello"
         val author = "World"
         val categories: List<String> = listOf("123","me llamo jeff")
@@ -51,5 +53,12 @@ class ShoppingCart : AppCompatActivity() {
             }
         }
         startActivity(intent)
+        // to delete
+
+        // Operation 3: the device contacts the shop service, sends his user ID, basket content,
+        // signed with the private key stored when the registration was performed (SHA256WithRSA)
+
+        // get info from activity from each product and quantity to create transaction
+        // Thread(AddTransaction(transaction)).start()
     }
 }
