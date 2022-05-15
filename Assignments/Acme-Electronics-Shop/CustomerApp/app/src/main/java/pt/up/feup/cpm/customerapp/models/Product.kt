@@ -17,27 +17,27 @@ class Product {
         this.model = model
     }
 
-    fun getProductID(): String? {
+    fun getProductID() : String? {
         return this.productID
     }
 
-    fun getName(): String? {
+    fun getName() : String? {
         return this.name
     }
 
-    fun getPrice(): Double? {
+    fun getPrice() : Double? {
         return this.price
     }
 
-    fun getCharacteristics(): String? {
+    fun getCharacteristics() : String? {
         return this.characteristics
     }
 
-    fun getMake(): String? {
+    fun getMake() : String? {
         return this.make
     }
 
-    fun getModel(): String? {
+    fun getModel() : String? {
         return this.model
     }
 }

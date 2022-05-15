@@ -1,5 +1,6 @@
 package pt.up.feup.cpm.customerapp.utils
 
+import org.json.JSONObject
 import pt.up.feup.cpm.customerapp.activities.Login
 import pt.up.feup.cpm.customerapp.activities.Register
 import pt.up.feup.cpm.customerapp.models.Customer
@@ -55,12 +56,12 @@ class GetCustomer(val act: Login, val userID: Customer): Runnable {
     }
 }
 
-class AddCustomer(val act: Register, val customer: Customer) : Runnable {
+class AddCustomer(val act: Register, val body: String) : Runnable {
     override fun run() {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL(SERVER + "/customer/register")
+            url = URL("$SERVER/customer/register")
             act.writeText("POST " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doOutput = true
@@ -69,15 +70,6 @@ class AddCustomer(val act: Register, val customer: Customer) : Runnable {
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.useCaches = false
             val outputStream = DataOutputStream(urlConnection.outputStream)
-            val body = "{ " +
-                    "\"name\": \"${customer.getName()}\", " +
-                    "\"address\": \"${customer.getAddress()}\", " +
-                    "\"fiscalNumber\": \"${customer.getFiscalNumber()}\", " +
-                    "\"email\": \"${customer.getEmail()}\", " +
-                    "\"password\": \"${customer.getPassword()}\", " +
-                    "\"cardType\": \"${customer.getCardType()}\", " +
-                    "\"cardNumber\": \"${customer.getCardNumber()}\", " +
-                    "\"cardValidity\": \"${customer.getCardValidity()}\"" + " }"
             act.appendText("body: $body")
             outputStream.writeBytes(body)
             outputStream.flush()
@@ -99,12 +91,12 @@ class AddCustomer(val act: Register, val customer: Customer) : Runnable {
     }
 }
 
-class LoginCustomer(val act: Login, val email: String, val password: String): Runnable {
+class LoginCustomer(val act: Login, val body: String): Runnable {
     override fun run() {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL(SERVER + "/customer/login")
+            url = URL("$SERVER/customer/login")
             System.out.println("POST " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doOutput = true
@@ -113,9 +105,6 @@ class LoginCustomer(val act: Login, val email: String, val password: String): Ru
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.useCaches = false
             val outputStream = DataOutputStream(urlConnection.outputStream)
-            val body = "{ " +
-                    "\"email\": \"$email\", " +
-                    "\"password\": \"$password\"" + " }"
             act.appendText("body: $body")
             outputStream.writeBytes(body)
             outputStream.flush()

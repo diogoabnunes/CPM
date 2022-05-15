@@ -8,7 +8,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import org.json.JSONObject
 import pt.up.feup.cpm.customerapp.R
+import pt.up.feup.cpm.customerapp.utils.LoginCustomer
 
 class Login : AppCompatActivity() {
     val email by lazy { findViewById<EditText>(R.id.email) }
@@ -35,9 +37,14 @@ class Login : AppCompatActivity() {
 
     private fun setupLoginButton() {
         loginButton.setOnClickListener {
-
             val email = email.text.toString()
             val password = password.text.toString()
+
+            var js = JSONObject()
+            js.accumulate("email", email)
+            js.accumulate("password", password)
+
+            Thread(LoginCustomer(this, js.toString())).start()
 
             if (email == "cpm@feup.pt" && password == "1234") {
                 startActivity(Intent(this, Home::class.java))
@@ -64,21 +71,4 @@ class Login : AppCompatActivity() {
     fun writeText(value: String) {
         runOnUiThread { tvResponse.text = value }
     }
-
-    fun onclick() {
-        login(
-            email.text.toString(),
-            password.text.toString()
-        )
-    }
-    fun login(userName: String, password: String) {
-        if (userName == "cpm@feup.pt" && password == "1234") {
-            startActivity(Intent(this, Home::class.java))
-            Toast.makeText(this, "Login Success!", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Login Failed!", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-
 }

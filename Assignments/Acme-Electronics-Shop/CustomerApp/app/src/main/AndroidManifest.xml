@@ -14,6 +14,15 @@
         android:theme="@style/Theme.CustomerApp"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activities.PurchaseInfo"
+            android:exported="false" />
+        <activity
+            android:name=".activities.PastTransactionsInfo"
+            android:exported="false" />
+        <activity
+            android:name=".activities.PastTransactionInfo"
+            android:exported="false" />
+        <activity
             android:name=".activities.ShowScanInfo"
             android:exported="false" />
         <activity

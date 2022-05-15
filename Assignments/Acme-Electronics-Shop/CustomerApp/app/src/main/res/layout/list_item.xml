@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -20,54 +21,68 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:orientation="vertical">
+
                 <TextView
+                    android:id="@+id/productName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/productName"
                     android:text="Item1"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"></TextView>
+
                 <TextView
+                    android:id="@+id/price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/price"
-                    android:text="10,99€"
                     android:layout_marginTop="5dp"
+                    android:text="10,99€"
                     android:textStyle="bold"></TextView>
 
             </LinearLayout>
+
+            <Space
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="12" />
+
             <Button
                 android:id="@+id/increase_btn"
-                android:layout_width="0dp"
-                android:layout_height="28dp"
-                android:layout_gravity="left|center_vertical"
-                android:background="@drawable/ic_add_white_16dp"
-                android:layout_weight="0.01"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/ic_add_white_16dp" />
 
             <TextView
+                android:id="@+id/quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/quantity"
                 android:text="1"
-                android:textSize="20sp"
-                android:layout_marginTop="12dp"
+                android:textSize="22sp"
                 android:textStyle="bold"></TextView>
+
             <Button
                 android:id="@+id/decrease_btn"
-                android:layout_width="0dp"
-                android:layout_height="28dp"
-                android:layout_gravity="left|center_vertical"
-                android:background="@drawable/ic_remove_white_16dp"
-                android:layout_weight="0.01"/>
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+
+                android:background="@drawable/ic_remove_white_16dp" />
+
+            <Space
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_weight="12" />
 
             <Button
                 android:id="@+id/remove_btn"
-                android:layout_width="0dp"
-                android:layout_height="28dp"
-                android:layout_gravity="left|center_vertical"
-                android:background="@drawable/ic_baseline_delete_outline_24"
-                android:layout_weight="0.01" />
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/ic_baseline_delete_outline_24" />
         </LinearLayout>
+
+
+
     </RelativeLayout>
 </LinearLayout>

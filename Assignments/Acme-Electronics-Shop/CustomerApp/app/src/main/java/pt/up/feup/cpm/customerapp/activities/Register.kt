@@ -8,6 +8,7 @@ import pt.up.feup.cpm.customerapp.R
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioGroup
+import org.json.JSONObject
 import pt.up.feup.cpm.customerapp.models.Customer
 import pt.up.feup.cpm.customerapp.utils.AddCustomer
 import java.time.format.DateTimeFormatter
@@ -30,17 +31,23 @@ class Register : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-
         register_button.setOnClickListener {
             val selected = card_type.checkedRadioButtonId
             var type: String? = null
             type = if (selected == R.id.credit_card) "Credit"
             else "Debit"
 
-            Thread(AddCustomer(this, Customer("1", name.text.toString(), address.text.toString(),
-                                    fiscal_number.text.toString(), email.text.toString(),
-                                    password.text.toString(), type,
-                                    card_number.text.toString(), card_validity.text.toString()))).start()
+            var js = JSONObject();
+            js.accumulate("name", name.text.toString())
+            js.accumulate("address", address.text.toString())
+            js.accumulate("fiscalNumber", fiscal_number.text.toString())
+            js.accumulate("email", email.text.toString())
+            js.accumulate("password", password.text.toString())
+            js.accumulate("cardType", type)
+            js.accumulate("cardNumber", card_number.text.toString())
+            js.accumulate("cardValidity", card_validity.text.toString())
+
+            Thread(AddCustomer(this, js.toString())).start()
         }
     }
 
