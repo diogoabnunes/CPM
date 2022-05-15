@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Diogo Nunes/FEUP/CPM/Assignments/Acme-Electronics-Shop/PrinterTerminal/app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/Users/Diogo Nunes/FEUP/CPM/Assignments/Acme-Electronics-Shop/PrinterTerminal/app/src/main/res/layout/activity_show_scan_info.xml" value="0.33" />
+        <entry key="..\:/Users/Diogo Nunes/FEUP/CPM/Assignments/Acme-Electronics-Shop/PrinterTerminal/app/src/main/res/layout/list_item_transaction.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_show_scan_info.xml" value="0.33" />
       </map>

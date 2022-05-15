@@ -12,7 +12,7 @@ class ShowScanInfo : AppCompatActivity() {
         setContentView(R.layout.activity_show_scan_info)
         var it= intent.getStringExtra("info")
         //Toast.makeText(this, "Scan result: ${it}", Toast.LENGTH_LONG).show()
-        val textView : TextView = findViewById(R.id.tv_show_info) as TextView
+        val textView = findViewById<TextView>(R.id.tv_show_info)
         textView.text=it
     }
 }
