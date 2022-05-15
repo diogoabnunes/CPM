@@ -21,14 +21,16 @@ import pt.up.feup.cpm.customerapp.models.Product
 import pt.up.feup.cpm.customerapp.models.Transaction
 import pt.up.feup.cpm.customerapp.models.TransactionItem
 import pt.up.feup.cpm.customerapp.utils.AddTransaction
+import kotlin.collections.mutableListOf
 
 class ShoppingCart : AppCompatActivity() {
-    private var transaction = Transaction()
+    private var products = mutableListOf<Product>()
+
     val transaction_res by lazy { findViewById<TextView>(R.id.transactions_res) }
 
     val getAddItem = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
-            transaction = result.data?.getSerializableExtra("value") as Transaction
+            products = result.data?.getSerializableExtra("value4") as MutableList<Product>
         }
     }
 
@@ -46,10 +48,9 @@ class ShoppingCart : AppCompatActivity() {
         val quantity = arrayOf(2,1,1,1,3,4,2,6)
         val price = arrayOf("10$00", "14$00", "99$00", "108$99", "78$45", "345$98", "30$33", "4$00", "2$00" )
 
-
         for (i in transactionName.indices){
             list.add(
-                TransactionItem("12", transactionName[i], quantity[i], price[i] )
+                TransactionItem(Product("1", transactionName[i], 2.3, "b", "c", "d"), 1)
             )
         }
 
@@ -62,13 +63,11 @@ class ShoppingCart : AppCompatActivity() {
     }
 
     private fun setupAddItemButton() {
-        transaction.setUserID("a0c8891a-5aeb-4e9e-974c-cdc9ba14cb0f")
-
         val linkTextView2 = findViewById<TextView>(R.id.add_item_btn)
         linkTextView2.setOnClickListener {
 
             val intent = Intent(this, Scan::class.java)
-            intent.putExtra("transaction", transaction)
+            intent.putExtra("value1", ArrayList(products))
             getAddItem.launch(intent)
         }
     }
@@ -77,23 +76,29 @@ class ShoppingCart : AppCompatActivity() {
         var random =(0..100).shuffled().random()
         if(random<=95){
             Toast.makeText(this, "Payment Success! $random", Toast.LENGTH_SHORT).show()
-            saveTransaction()
-            generateQR(vw)
+
+            var transaction = Transaction()
+            saveTransaction(transaction)
+            generateQR(vw, transaction)
         }
         else
             Toast.makeText(this, "Payment Failed! $random", Toast.LENGTH_SHORT).show()
     }
 
-    private fun saveTransaction() {
+    private fun saveTransaction(transaction: Transaction) {
         transaction.setUserID("a0c8891a-5aeb-4e9e-974c-cdc9ba14cb0f")
+        val content = mutableListOf<TransactionItem>()
+        for (i in products) {
+            val transactionItem = TransactionItem(i, 1)
+            content.add(transactionItem)
+        }
+        transaction.setContent(content)
         val js: String? = Gson().toJson(transaction)
-
         println(js)
-
         Thread(AddTransaction(this, js.toString())).start()
     }
 
-    private fun generateQR(vw: View) {
+    private fun generateQR(vw: View, transaction: Transaction) {
 
         val intent = Intent(this, ShowQR::class.java)
         when (vw.id) {

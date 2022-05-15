@@ -5,13 +5,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import org.json.JSONArray
 import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.models.Product
 import pt.up.feup.cpm.customerapp.models.Transaction
+import pt.up.feup.cpm.customerapp.models.TransactionItem
 import pt.up.feup.cpm.customerapp.utils.GetProduct
+import java.util.ArrayList
 
 class ShowScanInfo : AppCompatActivity() {
     val products_res by lazy { findViewById<TextView>(R.id.products_res) }
@@ -22,18 +21,20 @@ class ShowScanInfo : AppCompatActivity() {
 
         val productID = intent.getStringExtra("info")
         val textView : TextView = findViewById(R.id.tv_show_info)
-        textView.text=productID
+        textView.text = productID
 
         Thread(GetProduct(this, productID)).start()
 
-        val transaction = intent.getSerializableExtra("value") as Transaction
+        val products = intent.getSerializableExtra("value2") as MutableList<Product>
 
-        transaction.addItem(productID!!, 1)
+        val str = Product("1", "a", 2.3, "b", "c", "d")
+
+        products.add(str)
 
         val linkTextView2 = findViewById<TextView>(R.id.btn_back_shopping_cart)
         linkTextView2.setOnClickListener {
             val data = Intent()
-            data.putExtra("value", transaction)
+            data.putExtra("value3", ArrayList(products))
             setResult(Activity.RESULT_OK, data)
             finish()
         }

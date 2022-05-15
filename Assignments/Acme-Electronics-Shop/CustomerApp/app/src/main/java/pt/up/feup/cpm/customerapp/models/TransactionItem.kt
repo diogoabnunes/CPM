@@ -1,25 +1,21 @@
 package pt.up.feup.cpm.customerapp.models
 
-data class TransactionItem(
-    private var transactionItemID: String?,
-    private var transactionName: String?,
-    private var quantity: Int?,
-    private var price: String?
-) {
+import java.io.Serializable
 
-    fun getTransactionItemID(): String?{
-        return this.transactionItemID
+class TransactionItem : Serializable {
+    private var product: Product? = null
+    private var quantity: Int? = null
+
+    constructor(product: Product?, quantity: Int?) {
+        this.product = product
+        this.quantity = quantity
     }
 
-    fun getTransactionName(): String? {
-        return this.transactionName
+    fun getProduct(): Product? {
+        return this.product
     }
 
     fun getQuantity(): Int? {
         return this.quantity
-    }
-
-    fun getPrice(): String? {
-        return this.price
     }
 }

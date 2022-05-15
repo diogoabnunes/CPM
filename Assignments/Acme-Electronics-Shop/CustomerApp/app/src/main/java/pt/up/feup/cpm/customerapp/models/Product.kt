@@ -1,9 +1,11 @@
 package pt.up.feup.cpm.customerapp.models
 
-class Product {
+import java.io.Serializable
+
+class Product : Serializable {
     private var productID: String? = null
     private var name: String? = null
-    private var price = 0.0
+    private var price: Double? = null
     private var characteristics: String? = null
     private var make: String? = null
     private var model: String? = null
