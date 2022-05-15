@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.budiyev.android.codescanner.*
 import pt.up.feup.cpm.customerapp.R
+import pt.up.feup.cpm.customerapp.models.Product
 import pt.up.feup.cpm.customerapp.models.Transaction
 
 private const val CAMERA_REQUEST_CODE=101
@@ -21,8 +22,8 @@ class Scan : AppCompatActivity() {
     val getAddItem = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             val data = Intent()
-            val value = result.data?.getSerializableExtra("value") as Transaction
-            data.putExtra("value", value)
+            val value = result.data?.getSerializableExtra("value3") as MutableList<Product>
+            data.putExtra("value4", ArrayList(value))
             setResult(Activity.RESULT_OK, data)
             finish()
         }
@@ -53,11 +54,10 @@ class Scan : AppCompatActivity() {
         // Callbacks
         codeScanner.decodeCallback = DecodeCallback {
             runOnUiThread {
-                var lastTransaction = intent.getSerializableExtra("transaction") as Transaction
-
+                val products = intent.getSerializableExtra("value1") as MutableList<Product>
                 val intent = Intent(this, ShowScanInfo::class.java)
                 intent.putExtra("info",it.text)
-                intent.putExtra("value", lastTransaction)
+                intent.putExtra("value2", ArrayList(products))
                 getAddItem.launch(intent)
             }
         }

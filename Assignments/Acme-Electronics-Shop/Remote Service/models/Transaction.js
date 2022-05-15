@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
+import { productSchema } from "./Product.js";
 
 export const transactionSchema = new mongoose.Schema({
     transactionID: { type: String, required: true },
     userID: { type: String, required: true },
     content: [
         {
-            productID: { type: String, required: true },
+            product: { type: productSchema, required: true },
             quantity: { type: Number, required: true }
         }
     ],
@@ -16,6 +17,3 @@ export const transactionSchema = new mongoose.Schema({
 let Transaction = mongoose.model("Transaction", transactionSchema);
 
 export default Transaction;
-
-// não sei como colocar no pedido o content,
-// sendo q é uma lista de [produto + quantity]

@@ -37,20 +37,19 @@ class Login : AppCompatActivity() {
 
     private fun setupLoginButton() {
         loginButton.setOnClickListener {
-            val email = email.text.toString()
-            val password = password.text.toString()
-
-            var js = JSONObject()
-            js.accumulate("email", email)
-            js.accumulate("password", password)
-
+            val js = JSONObject()
+            js.accumulate("email", email.text.toString())
+            js.accumulate("password", password.text.toString())
             Thread(LoginCustomer(this, js.toString())).start()
 
-            if (email == "cpm@feup.pt" && password == "1234") {
-                startActivity(Intent(this, Home::class.java))
-                Toast.makeText(this, "Login Success!", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(this, "Login Failed!", Toast.LENGTH_SHORT).show()
+            try {
+                val intent = Intent(this, Home::class.java)
+                intent.putExtra("email", email.text.toString())
+                startActivity(intent)
+                Toast.makeText(this, "Login Success!", Toast.LENGTH_LONG).show()
+            }
+            catch (error: Error) {
+                Toast.makeText(this, "Login failed...", Toast.LENGTH_LONG).show()
             }
         }
     }

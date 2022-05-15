@@ -22,7 +22,6 @@ class TransactionItemAdapter(var mCtx: Context, var resources: Int, var items: L
         var mItem:Transaction = items[position]
         id.text = mItem.getTransactionId()
         date.text = mItem.getDate()
-        price.text = mItem.getPrice()
         return view
     }
 }

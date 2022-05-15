@@ -26,7 +26,6 @@ class PastTransactionsInfo : AppCompatActivity() {
         fun newIntent(context: Context, transaction: Transaction): Intent {
         val detailIntent = Intent(context, PastTransactionsInfo::class.java)
 
-        detailIntent.putExtra("total", transaction.getPrice())
         detailIntent.putExtra("date", transaction.getDate())
 
         return detailIntent
