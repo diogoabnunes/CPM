@@ -10,7 +10,7 @@ import java.io.DataOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
-class GetTransactions(): Runnable {
+class GetTransactions(val result: Home): Runnable {
     override fun run() {
         val url: URL
         var urlConnection: HttpURLConnection? = null
@@ -23,11 +23,11 @@ class GetTransactions(): Runnable {
             urlConnection.useCaches = false
             val responseCode = urlConnection.responseCode
             if (responseCode == 200)
-                System.out.println(readStream(urlConnection.inputStream))
+                result.writeText(readStream(urlConnection.inputStream))
             else
-                System.out.println("Code: $responseCode")
+                result.writeText("Code: $responseCode")
         } catch (e: Exception) {
-            System.out.println(e.toString())
+            result.writeText(e.toString())
         } finally {
             urlConnection?.disconnect()
         }
@@ -63,7 +63,7 @@ class AddTransaction(val body: String) : Runnable {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL(SERVER + "/transaction/add")
+            url = URL("$SERVER/transaction/add")
             System.out.println("POST " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doOutput = true

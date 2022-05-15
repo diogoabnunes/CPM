@@ -8,8 +8,8 @@ import pt.up.feup.cpm.customerapp.adapter.TransactionItemAdapter
 import pt.up.feup.cpm.customerapp.models.Transaction
 import java.util.*
 
-
 class PastTransactions : AppCompatActivity() {
+    var pastTransactions : ArrayList<Transaction>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

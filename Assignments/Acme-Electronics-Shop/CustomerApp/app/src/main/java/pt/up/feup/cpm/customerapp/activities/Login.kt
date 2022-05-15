@@ -13,23 +13,21 @@ import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.utils.LoginCustomer
 
 class Login : AppCompatActivity() {
+    val email by lazy { findViewById<EditText>(R.id.email) }
+    val password by lazy { findViewById<EditText>(R.id.password) }
+    val loginButton by lazy { findViewById<Button>(R.id.login_button) }
     val tvResponse by lazy { findViewById<TextView>(R.id.tv_response) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        setupHyperlink()
-        //setupLoginButton()
 
-        //go to Home directly--REMOVER
-        val linkTextView = findViewById<TextView>(R.id.activity_link)
-        linkTextView.setOnClickListener {
-            val intent = Intent(this, Home::class.java)
-            startActivity(intent)
-        }
+        setupRegisterButton()
+        setupLoginButton()
+        setupHomeButton() // TO DELETE
     }
 
-    fun setupHyperlink() {
+    private fun setupRegisterButton() {
         val linkTextView = findViewById<TextView>(R.id.activity_main_link)
         linkTextView.setOnClickListener {
             val intent = Intent(this, Register::class.java)
@@ -37,11 +35,10 @@ class Login : AppCompatActivity() {
         }
     }
 
-    fun setupLoginButton() {
-        val loginButton = findViewById<Button>(R.id.login_button)
+    private fun setupLoginButton() {
         loginButton.setOnClickListener {
-            val email = findViewById<EditText>(R.id.email).text.toString()
-            val password = findViewById<EditText>(R.id.password).text.toString()
+            val email = email.text.toString()
+            val password = password.text.toString()
 
             var js = JSONObject()
             js.accumulate("email", email)
@@ -58,6 +55,15 @@ class Login : AppCompatActivity() {
         }
     }
 
+    // TO DELETE
+    private fun setupHomeButton() {
+        val linkTextView = findViewById<TextView>(R.id.activity_link)
+        linkTextView.setOnClickListener {
+            val intent = Intent(this, Home::class.java)
+            startActivity(intent)
+        }
+    }
+
     fun appendText(value: String) {
         runOnUiThread { tvResponse.text = tvResponse.text.toString() + "\n" + value }
     }
@@ -65,21 +71,4 @@ class Login : AppCompatActivity() {
     fun writeText(value: String) {
         runOnUiThread { tvResponse.text = value }
     }
-
-    fun onclick(view: View) {
-        login(
-            findViewById<EditText>(R.id.email).text.toString(),
-            findViewById<EditText>(R.id.password).text.toString()
-        )
-    }
-    fun login(userName: String, password: String) {
-        if (userName == "cpm@feup.pt" && password == "1234") {
-            startActivity(Intent(this, Home::class.java))
-            Toast.makeText(this, "Login Success!", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Login Failed!", Toast.LENGTH_SHORT).show()
-        }
-    }
-
-
 }

@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     tools:context=".activities.ShowScanInfo">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
@@ -32,6 +32,12 @@
             android:layout_marginTop="8dp"
             android:textSize="16dp"
             />
+
+        <TextView
+            android:id="@+id/result"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_show_info" />
 
     </RelativeLayout>
 
