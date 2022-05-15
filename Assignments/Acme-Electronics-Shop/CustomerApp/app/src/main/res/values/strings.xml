@@ -29,4 +29,11 @@
     <string name="date_example">13/03/2022</string>
     <string name="price_example">189,99€</string>
     <string name="quantity">100</string>
+    <string name="transaction_id">Transaction ID:</string>
+    <string name="_2345">#2345</string>
+    <string name="date">Date:</string>
+    <string name="_23_04_2022">23/04/2022</string>
+    <string name="content">Content:</string>
+    <string name="total">Total:</string>
+    <string name="_1000_00">1000$00</string>
 </resources>

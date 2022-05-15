@@ -30,5 +30,16 @@ class PastTransactions : AppCompatActivity() {
 
         listview.adapter = TransactionItemAdapter(this, R.layout.past_transaction_item, list)
 
+        val context = this
+        listview.setOnItemClickListener { _, _, position, _ ->
+            // 1
+            val selectedRecipe = list[position]
+
+            // 2
+            val detailIntent = PastTransactionsInfo.newIntent(context, selectedRecipe)
+
+            // 3
+            startActivity(detailIntent)
+        }
     }
 }
