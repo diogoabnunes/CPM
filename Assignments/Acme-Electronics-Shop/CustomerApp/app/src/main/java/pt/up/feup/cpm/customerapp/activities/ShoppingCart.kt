@@ -1,5 +1,6 @@
 package pt.up.feup.cpm.customerapp.activities
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,10 @@ import android.view.View
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import com.google.gson.Gson
+import com.google.zxing.integration.android.IntentIntegrator
 import org.json.JSONObject
 import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.adapter.ShoppingCartAdapter
@@ -17,14 +22,22 @@ import pt.up.feup.cpm.customerapp.models.Transaction
 import pt.up.feup.cpm.customerapp.models.TransactionItem
 import pt.up.feup.cpm.customerapp.utils.AddTransaction
 
-
 class ShoppingCart : AppCompatActivity() {
+    private var transaction = Transaction()
+    val transaction_res by lazy { findViewById<TextView>(R.id.transactions_res) }
+
+    val getAddItem = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            transaction = result.data?.getSerializableExtra("value") as Transaction
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shopping_cart)
 
-        findViewById<Button>(R.id.pay_btn).setOnClickListener { vw -> onButtonClick(vw) }
-        addItemHandler()
+        setupPayButton()
+        setupAddItemButton()
 
         var listview = findViewById<ListView>(R.id.list_item)
         var list = mutableListOf<TransactionItem>()
@@ -41,48 +54,58 @@ class ShoppingCart : AppCompatActivity() {
         }
 
         listview.adapter = ShoppingCartAdapter(this, R.layout.list_item, list)
-
     }
 
+    private fun setupPayButton() {
+        findViewById<Button>(R.id.pay_btn).setOnClickListener {
+                vw -> onButtonClick(vw) }
+    }
 
-    private fun addItemHandler(){
+    private fun setupAddItemButton() {
+        transaction.setUserID("a0c8891a-5aeb-4e9e-974c-cdc9ba14cb0f")
+
         val linkTextView2 = findViewById<TextView>(R.id.add_item_btn)
         linkTextView2.setOnClickListener {
+
             val intent = Intent(this, Scan::class.java)
-            startActivity(intent)
+            intent.putExtra("transaction", transaction)
+            getAddItem.launch(intent)
         }
     }
 
     private fun onButtonClick(vw: View) {
-        // check if addTransaction (95%)
+        var random =(0..100).shuffled().random()
+        if(random<=95){
+            Toast.makeText(this, "Payment Success! $random", Toast.LENGTH_SHORT).show()
+            saveTransaction()
+            generateQR(vw)
+        }
+        else
+            Toast.makeText(this, "Payment Failed! $random", Toast.LENGTH_SHORT).show()
+    }
 
-//        var js = JSONObject()
-//        js.accumulate("userID", Customer::getUserID)
-//        js.accumulate("content", listOf(
-//            js.accumulate("productID", TransactionItem::getProduct),
-//            js.accumulate("quantity", TransactionItem::getQuantity)
-//        ))
-//        js.accumulate("printed", false)
-//
-//        Thread(AddTransaction(js.toString())).start()
+    private fun saveTransaction() {
+        transaction.setUserID("a0c8891a-5aeb-4e9e-974c-cdc9ba14cb0f")
+        val js: String? = Gson().toJson(transaction)
 
-        val title: String
-        val author: String
-        val categories: List<String>
+        println(js)
 
-        title="Hello"
-        author="World"
-        categories= listOf("123","me llamo jeff")
+        Thread(AddTransaction(this, js.toString())).start()
+    }
 
+    private fun generateQR(vw: View) {
 
         val intent = Intent(this, ShowQR::class.java)
         when (vw.id) {
             R.id.pay_btn -> { intent.putExtra("type", 1)
-                val value="Category [title: ${title}, author: ${author}, categories: ${categories}]"
+                val value=Gson().toJson(transaction)
                 intent.putExtra("value", value)
             }
         }
         startActivity(intent)
+    }
 
+    fun writeText(value: String) {
+        runOnUiThread { transaction_res.text = value }
     }
 }

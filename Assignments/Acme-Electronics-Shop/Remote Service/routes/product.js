@@ -1,7 +1,6 @@
 import express from "express";
 const router = express.Router();
 import Product from "../models/Product.js";
-import shortid from "shortid";
 
 router.get('/get-all', async (req, res) => {
     try {
@@ -13,15 +12,15 @@ router.get('/get-all', async (req, res) => {
     }
 });
 
-router.get('/get/:_id', async (req, res) => {
-    const products = await Product.find({_id: req.params._id});
-    res.status(200).json({products:products, message:'Succeeded'});
+router.get('/get/:productID', async (req, res) => {
+    const products = await Product.find({productID: req.params.productID});
+    res.status(200).json(products);
 });
 
 router.post('/add', async (req, res) => {
 
     const newProduct = await new Product(
-        {productID: shortid(),
+        {productID: req.body.productID,
         name: req.body.name,
         price: req.body.price,
         make: req.body.make,

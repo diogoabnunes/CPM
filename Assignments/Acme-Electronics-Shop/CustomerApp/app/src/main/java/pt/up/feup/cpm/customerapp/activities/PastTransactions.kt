@@ -23,10 +23,10 @@ class PastTransactions : AppCompatActivity() {
         val price = arrayOf("10$00", "14$00", "99$00", "108$99", "78$45", "345$98")
 
 
-        for (i in transactionId.indices){
-            list.add(Transaction(transactionId[i], "29", null, "22/03/2022", price[i] )
-            )
-        }
+//        for (i in transactionId.indices){
+//            list.add(Transaction(transactionId[i], "29", null, "22/03/2022", price[i] )
+//            )
+//        }
 
         listview.adapter = TransactionItemAdapter(this, R.layout.past_transaction_item, list)
 

@@ -6,10 +6,16 @@
     android:layout_height="fill_parent"
     tools:context=".activities.ShoppingCart">
 
+    <TextView
+        android:id="@+id/transactions_res"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_car"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/transactions_res"
         android:background="#FFFFFF"
         app:title="Shopping Cart"
         app:titleTextColor="#000000" />

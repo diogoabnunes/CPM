@@ -1,19 +1,32 @@
 package pt.up.feup.cpm.customerapp.activities
 
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.budiyev.android.codescanner.*
 import pt.up.feup.cpm.customerapp.R
+import pt.up.feup.cpm.customerapp.models.Transaction
 
 private const val CAMERA_REQUEST_CODE=101
 
 class Scan : AppCompatActivity() {
     private lateinit var codeScanner: CodeScanner
+
+    val getAddItem = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+            val data = Intent()
+            val value = result.data?.getSerializableExtra("value") as Transaction
+            data.putExtra("value", value)
+            setResult(Activity.RESULT_OK, data)
+            finish()
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,10 +53,12 @@ class Scan : AppCompatActivity() {
         // Callbacks
         codeScanner.decodeCallback = DecodeCallback {
             runOnUiThread {
+                var lastTransaction = intent.getSerializableExtra("transaction") as Transaction
+
                 val intent = Intent(this, ShowScanInfo::class.java)
                 intent.putExtra("info",it.text)
-                startActivity(intent)
-                Toast.makeText(this, "Scan result: ${it.text}", Toast.LENGTH_LONG).show()
+                intent.putExtra("value", lastTransaction)
+                getAddItem.launch(intent)
             }
         }
         codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS

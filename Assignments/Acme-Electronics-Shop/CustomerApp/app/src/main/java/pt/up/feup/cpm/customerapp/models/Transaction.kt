@@ -1,27 +1,30 @@
 package pt.up.feup.cpm.customerapp.models
 
-import java.util.*
+import androidx.constraintlayout.motion.widget.TransitionBuilder
+import java.io.Serializable
 import kotlin.collections.ArrayList
 
-class Transaction {
+class Transaction : Serializable {
     private var transactionID: String? = null
     private var userID: String? = null
-    private var content: ArrayList<Pair<Product, Number>>? = null
+    private var content: ArrayList<Pair<String, Int>> = ArrayList()
     //private var date: Date? = null
     private var date: String? = null
-    private var paid: Boolean = false
+    private var printed: Boolean = false
     private var price: String? = null
 
-    constructor(transactionID: String?, userID: String?, content: ArrayList<Pair<Product, Number>>?, date: String?, price: String?) {
+    constructor(transactionID: String?, userID: String?, content: ArrayList<Pair<String, Int>>, date: String?, price: String?) {
         this.transactionID = transactionID
         this.userID = userID
         this.content = content
         this.date = date
-        this.paid = false
+        this.printed = false
         this.price = price
     }
 
-    fun getTransactionId(): String?{
+    constructor() { }
+
+    fun getTransactionId(): String? {
         return this.transactionID
     }
 
@@ -29,20 +32,28 @@ class Transaction {
         return this.userID
     }
 
-    fun getContent(): ArrayList<Pair<Product, Number>>? {
+    fun setUserID(userID: String) {
+        this.userID = userID
+    }
+
+    fun getContent(): List<Pair<String, Int>> {
         return this.content
+    }
+
+    fun addItem(productID: String, quantity: Int) {
+        this.content.add(Pair<String, Int>(productID, quantity))
     }
 
     fun getDate(): String? {
         return this.date
     }
 
-    fun getPaid(): Boolean {
-        return this.paid
+    fun getPrinted(): Boolean {
+        return this.printed
     }
 
-    fun payTransaction() {
-        this.paid = true
+    fun printedTransaction() {
+        this.printed = true
     }
 
     fun getPrice(): String? {

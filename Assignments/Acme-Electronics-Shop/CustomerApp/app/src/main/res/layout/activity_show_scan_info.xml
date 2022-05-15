@@ -34,10 +34,17 @@
             />
 
         <TextView
-            android:id="@+id/result"
+            android:id="@+id/products_res"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_show_info" />
+
+        <Button
+            android:id="@+id/btn_back_shopping_cart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/products_res"
+            android:text="Back to Shopping Cart" />
 
     </RelativeLayout>
 
