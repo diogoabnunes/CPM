@@ -8,7 +8,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import org.json.JSONObject
 import pt.up.feup.cpm.customerapp.R
+import pt.up.feup.cpm.customerapp.utils.LoginCustomer
 
 class Login : AppCompatActivity() {
     val tvResponse by lazy { findViewById<TextView>(R.id.tv_response) }
@@ -38,9 +40,16 @@ class Login : AppCompatActivity() {
     fun setupLoginButton() {
         val loginButton = findViewById<Button>(R.id.login_button)
         loginButton.setOnClickListener {
-            val userName = findViewById<EditText>(R.id.email).text.toString()
+            val email = findViewById<EditText>(R.id.email).text.toString()
             val password = findViewById<EditText>(R.id.password).text.toString()
-            if (userName == "cpm@feup.pt" && password == "1234") {
+
+            var js = JSONObject()
+            js.accumulate("email", email)
+            js.accumulate("password", password)
+
+            Thread(LoginCustomer(this, js.toString())).start()
+
+            if (email == "cpm@feup.pt" && password == "1234") {
                 startActivity(Intent(this, Home::class.java))
                 Toast.makeText(this, "Login Success!", Toast.LENGTH_SHORT).show()
             } else {

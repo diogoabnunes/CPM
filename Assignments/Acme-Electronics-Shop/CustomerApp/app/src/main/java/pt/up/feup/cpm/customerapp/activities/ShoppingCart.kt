@@ -7,11 +7,15 @@ import android.view.View
 import android.widget.Button
 import android.widget.ListView
 import android.widget.TextView
+import org.json.JSONObject
 import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.adapter.ShoppingCartAdapter
 import pt.up.feup.cpm.customerapp.adapter.TransactionItemAdapter
+import pt.up.feup.cpm.customerapp.models.Customer
+import pt.up.feup.cpm.customerapp.models.Product
 import pt.up.feup.cpm.customerapp.models.Transaction
 import pt.up.feup.cpm.customerapp.models.TransactionItem
+import pt.up.feup.cpm.customerapp.utils.AddTransaction
 
 
 class ShoppingCart : AppCompatActivity() {
@@ -50,6 +54,18 @@ class ShoppingCart : AppCompatActivity() {
     }
 
     private fun onButtonClick(vw: View) {
+        // check if addTransaction (95%)
+
+//        var js = JSONObject()
+//        js.accumulate("userID", Customer::getUserID)
+//        js.accumulate("content", listOf(
+//            js.accumulate("productID", TransactionItem::getProduct),
+//            js.accumulate("quantity", TransactionItem::getQuantity)
+//        ))
+//        js.accumulate("printed", false)
+//
+//        Thread(AddTransaction(js.toString())).start()
+
         val title: String
         val author: String
         val categories: List<String>

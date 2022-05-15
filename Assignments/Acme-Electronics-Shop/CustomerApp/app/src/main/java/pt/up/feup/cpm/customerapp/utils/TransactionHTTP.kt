@@ -15,7 +15,7 @@ class GetTransactions(): Runnable {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL(SERVER + "/transaction/get-all")
+            url = URL("$SERVER/transaction/get-all")
             System.out.println("GET " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doInput = true
@@ -34,12 +34,12 @@ class GetTransactions(): Runnable {
     }
 }
 
-class GetTransaction(val transactionID: Transaction): Runnable {
+class GetTransaction(val userID: String): Runnable {
     override fun run() {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL(SERVER + "/transaction/$transactionID")
+            url = URL("$SERVER/transaction/$userID")
             System.out.println("GET " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doInput = true
@@ -58,7 +58,7 @@ class GetTransaction(val transactionID: Transaction): Runnable {
     }
 }
 
-class AddTransaction(val transaction: Transaction) : Runnable {
+class AddTransaction(val body: String) : Runnable {
     override fun run() {
         val url: URL
         var urlConnection: HttpURLConnection? = null
@@ -72,12 +72,12 @@ class AddTransaction(val transaction: Transaction) : Runnable {
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.useCaches = false
             val outputStream = DataOutputStream(urlConnection.outputStream)
-            val body = "{ " +
-                    "\"userID\": \"${transaction.getUserID()}\", " +
-                    "\"content\": \"${transaction.getContent()}\", " +
-                    "\"fiscalNumber\": \"${transaction.getDate()}\", " +
-                    "\"cardValidity\": \"${transaction.getPaid()}\"" + " }"
-            System.out.println("body: $body")
+//            val body = "{ " +
+//                    "\"userID\": \"${transaction.getUserID()}\", " +
+//                    "\"content\": \"${transaction.getContent()}\", " +
+//                    "\"fiscalNumber\": \"${transaction.getDate()}\", " +
+//                    "\"cardValidity\": \"${transaction.getPaid()}\"" + " }"
+//            System.out.println("body: $body")
             outputStream.writeBytes(body)
             outputStream.flush()
             outputStream.close()

@@ -8,8 +8,8 @@ router.get('/get-all', async (req, res) => {
     res.status(200).json({transactions:transactions, message:'Succeeded'});
 });
 
-router.get('/get/:transactionID', async (req, res) => {
-    const transactions = await Transaction.find({transactionID: req.params.transactionID});
+router.get('/get/:userID', async (req, res) => {
+    const transactions = await Transaction.find({userID: req.body.userID});
     res.status(200).json({transactions:transactions, message:'Succeeded'});
 })
 
@@ -19,7 +19,7 @@ router.post('/add', async (req, res) => {
         userID: req.body.userID,
         content: req.body.content,
         date: req.body.date,
-        paid: req.body.paid}
+        printed: req.body.printed}
     );
 
     await newTransaction.save();

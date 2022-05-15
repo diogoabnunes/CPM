@@ -3,6 +3,7 @@ const router = express.Router();
 import Customer from "../models/Customer.js";
 import bcrypt from "bcrypt";
 import crypto from "crypto";
+import jwt from "jsonwebtoken";
 
 router.get('/get-all', async (req, res) => {
     const customers = await Customer.find({});
@@ -33,20 +34,37 @@ router.post('/register', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-    const customer = await Customer.findOne({email: req.body.email});
-    if (customer) {
-        const cmp = await bcrypt.compare(req.body.password, customer.password);
-    
-        if (cmp) {
-            res.status(200).json({message:"Customer Logged In"});
-        }
-        else {
-            res.status(401).json({message:"Wrong Password..."});
-        }
-    }
-    else {
-        res.status(401).json({message:"Wrong Email..."});
-    }
-})
+    await Customer.find({email: req.body.email})
+        .exec()
+        .then(user => {
+            if (user.length < 1) {
+                return res.status(401).json({message:"Authentication failed..."});
+            }
+            bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+                if (err) {
+                    return res.status(401).json({message:"Authentication failed..."});
+                }
+                if (result) {
+                    const token = jwt.sign({
+                        email: user[0].email,
+                        userID: user[0].userID
+                    },
+                    'secret',
+                    {
+                        expiresIn: "1h"
+                    });
+                    return res.status(200).json({
+                        message:"Authentication successful!",
+                        token: token
+                    });
+                }
+                return res.status(401).json({message:"Authentication failed..."});
+            });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json({error:err});
+        });
+});
 
 export default router;
