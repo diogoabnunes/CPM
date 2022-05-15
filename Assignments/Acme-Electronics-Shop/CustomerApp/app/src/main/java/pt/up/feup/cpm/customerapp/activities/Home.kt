@@ -12,36 +12,18 @@ import pt.up.feup.cpm.customerapp.models.Product
 import pt.up.feup.cpm.customerapp.models.Transaction
 import pt.up.feup.cpm.customerapp.utils.GetProducts
 import pt.up.feup.cpm.customerapp.utils.GetTransactions
+import java.lang.reflect.Type
 import java.util.ArrayList
+import com.fasterxml.jackson.module.kotlin.*
 
 class Home : AppCompatActivity() {
-    var products : List<Product>? = ArrayList<Product>()
-    var transactions : List<Transaction>? = ArrayList<Transaction>()
-    var httpResponse = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        getProductsFromDB()
-        getTransactionsFromDB()
-
         setupShoppingCart()
         setupPastTransitions()
-    }
-
-    private fun getProductsFromDB() {
-        Thread(GetProducts(this)).start()
-
-        val typeToken = object : TypeToken<List<Product>>() {}.type
-        products = Gson().fromJson<List<Product>>(httpResponse, typeToken)
-    }
-
-    private fun getTransactionsFromDB() {
-        Thread(GetTransactions(this)).start()
-
-        val typeToken = object : TypeToken<List<Transaction>>() {}.type
-        transactions = Gson().fromJson<List<Transaction>>(httpResponse, typeToken)
     }
 
     private fun setupShoppingCart() {
@@ -58,21 +40,5 @@ class Home : AppCompatActivity() {
             val intent = Intent(this, PastTransactions::class.java)
             startActivity(intent)
         }
-    }
-
-    fun appendText(value: String) {
-        runOnUiThread { httpResponse += "\n" + value }
-    }
-
-    fun writeText(value: String) {
-        runOnUiThread { httpResponse = value }
-    }
-
-    fun getHomeProducts() : List<Product>? {
-        return this.products
-    }
-
-    fun getHomeTransactions() : List<Transaction>? {
-        return this.transactions
     }
 }
