@@ -2,7 +2,6 @@ package pt.up.feup.cpm.customerapp.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -10,7 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import org.json.JSONObject
 import pt.up.feup.cpm.customerapp.R
-import pt.up.feup.cpm.customerapp.utils.LoginCustomer
+import pt.up.feup.cpm.customerapp.http.LoginCustomer
 
 class Login : AppCompatActivity() {
     val email by lazy { findViewById<EditText>(R.id.email) }

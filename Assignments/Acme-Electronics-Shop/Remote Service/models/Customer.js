@@ -14,7 +14,8 @@ export const customerSchema = new mongoose.Schema({
     password: { type: String, required: true },
     cardType: { type: String, required: true },
     cardNumber: { type: String, required: true },
-    cardValidity: { type: String, required: true }
+    cardValidity: { type: String, required: true },
+    publicKey: { type: String, required: true }
 });
 
 let Customer = mongoose.model("Customer", customerSchema);

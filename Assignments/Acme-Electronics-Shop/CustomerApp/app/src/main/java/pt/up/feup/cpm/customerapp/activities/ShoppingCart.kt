@@ -11,16 +11,12 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.google.gson.Gson
-import com.google.zxing.integration.android.IntentIntegrator
-import org.json.JSONObject
 import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.adapter.ShoppingCartAdapter
-import pt.up.feup.cpm.customerapp.adapter.TransactionItemAdapter
-import pt.up.feup.cpm.customerapp.models.Customer
 import pt.up.feup.cpm.customerapp.models.Product
 import pt.up.feup.cpm.customerapp.models.Transaction
 import pt.up.feup.cpm.customerapp.models.TransactionItem
-import pt.up.feup.cpm.customerapp.utils.AddTransaction
+import pt.up.feup.cpm.customerapp.http.AddTransaction
 import kotlin.collections.mutableListOf
 
 class ShoppingCart : AppCompatActivity() {

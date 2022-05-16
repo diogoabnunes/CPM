@@ -7,9 +7,7 @@ import android.os.Bundle
 import android.widget.TextView
 import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.models.Product
-import pt.up.feup.cpm.customerapp.models.Transaction
-import pt.up.feup.cpm.customerapp.models.TransactionItem
-import pt.up.feup.cpm.customerapp.utils.GetProduct
+import pt.up.feup.cpm.customerapp.http.GetProduct
 import java.util.ArrayList
 
 class ShowScanInfo : AppCompatActivity() {
