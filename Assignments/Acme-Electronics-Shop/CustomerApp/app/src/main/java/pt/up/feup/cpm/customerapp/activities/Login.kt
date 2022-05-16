@@ -12,6 +12,7 @@ import org.json.JSONObject
 import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.http.LoginCustomer
 import pt.up.feup.cpm.customerapp.models.Customer
+import kotlinx.coroutines.*
 
 class Login : AppCompatActivity() {
     val email by lazy { findViewById<EditText>(R.id.email) }
@@ -41,16 +42,22 @@ class Login : AppCompatActivity() {
             val js = JSONObject()
             js.accumulate("email", email.text.toString())
             js.accumulate("password", password.text.toString())
-            Thread(LoginCustomer(this, js.toString())).start()
 
-            if (!tvResponse.contains("failed")) {
-                val intent = Intent(this, Home::class.java)
-                intent.putExtra("email", email.text.toString())
-                startActivity(intent)
-                Toast.makeText(this, "Login Success!", Toast.LENGTH_LONG).show()
-            }
-            else {
-                Toast.makeText(this, "Login failed...", Toast.LENGTH_LONG).show()
+            runBlocking {
+                launch {
+                    Thread(LoginCustomer(this@Login, js.toString())).start()
+                }
+                delay(1000L)
+
+                if (!tvResponse.contains("failed") && tvResponse != "") {
+                    val intent = Intent(this@Login, Home::class.java)
+                    intent.putExtra("email", email.text.toString())
+                    startActivity(intent)
+                    Toast.makeText(this@Login, "Login Success!", Toast.LENGTH_LONG).show()
+                }
+                else {
+                    Toast.makeText(this@Login, "Login failed...", Toast.LENGTH_LONG).show()
+                }
             }
         }
     }

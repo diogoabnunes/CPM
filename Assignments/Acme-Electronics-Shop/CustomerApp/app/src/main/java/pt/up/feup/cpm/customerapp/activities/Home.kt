@@ -3,9 +3,9 @@ package pt.up.feup.cpm.customerapp.activities
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
+import kotlinx.coroutines.*
 import org.json.JSONObject
 import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.http.GetCustomer
@@ -24,11 +24,15 @@ class Home : AppCompatActivity() {
 
         val email = intent.getStringExtra("email").toString()
 
-        Thread(GetCustomer(this, email)).start()
+        runBlocking {
+            launch {
+                Thread(GetCustomer(this@Home, email)).start()
+            }
+            delay(1000L)
 
-        val json = JSONObject(user_response)
-        customer = Gson().fromJson(json.toString(), Customer::class.java)
-        val b = 1
+            val json = JSONObject(user_response)
+            customer = Gson().fromJson(json.toString(), Customer::class.java)
+        }
     }
 
     private fun setupShoppingCart() {
