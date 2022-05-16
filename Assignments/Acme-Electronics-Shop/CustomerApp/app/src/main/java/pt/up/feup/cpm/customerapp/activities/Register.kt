@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.security.KeyPairGeneratorSpec
 import android.util.Base64
 import android.widget.*
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import pt.up.feup.cpm.customerapp.R
 import org.json.JSONObject
 import pt.up.feup.cpm.customerapp.utils.*
@@ -59,15 +61,19 @@ class Register : AppCompatActivity() {
             generateAndStoreKeys()
             js.accumulate("publicKey", getPubKey().toString())
 
-            Thread(AddCustomer(this, js.toString())).start()
 
-            if (tvResponse.text.endsWith("400")) {
-                Toast.makeText(this, "Error registering customer...", Toast.LENGTH_LONG).show()
-            }
-            else {
-                val intent = Intent(this, Home::class.java)
-                intent.putExtra("email", email.text.toString())
-                startActivity(intent)
+            runBlocking {
+                launch {
+                    Thread(AddCustomer(this@Register, js.toString())).start()
+                }
+                if (tvResponse.text.endsWith("400")) {
+                    Toast.makeText(this@Register, "Error registering customer...", Toast.LENGTH_LONG).show()
+                }
+                else {
+                    val intent = Intent(this@Register, Home::class.java)
+                    intent.putExtra("email", email.text.toString())
+                    startActivity(intent)
+                }
             }
         }
     }

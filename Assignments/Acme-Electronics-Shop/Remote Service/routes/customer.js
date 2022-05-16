@@ -26,12 +26,6 @@ router.get('/get/:email', async (req, res) => {
 
 router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
-    if ((parseInt(fiscalNumber).length != 9) ||
-        (parseInt(cardNumber).length > 16) ||
-        (parseInt(cardNumber).length <15))
-    {
-        return res.status(400).json({message: error.message})
-    }
     const newCustomer = await new Customer(
         {userID: crypto.randomUUID(),
         name: req.body.name,
