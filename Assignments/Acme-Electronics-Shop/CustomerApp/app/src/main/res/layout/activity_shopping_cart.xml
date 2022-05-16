@@ -4,48 +4,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:orientation="vertical"
     tools:context=".activities.ShoppingCart">
 
-    <TextView
-        android:id="@+id/transactions_res"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_car"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/transactions_res"
         android:background="#FFFFFF"
         app:title="Shopping Cart"
         app:titleTextColor="#000000" />
+    <TextView
+        android:id="@+id/total"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="Total: 10000€"/>
+
+    <TextView
+    android:id="@+id/transactions_res"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
     <ListView
         android:id="@+id/list_item"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbar_car"
         tools:listitem="@layout/list_item" />
-
-    <LinearLayout
-        android:id="@+id/LinearLayout02"
+    <Space
         android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="10" />
+
+</RelativeLayout>
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_weight="10" />
+
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
 
         <Button
             android:id="@+id/add_item_btn"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/add_item"></Button>
 
         <Button
             android:id="@+id/pay_btn"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/pay"></Button>
-    </LinearLayout>
-
-
+    </TableRow>
 </RelativeLayout>
