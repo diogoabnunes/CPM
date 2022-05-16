@@ -20,8 +20,8 @@ class TransactionItemAdapter(var mCtx: Context, var resources: Int, var items: L
         val price: TextView = view.findViewById(R.id.price)
 
         var mItem:Transaction = items[position]
-        id.text = mItem.getTransactionId()
-        date.text = mItem.getDate()
+        id.text = mItem.transactionID
+        date.text = mItem.date
         return view
     }
 }

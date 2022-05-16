@@ -21,7 +21,7 @@ class ShoppingCartAdapter(var mCtx: Context, var resources: Int, var items: List
         val price: TextView = view.findViewById(R.id.price)
 
         var mItem: TransactionItem = items[position]
-        quantity.text = mItem.getQuantity().toString()
+        quantity.text = mItem.quantity.toString()
         return view
     }
 }

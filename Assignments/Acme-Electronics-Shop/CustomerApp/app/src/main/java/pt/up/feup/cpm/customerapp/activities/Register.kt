@@ -1,17 +1,16 @@
 package pt.up.feup.cpm.customerapp.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.security.KeyPairGeneratorSpec
 import android.util.Base64
-import android.widget.TextView
+import android.widget.*
 import pt.up.feup.cpm.customerapp.R
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RadioGroup
 import org.json.JSONObject
 import pt.up.feup.cpm.customerapp.utils.*
 import pt.up.feup.cpm.customerapp.http.AddCustomer
+import pt.up.feup.cpm.customerapp.http.GetCustomer
 import java.math.BigInteger
 import java.security.KeyPairGenerator
 import java.security.KeyStore
@@ -58,9 +57,18 @@ class Register : AppCompatActivity() {
             js.accumulate("cardValidity", card_validity.text.toString())
 
             generateAndStoreKeys()
-            js.accumulate("publicKey", getPubKey())
+            js.accumulate("publicKey", getPubKey().toString())
 
             Thread(AddCustomer(this, js.toString())).start()
+
+            if (tvResponse.text.endsWith("400")) {
+                Toast.makeText(this, "Error registering customer...", Toast.LENGTH_LONG).show()
+            }
+            else {
+                val intent = Intent(this, Home::class.java)
+                intent.putExtra("email", email.text.toString())
+                startActivity(intent)
+            }
         }
     }
 

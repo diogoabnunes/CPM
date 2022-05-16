@@ -17,6 +17,7 @@ import pt.up.feup.cpm.customerapp.models.Product
 import pt.up.feup.cpm.customerapp.models.Transaction
 import pt.up.feup.cpm.customerapp.models.TransactionItem
 import pt.up.feup.cpm.customerapp.http.AddTransaction
+import pt.up.feup.cpm.customerapp.models.Customer
 import kotlin.collections.mutableListOf
 
 class ShoppingCart : AppCompatActivity() {
@@ -69,11 +70,11 @@ class ShoppingCart : AppCompatActivity() {
     }
 
     private fun onButtonClick(vw: View) {
-        var random =(0..100).shuffled().random()
-        if(random<=95){
+        val random = (0..100).shuffled().random()
+        if(random <= 95) {
             Toast.makeText(this, "Payment Success! $random", Toast.LENGTH_SHORT).show()
 
-            var transaction = Transaction()
+            val transaction = Transaction()
             saveTransaction(transaction)
             generateQR(vw, transaction)
         }
@@ -82,13 +83,14 @@ class ShoppingCart : AppCompatActivity() {
     }
 
     private fun saveTransaction(transaction: Transaction) {
-        transaction.setUserID("a0c8891a-5aeb-4e9e-974c-cdc9ba14cb0f")
+        val customer = intent.getSerializableExtra("customer") as Customer
+        transaction.userID = customer.userID
         val content = mutableListOf<TransactionItem>()
         for (i in products) {
             val transactionItem = TransactionItem(i, 1)
             content.add(transactionItem)
         }
-        transaction.setContent(content)
+        transaction.content = content
         val js: String? = Gson().toJson(transaction)
         println(js)
         Thread(AddTransaction(this, js.toString())).start()

@@ -13,7 +13,7 @@ router.get('/get-all', async (req, res) => {
 });
 
 router.get('/get/:productID', async (req, res) => {
-    const products = await Product.find({productID: req.params.productID});
+    const products = await Product.findOne({productID: req.params.productID});
     res.status(200).json(products);
 });
 
