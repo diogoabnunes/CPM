@@ -2,36 +2,34 @@ package pt.up.feup.cpm.customerapp.activities
 
 import android.app.Activity
 import android.content.Intent
-import android.media.Image
-import androidx.appcompat.app.AppCompatActivity
+import android.database.DataSetObserver
 import android.os.Bundle
 import android.view.View
-import android.widget.*
+import android.widget.Button
+import android.widget.ListView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.view.get
-import androidx.core.view.size
+import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.adapter.ShoppingCartAdapter
+import pt.up.feup.cpm.customerapp.http.AddTransaction
 import pt.up.feup.cpm.customerapp.models.Product
 import pt.up.feup.cpm.customerapp.models.Transaction
 import pt.up.feup.cpm.customerapp.models.TransactionItem
-import pt.up.feup.cpm.customerapp.http.AddTransaction
-import kotlin.collections.mutableListOf
+
 
 class ShoppingCart : AppCompatActivity() {
     private var products = mutableListOf<Product>()
-
+    var totalText: TextView? = null
     val transaction_res by lazy { findViewById<TextView>(R.id.transactions_res) }
-
+    var list = mutableListOf<TransactionItem>()
     val getAddItem = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             products = result.data?.getSerializableExtra("value4") as MutableList<Product>
         }
     }
-    private lateinit var quantity: TextView
-    private lateinit var increase_btn: ImageButton
-    private lateinit var decrease_btn: ImageButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,12 +37,10 @@ class ShoppingCart : AppCompatActivity() {
 
         setupPayButton()
         setupAddItemButton()
-        //increaseQuantity()
-        //decreaseQuantity()
 
 
         var listview = findViewById<ListView>(R.id.list_item)
-        var list = mutableListOf<TransactionItem>()
+        totalText = findViewById(R.id.total)
 
         val transactionName = arrayOf( "iPad","Smartphone","Watch","Mouse","HeadPhones","Computer", "KeyBoard", "Door")
         val quantity = arrayOf(2,1,1,1,3,4,2,6)
@@ -56,6 +52,7 @@ class ShoppingCart : AppCompatActivity() {
             )
         }
         listview.adapter = ShoppingCartAdapter(this, R.layout.list_item, list)
+        listview.adapter.registerDataSetObserver(observer);
     }
 
     private fun setupPayButton() {
@@ -114,29 +111,28 @@ class ShoppingCart : AppCompatActivity() {
     fun writeText(value: String) {
         runOnUiThread { transaction_res.text = value }
     }
-/*
-    private fun increaseQuantity(){
-        quantity = findViewById(R.id.quantity)
-        increase_btn = findViewById(R.id.increase_btn)
 
-        var quant = 0
-
-        increase_btn.setOnClickListener{
-            quant += 1
-
-            quantity.text = quant.toString()
+    fun calculateTotal(): Double {
+        var total = 0.0
+        for (product in list) {
+            var price = product.getProduct()!!.getPrice()
+            var quanti = product.getQuantity()
+            var num = price?.times(quanti!!)
+            if (num != null) {
+                total += num
+            }
+        }
+        return String.format("%.2f", total).toDouble()
+    }
+    var observer: DataSetObserver = object : DataSetObserver() {
+        override fun onChanged() {
+            super.onChanged()
+            setTotal()
         }
     }
-    private fun decreaseQuantity(){
-        quantity = findViewById(R.id.quantity)
-        decrease_btn = findViewById(R.id.decrease_btn)
 
-        var quant = 0
+    fun setTotal(){
+        totalText?.setText("Total: " + calculateTotal() + "€")
+    }
 
-        decrease_btn.setOnClickListener{
-            quant -= 1
-
-            quantity.text = quant.toString()
-        }
-    }*/
 }

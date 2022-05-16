@@ -37,6 +37,7 @@ class ShoppingCartAdapter(var mCtx: Context, var resources: Int, var items: List
             notifyDataSetChanged()
         })
 
+        //REMOVER QUANTIDADE
         subtractQuantity.setOnClickListener(View.OnClickListener {
             mItem.removeQuantity()
             quantity.text = mItem.getQuantity().toString()
@@ -44,10 +45,10 @@ class ShoppingCartAdapter(var mCtx: Context, var resources: Int, var items: List
             notifyDataSetChanged()
         })
 
-        removeItem.setOnClickListener(View.OnClickListener {
-            items.drop(position)
-            notifyDataSetChanged()
-        })
+        //removeItem.setOnClickListener(View.OnClickListener {
+        //    items.remove(position)
+        //    notifyDataSetChanged()
+        //})
 
         quantity.text = mItem.getQuantity().toString()
         name.text = mItem.getProduct()?.getName()
