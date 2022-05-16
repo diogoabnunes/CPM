@@ -1,6 +1,5 @@
-package pt.up.feup.cpm.customerapp.utils
+package pt.up.feup.cpm.customerapp.http
 
-import org.json.JSONObject
 import pt.up.feup.cpm.customerapp.activities.Login
 import pt.up.feup.cpm.customerapp.activities.Register
 import pt.up.feup.cpm.customerapp.models.Customer

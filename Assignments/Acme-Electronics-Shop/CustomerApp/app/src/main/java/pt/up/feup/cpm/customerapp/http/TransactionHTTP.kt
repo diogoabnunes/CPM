@@ -1,9 +1,6 @@
-package pt.up.feup.cpm.customerapp.utils
+package pt.up.feup.cpm.customerapp.http
 
 import pt.up.feup.cpm.customerapp.activities.*
-import pt.up.feup.cpm.customerapp.models.Customer
-import pt.up.feup.cpm.customerapp.models.Product
-import pt.up.feup.cpm.customerapp.models.Transaction
 import java.io.DataOutputStream
 import java.net.HttpURLConnection
 import java.net.URL

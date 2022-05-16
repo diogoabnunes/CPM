@@ -3,18 +3,8 @@ package pt.up.feup.cpm.customerapp.activities
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import pt.up.feup.cpm.customerapp.R
-import pt.up.feup.cpm.customerapp.models.Product
-import pt.up.feup.cpm.customerapp.models.Transaction
-import pt.up.feup.cpm.customerapp.utils.GetProducts
-import pt.up.feup.cpm.customerapp.utils.GetTransactions
-import java.lang.reflect.Type
-import java.util.ArrayList
-import com.fasterxml.jackson.module.kotlin.*
 
 class Home : AppCompatActivity() {
 

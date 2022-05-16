@@ -1,9 +1,7 @@
-package pt.up.feup.cpm.customerapp.utils
+package pt.up.feup.cpm.customerapp.http
 
 import pt.up.feup.cpm.customerapp.activities.Home
-import pt.up.feup.cpm.customerapp.activities.ShoppingCart
 import pt.up.feup.cpm.customerapp.activities.ShowScanInfo
-import pt.up.feup.cpm.customerapp.models.Product
 import java.net.HttpURLConnection
 import java.net.URL
 

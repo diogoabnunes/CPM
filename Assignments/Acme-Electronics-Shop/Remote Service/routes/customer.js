@@ -31,8 +31,9 @@ router.post('/register', async (req, res) => {
         password: hashedPassword,
         cardType: req.body.cardType,
         cardNumber: req.body.cardNumber,
-        cardValidity: req.body.cardValidity}
-    );
+        cardValidity: req.body.cardValidity,
+        publicKey: req.body.publicKey
+    });
 
     try {
         const data = await newCustomer.save();
