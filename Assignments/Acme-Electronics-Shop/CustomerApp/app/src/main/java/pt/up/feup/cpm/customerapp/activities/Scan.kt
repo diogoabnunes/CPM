@@ -23,7 +23,9 @@ class Scan : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             val data = Intent()
             val value = result.data?.getSerializableExtra("value3") as MutableList<Product>
+            val quants = result.data?.getSerializableExtra("quants3") as MutableList<Int>
             data.putExtra("value4", ArrayList(value))
+            data.putExtra("quants4", ArrayList(quants))
             setResult(Activity.RESULT_OK, data)
             finish()
         }
@@ -55,9 +57,11 @@ class Scan : AppCompatActivity() {
         codeScanner.decodeCallback = DecodeCallback {
             runOnUiThread {
                 val products = intent.getSerializableExtra("value1") as MutableList<Product>
+                val quantities = intent.getSerializableExtra("quants1") as MutableList<Int>
                 val intent = Intent(this, ShowScanInfo::class.java)
                 intent.putExtra("info",it.text)
                 intent.putExtra("value2", ArrayList(products))
+                intent.putExtra("quants2", ArrayList(quantities))
                 getAddItem.launch(intent)
             }
         }

@@ -29,15 +29,18 @@ class ShowScanInfo : AppCompatActivity() {
         Thread(GetProduct(this, productID)).start()
 
         val products = intent.getSerializableExtra("value2") as MutableList<Product>
+        val quantities = intent.getSerializableExtra("quants2") as MutableList<Int>
 
         val json = JSONObject(products_res)
         val prod = Gson().fromJson(json.toString(), Product::class.java)
         products.add(prod)
+        quantities.add(1)
 
         val linkTextView2 = findViewById<TextView>(R.id.btn_back_shopping_cart)
         linkTextView2.setOnClickListener {
             val data = Intent()
             data.putExtra("value3", ArrayList(products))
+            data.putExtra("quants3", ArrayList(quantities))
             setResult(Activity.RESULT_OK, data)
             finish()
         }

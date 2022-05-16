@@ -7,54 +7,60 @@
     android:orientation="vertical"
     tools:context=".activities.ShoppingCart">
 
-<RelativeLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    <TableRow
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar_car"
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar_car"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="25dp"
+            android:background="#FFFFFF"
+            app:title="Shopping Cart"
+            app:titleTextColor="#000000" />
+
+        <TextView
+            android:id="@+id/total"
+            android:layout_width="214dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Total: 0 €"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+    </TableRow>
+
+    <RelativeLayout
+        android:id="@+id/rel1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        app:title="Shopping Cart"
-        app:titleTextColor="#000000" />
-    <TextView
-        android:id="@+id/total"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="18dp"
-        android:layout_marginRight="5dp"
-        android:layout_alignParentRight="true"
-        android:layout_height="wrap_content"
-        android:textStyle="bold"
-        android:textSize="20dp"
-        android:text="Total: 10000€"/>
+        android:layout_above="@id/tableRow"
+        android:layout_below="@id/toolbar">
 
-    <TextView
-    android:id="@+id/transactions_res"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" />
-    <ListView
-        android:id="@+id/list_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbar_car"
-        tools:listitem="@layout/list_item" />
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_weight="10" />
+        <ListView
+            android:id="@+id/list_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/list_item" />
 
-</RelativeLayout>
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_weight="10" />
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_weight="10" />
+        <TextView
+            android:id="@+id/transactions_res"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
 
     <TableRow
-        android:id="@+id/tableRow1"
-        android:layout_width="fill_parent"
+        android:id="@+id/tableRow"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="false"
         android:layout_alignParentBottom="true">
 
         <Button

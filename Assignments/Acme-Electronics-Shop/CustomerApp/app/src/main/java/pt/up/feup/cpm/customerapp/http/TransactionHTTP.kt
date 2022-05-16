@@ -5,31 +5,7 @@ import java.io.DataOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
-class GetTransactions(val result: Home): Runnable {
-    override fun run() {
-        val url: URL
-        var urlConnection: HttpURLConnection? = null
-        try {
-            url = URL("$SERVER/transaction/get-all")
-            System.out.println("GET " + url.toExternalForm())
-            urlConnection = url.openConnection() as HttpURLConnection
-            urlConnection.doInput = true
-            urlConnection.setRequestProperty("Content-Type", "application/json")
-            urlConnection.useCaches = false
-            val responseCode = urlConnection.responseCode
-            if (responseCode == 200)
-                println(readStream(urlConnection.inputStream))
-            else
-                println("Code: $responseCode")
-        } catch (e: Exception) {
-            println(e.toString())
-        } finally {
-            urlConnection?.disconnect()
-        }
-    }
-}
-
-class GetTransaction(act: PastTransactions, val userID: String): Runnable {
+class GetTransactions(act: PastTransactions, val userID: String): Runnable {
     override fun run() {
         val url: URL
         var urlConnection: HttpURLConnection? = null

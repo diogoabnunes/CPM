@@ -23,12 +23,17 @@ import kotlin.collections.mutableListOf
 
 class ShoppingCart : AppCompatActivity() {
     private var products = mutableListOf<Product>()
-    var totalText: TextView? = null
+    private var quantities = mutableListOf<Int>()
+
+    val totalText by lazy { findViewById<TextView>(R.id.total) }
     val transaction_res by lazy { findViewById<TextView>(R.id.transactions_res) }
     var list = mutableListOf<TransactionItem>()
+    val listview by lazy { findViewById<ListView>(R.id.list_item) }
+
     val getAddItem = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
         if (result.resultCode == Activity.RESULT_OK) {
             products = result.data?.getSerializableExtra("value4") as MutableList<Product>
+            quantities = result.data?.getSerializableExtra("quants4") as MutableList<Int>
         }
     }
 
@@ -39,19 +44,16 @@ class ShoppingCart : AppCompatActivity() {
         setupPayButton()
         setupAddItemButton()
 
+//        val transactionName = arrayOf( "iPad","iPad","Smartphone","Watch","Mouse","HeadPhones","Computer", "KeyBoard", "Door")
+//        val quantity = arrayOf(1,2,1,1,1,3,4,2,6)
+//        val price = arrayOf(1.0,10.5, 3.8, 2.0, 177.99, 35.4, 8.6, 23.0, 16.8, 234.6)
 
-        var listview = findViewById<ListView>(R.id.list_item)
-        totalText = findViewById(R.id.total)
-
-        val transactionName = arrayOf( "iPad","Smartphone","Watch","Mouse","HeadPhones","Computer", "KeyBoard", "Door")
-        val quantity = arrayOf(2,1,1,1,3,4,2,6)
-        val price = arrayOf(10.5, 3.8, 2.0, 177.99, 35.4, 8.6, 23.0, 16.8, 234.6)
-
-        for (i in transactionName.indices){
+        for (i in products.indices){
             list.add(
-                TransactionItem(Product("1", transactionName[i], price[i], "b", "c", "d"), quantity[i])
+                TransactionItem(products[i], quantities[i])
             )
         }
+
         listview.adapter = ShoppingCartAdapter(this, R.layout.list_item, list)
         listview.adapter.registerDataSetObserver(observer);
     }
@@ -67,6 +69,7 @@ class ShoppingCart : AppCompatActivity() {
 
             val intent = Intent(this, Scan::class.java)
             intent.putExtra("value1", ArrayList(products))
+            intent.putExtra("quants1", ArrayList(quantities))
             getAddItem.launch(intent)
         }
     }
@@ -114,12 +117,12 @@ class ShoppingCart : AppCompatActivity() {
         runOnUiThread { transaction_res.text = value }
     }
 
-    fun calculateTotal(): Double {
+    private fun calculateTotal(): Double {
         var total = 0.0
         for (product in list) {
-            var price = product.product?.price
-            var quanti = product.quantity
-            var num = price?.times(quanti!!)
+            val price = product.product?.price
+            val quanti = product.quantity
+            val num = price?.times(quanti!!)
             if (num != null) {
                 total += num
             }
@@ -134,7 +137,7 @@ class ShoppingCart : AppCompatActivity() {
     }
 
     fun setTotal(){
-        totalText?.setText("Total: " + calculateTotal() + "€")
+        val calcTotal = "Total: " + calculateTotal() + "€"
+        totalText?.text = calcTotal
     }
-
 }
