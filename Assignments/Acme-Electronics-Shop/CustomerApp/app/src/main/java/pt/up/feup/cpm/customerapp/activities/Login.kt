@@ -7,15 +7,17 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.gson.Gson
 import org.json.JSONObject
 import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.http.LoginCustomer
+import pt.up.feup.cpm.customerapp.models.Customer
 
 class Login : AppCompatActivity() {
     val email by lazy { findViewById<EditText>(R.id.email) }
     val password by lazy { findViewById<EditText>(R.id.password) }
     val loginButton by lazy { findViewById<Button>(R.id.login_button) }
-    val tvResponse by lazy { findViewById<TextView>(R.id.tv_response) }
+    var tvResponse = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,13 +43,13 @@ class Login : AppCompatActivity() {
             js.accumulate("password", password.text.toString())
             Thread(LoginCustomer(this, js.toString())).start()
 
-            try {
+            if (!tvResponse.contains("failed")) {
                 val intent = Intent(this, Home::class.java)
                 intent.putExtra("email", email.text.toString())
                 startActivity(intent)
                 Toast.makeText(this, "Login Success!", Toast.LENGTH_LONG).show()
             }
-            catch (error: Error) {
+            else {
                 Toast.makeText(this, "Login failed...", Toast.LENGTH_LONG).show()
             }
         }
@@ -60,13 +62,5 @@ class Login : AppCompatActivity() {
             val intent = Intent(this, Home::class.java)
             startActivity(intent)
         }
-    }
-
-    fun appendText(value: String) {
-        runOnUiThread { tvResponse.text = tvResponse.text.toString() + "\n" + value }
-    }
-
-    fun writeText(value: String) {
-        runOnUiThread { tvResponse.text = value }
     }
 }

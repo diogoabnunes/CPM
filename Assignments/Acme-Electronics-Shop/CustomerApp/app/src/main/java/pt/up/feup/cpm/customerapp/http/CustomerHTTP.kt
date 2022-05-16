@@ -1,5 +1,6 @@
 package pt.up.feup.cpm.customerapp.http
 
+import pt.up.feup.cpm.customerapp.activities.Home
 import pt.up.feup.cpm.customerapp.activities.Login
 import pt.up.feup.cpm.customerapp.activities.Register
 import pt.up.feup.cpm.customerapp.models.Customer
@@ -12,7 +13,7 @@ class GetCustomers(): Runnable {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL(SERVER + "/customer/get-all")
+            url = URL("$SERVER/customer/get-all")
             System.out.println("GET " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doInput = true
@@ -31,24 +32,24 @@ class GetCustomers(): Runnable {
     }
 }
 
-class GetCustomer(val act: Login, val userID: Customer): Runnable {
+class GetCustomer(val act: Home, val email: String): Runnable {
     override fun run() {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL(SERVER + "/customer/$userID")
-            System.out.println("GET " + url.toExternalForm())
+            url = URL("$SERVER/customer/get/$email")
+            println("GET " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doInput = true
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.useCaches = false
             val responseCode = urlConnection.responseCode
             if (responseCode == 200)
-                System.out.println(readStream(urlConnection.inputStream))
+                act.user_response = (readStream(urlConnection.inputStream))
             else
-                System.out.println("Code: $responseCode")
+                println("Code: $responseCode")
         } catch (e: Exception) {
-            System.out.println(e.toString())
+            println(e.toString())
         } finally {
             urlConnection?.disconnect()
         }
@@ -104,7 +105,6 @@ class LoginCustomer(val act: Login, val body: String): Runnable {
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.useCaches = false
             val outputStream = DataOutputStream(urlConnection.outputStream)
-            act.appendText("body: $body")
             outputStream.writeBytes(body)
             outputStream.flush()
             outputStream.close()
@@ -112,7 +112,7 @@ class LoginCustomer(val act: Login, val body: String): Runnable {
             // get response
             val responseCode = urlConnection.responseCode
             if (responseCode == 200)
-                System.out.println(readStream(urlConnection.inputStream))
+                act.tvResponse = (readStream(urlConnection.inputStream))
             else
                 System.out.println("Code: $responseCode")
         }

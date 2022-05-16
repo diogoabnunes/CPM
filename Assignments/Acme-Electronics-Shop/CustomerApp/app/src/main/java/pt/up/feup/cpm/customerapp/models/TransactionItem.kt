@@ -2,26 +2,10 @@ package pt.up.feup.cpm.customerapp.models
 
 import java.io.Serializable
 
-class TransactionItem : Serializable {
-    private var product: Product? = null
-    private var quantity: Int? = null
-
-    constructor(product: Product?, quantity: Int?) {
-        this.product = product
-        this.quantity = quantity
-    }
-
-    fun getProduct(): Product? {
-        return this.product
-    }
-
-    fun getQuantity(): Int? {
-        return this.quantity
-    }
-
-    fun setQuantity(quantity: Int?){
-        this.quantity = quantity
-    }
+class TransactionItem(
+    var product: Product? = null,
+    var quantity: Int? = null
+): Serializable{
 
     fun addQuantity(){
         this.quantity = this.quantity?.plus(1)

@@ -112,6 +112,7 @@
                 android:drawablePadding="25dp"
                 android:hint="@string/card_number"
                 android:inputType="number"
+                android:maxLength="16"
                 android:paddingBottom="20dp" />
 
             <LinearLayout
@@ -156,7 +157,7 @@
                     android:autofillHints=""
                     android:drawablePadding="10dp"
                     android:hint="@string/card_validity"
-                    android:inputType="text"
+                    android:inputType="date"
                     android:paddingBottom="20dp" />
 
             </LinearLayout>

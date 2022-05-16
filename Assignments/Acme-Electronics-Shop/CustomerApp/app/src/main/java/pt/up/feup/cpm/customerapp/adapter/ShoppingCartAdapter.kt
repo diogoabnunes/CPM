@@ -32,7 +32,7 @@ class ShoppingCartAdapter(var mCtx: Context, var resources: Int, var items: List
         //ADICIONA QUANTIDADE
         addQuantity.setOnClickListener(View.OnClickListener {
             mItem.addQuantity()
-            quantity.text = mItem.getQuantity().toString()
+            quantity.text = mItem.quantity.toString()
             //adicionar func para atualizar o preço final
             notifyDataSetChanged()
         })
@@ -40,7 +40,7 @@ class ShoppingCartAdapter(var mCtx: Context, var resources: Int, var items: List
         //REMOVER QUANTIDADE
         subtractQuantity.setOnClickListener(View.OnClickListener {
             mItem.removeQuantity()
-            quantity.text = mItem.getQuantity().toString()
+            quantity.text = mItem.quantity.toString()
             //adicionar func para atualizar o preço final
             notifyDataSetChanged()
         })
@@ -50,9 +50,10 @@ class ShoppingCartAdapter(var mCtx: Context, var resources: Int, var items: List
         //    notifyDataSetChanged()
         //})
 
-        quantity.text = mItem.getQuantity().toString()
-        name.text = mItem.getProduct()?.getName()
-        price.text = mItem.getProduct()?.getPrice().toString() + "€"
+        quantity.text = mItem.quantity.toString()
+        name.text = mItem.product?.name.toString()
+        price.text = mItem.product?.price.toString() + "€"
+
         return view
     }
 }

@@ -42,7 +42,7 @@ class GetProduct(val act: ShowScanInfo, val productID: String?): Runnable {
             urlConnection.useCaches = false
             val responseCode = urlConnection.responseCode
             if (responseCode == 200)
-                act.writeText(readStream(urlConnection.inputStream))
+                act.products_res = (readStream(urlConnection.inputStream))
             else
                 println("Code: $responseCode")
         } catch (e: Exception) {
