@@ -41,14 +41,16 @@
                 android:layout_alignParentRight="true">
 
 
-                <ImageButton
+                <TextView
                     android:id="@+id/decrease_btn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="3dp"
                     android:layout_marginTop="5dp"
-                    android:background="#FFFFFF"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_remove_white_16dp"/>
+                    android:layout_marginRight="3dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/rectangle_border"
+                    android:drawableLeft="@drawable/ic_remove_white_16dp"/>
 
                 <TextView
                     android:id="@+id/quantity"
@@ -56,30 +58,35 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:textSize="22sp"
+                    android:text="@string/quantity"
                     android:textStyle="bold"></TextView>
 
-                <ImageButton
+                <TextView
                     android:id="@+id/increase_btn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:background="#FFFFFF"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_add_white_16dp"/>
+                    android:layout_marginLeft="3dp"
+                    android:padding="3dp"
+                    android:background="@drawable/rectangle_border"
+                    android:layout_gravity="center_vertical"
+                    android:drawableLeft="@drawable/ic_add_white_16dp"/>
 
                 <Space
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_weight="12" />
 
-                <ImageButton
+                <TextView
                     android:id="@+id/remove_btn"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:background="#FFFFFF"
-                    android:scaleType="fitCenter"
-                    android:src="@drawable/ic_baseline_delete_outline_24"/>
+                    android:layout_marginLeft="3dp"
+                    android:padding="3dp"
+                    android:background="@drawable/rectangle_border"
+                    android:layout_gravity="center_vertical"
+                    android:drawableLeft="@drawable/ic_baseline_delete_outline_24"/>
 
                 <Space
                     android:layout_width="20dp"

@@ -48,11 +48,11 @@ class ShoppingCart : AppCompatActivity() {
 
         val transactionName = arrayOf( "iPad","Smartphone","Watch","Mouse","HeadPhones","Computer", "KeyBoard", "Door")
         val quantity = arrayOf(2,1,1,1,3,4,2,6)
-        val price = arrayOf("10$00", "14$00", "99$00", "108$99", "78$45", "345$98", "30$33", "4$00", "2$00" )
+        val price = arrayOf(10.5, 3.8, 2.0, 177.99, 35.4, 8.6, 23.0, 16.8, 234.6)
 
         for (i in transactionName.indices){
             list.add(
-                TransactionItem(Product("1", transactionName[i], 2.3, "b", "c", "d"), 1)
+                TransactionItem(Product("1", transactionName[i], price[i], "b", "c", "d"), quantity[i])
             )
         }
         listview.adapter = ShoppingCartAdapter(this, R.layout.list_item, list)

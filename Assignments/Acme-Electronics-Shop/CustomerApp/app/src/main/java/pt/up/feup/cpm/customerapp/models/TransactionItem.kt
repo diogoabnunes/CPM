@@ -18,4 +18,18 @@ class TransactionItem : Serializable {
     fun getQuantity(): Int? {
         return this.quantity
     }
+
+    fun setQuantity(quantity: Int?){
+        this.quantity = quantity
+    }
+
+    fun addQuantity(){
+        this.quantity = this.quantity?.plus(1)
+    }
+
+    fun removeQuantity() {
+        if (this.quantity!! > 0) {
+            this.quantity = this.quantity?.minus(1)
+        }
+    }
 }
