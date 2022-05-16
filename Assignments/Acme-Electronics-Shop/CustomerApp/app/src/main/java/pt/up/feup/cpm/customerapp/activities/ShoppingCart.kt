@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.*
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.view.get
 import androidx.core.view.size
 import com.google.gson.Gson
 import com.google.zxing.integration.android.IntentIntegrator
@@ -58,7 +59,6 @@ class ShoppingCart : AppCompatActivity() {
                 TransactionItem(Product("1", transactionName[i], 2.3, "b", "c", "d"), 1)
             )
         }
-
         listview.adapter = ShoppingCartAdapter(this, R.layout.list_item, list)
     }
 
