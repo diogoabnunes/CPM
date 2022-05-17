@@ -15,7 +15,7 @@ router.get('/get-all', async (req, res) => {
 
 router.get('/get/:userID', async (req, res) => {
     const transactions = await Transaction.find({userID: req.body.userID});
-    res.status(200).json({transactions:transactions, message:'Succeeded'});
+    res.status(200).json(transactions);
 })
 
 router.post('/add', async (req, res) => {

@@ -29,8 +29,11 @@ class Home : AppCompatActivity() {
                 Thread(GetCustomer(this@Home, email)).start()
             }
             delay(1000L)
-
-            val json = JSONObject(user_response)
+            var json = JSONObject()
+            launch {
+                json = JSONObject(user_response)
+            }
+            delay(1000L)
             customer = Gson().fromJson(json.toString(), Customer::class.java)
         }
     }
