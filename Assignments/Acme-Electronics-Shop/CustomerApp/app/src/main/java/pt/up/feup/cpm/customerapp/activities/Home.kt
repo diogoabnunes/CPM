@@ -23,6 +23,7 @@ class Home : AppCompatActivity() {
         setupPastTransitions()
 
         val email = intent.getStringExtra("email").toString()
+        val f = 1
 
         runBlocking {
             launch {

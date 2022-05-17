@@ -97,7 +97,7 @@ class LoginCustomer(val act: Login, val body: String): Runnable {
         var urlConnection: HttpURLConnection? = null
         try {
             url = URL("$SERVER/customer/login")
-            System.out.println("POST " + url.toExternalForm())
+            println("POST " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doOutput = true
             urlConnection.doInput = true
@@ -114,10 +114,10 @@ class LoginCustomer(val act: Login, val body: String): Runnable {
             if (responseCode == 200)
                 act.tvResponse = (readStream(urlConnection.inputStream))
             else
-                System.out.println("Code: $responseCode")
+                println("Code: $responseCode")
         }
         catch (e: java.lang.Exception) {
-            System.out.println(e.toString())
+            println(e.toString())
         }
         finally {
             urlConnection?.disconnect()

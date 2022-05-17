@@ -15,8 +15,6 @@ import pt.up.feup.cpm.customerapp.models.Customer
 import kotlinx.coroutines.*
 
 class Login : AppCompatActivity() {
-    val email by lazy { findViewById<EditText>(R.id.email) }
-    val password by lazy { findViewById<EditText>(R.id.password) }
     val loginButton by lazy { findViewById<Button>(R.id.login_button) }
     var tvResponse = ""
 
@@ -39,6 +37,9 @@ class Login : AppCompatActivity() {
 
     private fun setupLoginButton() {
         loginButton.setOnClickListener {
+            val email by lazy { findViewById<EditText>(R.id.email) }
+            val password by lazy { findViewById<EditText>(R.id.password) }
+
             val js = JSONObject()
             js.accumulate("email", email.text.toString())
             js.accumulate("password", password.text.toString())

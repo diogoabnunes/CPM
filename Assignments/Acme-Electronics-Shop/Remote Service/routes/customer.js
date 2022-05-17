@@ -24,6 +24,16 @@ router.get('/get/:email', async (req, res) => {
     }
 })
 
+router.get('/getfromID/:userID', async (req, res) => {
+    try {
+        const customers = await Customer.findOne({userID: req.params.userID});
+        res.status(200).json(customers);
+    }
+    catch (error) {
+        res.status(400).json({message: error.message})
+    }
+})
+
 router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const newCustomer = await new Customer(
@@ -49,12 +59,17 @@ router.post('/register', async (req, res) => {
 });
 
 router.post('/login', async (req, res) => {
-    const customer = await Customer.find({email: req.body.email})
-    if (customer) {
-        res.status(200).json(customer)
+
+    const customer = await Customer.findOne({email: req.body.email});
+    console.log(req.body.email)
+    console.log(customer.password)
+
+    const validPassword = await bcrypt.compare(req.body.password, customer.password);
+    if (customer && validPassword) {
+        res.status(200).json(customer);
     }
     else {
-        res.status(401).json({message:"Authentication failed"})
+        res.status(401).json({message:"Authentication failed"});
     }
 });
 
