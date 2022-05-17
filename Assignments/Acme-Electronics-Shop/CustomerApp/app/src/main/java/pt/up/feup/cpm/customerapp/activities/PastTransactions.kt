@@ -32,10 +32,6 @@ class PastTransactions : AppCompatActivity() {
             val listview = findViewById<ListView>(R.id.list_item)
             val list = mutableListOf<Transaction>()
 
-            val transactionId = arrayOf( "12","13","15","16","17","18")
-            //val date = arrayOf(Date("2018-12-31"), Date("2018-12-31"), Date("2018-12-31"), Date("2018-12-31"), Date("2018-12-31"), Date("2018-12-31"))
-            val price = arrayOf("10$00", "14$00", "99$00", "108$99", "78$45", "345$98")
-
 
 //        for (i in transactionId.indices){
 //            list.add(Transaction(transactionId[i], "29", null, "22/03/2022", price[i] )

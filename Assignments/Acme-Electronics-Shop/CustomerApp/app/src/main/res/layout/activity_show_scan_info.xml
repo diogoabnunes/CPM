@@ -27,7 +27,57 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView1"
-            android:text="User name"
+            android:text="productID: "
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginTop="8dp"
+            android:textSize="16dp"
+            />
+        <TextView
+            android:id="@+id/tv_show_info2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_show_info"
+            android:text="Name: "
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginTop="8dp"
+            android:textSize="16dp"
+            />
+        <TextView
+            android:id="@+id/tv_show_info3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_show_info2"
+            android:text="Make: "
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginTop="8dp"
+            android:textSize="16dp"
+            />
+        <TextView
+            android:id="@+id/tv_show_info4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_show_info3"
+            android:text="Model: "
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginTop="8dp"
+            android:textSize="16dp"
+            />
+        <TextView
+            android:id="@+id/tv_show_info5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_show_info4"
+            android:text="Price: "
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:layout_marginTop="8dp"
+            android:textSize="16dp"
+            />
+        <TextView
+            android:id="@+id/tv_show_info6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_show_info5"
+            android:text="Characteristics: "
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginTop="8dp"
             android:textSize="16dp"
@@ -37,7 +87,7 @@
             android:id="@+id/products_res"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/tv_show_info" />
+            android:layout_below="@id/tv_show_info6" />
 
         <Button
             android:id="@+id/btn_back_shopping_cart"

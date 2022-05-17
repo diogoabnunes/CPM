@@ -24,7 +24,7 @@ class ShowScanInfo : AppCompatActivity() {
 
         val productID = intent.getStringExtra("info")
         val textView : TextView = findViewById(R.id.tv_show_info)
-        textView.text = productID
+        textView.text = "productID: " + productID
 
         Thread(GetProduct(this, productID)).start()
 
@@ -35,6 +35,24 @@ class ShowScanInfo : AppCompatActivity() {
         val prod = Gson().fromJson(json.toString(), Product::class.java)
         products.add(prod)
         quantities.add(1)
+
+        val name : TextView = findViewById(R.id.tv_show_info2)
+        name.text = "Name: " + prod.name
+
+        val make : TextView = findViewById(R.id.tv_show_info3)
+        make.text = "Make: " +prod.make
+
+        val model : TextView = findViewById(R.id.tv_show_info4)
+        model.text = "Model: " +prod.model
+
+        val price : TextView = findViewById(R.id.tv_show_info5)
+        price.text = "Price: " +prod.price.toString()
+
+        val charac : TextView = findViewById(R.id.tv_show_info6)
+        charac.text = "Characteristics: " +prod.characteristics
+
+
+
 
         val linkTextView2 = findViewById<TextView>(R.id.btn_back_shopping_cart)
         linkTextView2.setOnClickListener {
