@@ -1,4 +1,4 @@
-package pt.up.feup.cpm.customerapp.models
+package pt.up.feup.cpm.printerterminal.models
 
 import java.io.Serializable
 

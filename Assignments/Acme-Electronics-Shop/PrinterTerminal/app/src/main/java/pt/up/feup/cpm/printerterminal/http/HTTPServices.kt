@@ -8,7 +8,7 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
-var SERVER = "https://a561-89-153-186-47.eu.ngrok.io"
+var SERVER = "https://efc9-89-153-186-47.eu.ngrok.io"
 
 fun readStream(input: InputStream): String {
     var reader: BufferedReader? = null
@@ -34,18 +34,18 @@ class GetTransaction(val act: ShowScanInfo, val transactionID: String): Runnable
         var urlConnection: HttpURLConnection? = null
         try {
             url = URL("$SERVER/transaction/get/$transactionID")
-            System.out.println("GET " + url.toExternalForm())
+            println("GET " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doInput = true
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.useCaches = false
             val responseCode = urlConnection.responseCode
             if (responseCode == 200)
-                act.writeText((readStream(urlConnection.inputStream)))
+                act.transactions_res = (readStream(urlConnection.inputStream))
             else
-                System.out.println("Code: $responseCode")
+                println("Code: $responseCode")
         } catch (e: Exception) {
-            System.out.println(e.toString())
+            println(e.toString())
         } finally {
             urlConnection?.disconnect()
         }

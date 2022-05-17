@@ -16,12 +16,18 @@ router.get('/get-all', async (req, res) => {
 router.get('/getfromID/:userID', async (req, res) => {
     const transactions = await Transaction.find({userID: req.params.userID});
     res.status(200).json(transactions);
-})
+});
 
 router.get('/get/:transactionID', async (req, res) => {
-    const transactions = await Transaction.findOne({transactionID: req.params.transactionID});
-    res.status(200).json(transactions);
-})
+    try {
+        const transactions = await Transaction.findOne({transactionID: req.params.transactionID});
+        res.status(200).json(transactions);
+    }
+    catch (error) {
+        res.status(400).json({message: error.message})
+    }
+});
+
 
 router.post('/add', async (req, res) => {
     const newTransaction = await new Transaction(

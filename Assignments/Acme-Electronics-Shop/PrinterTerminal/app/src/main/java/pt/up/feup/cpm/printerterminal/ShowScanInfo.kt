@@ -3,36 +3,35 @@ package pt.up.feup.cpm.printerterminal
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import android.widget.Toast
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import com.google.gson.Gson
 import org.json.JSONObject
-import pt.up.feup.cpm.customerapp.models.Customer
-import pt.up.feup.cpm.customerapp.models.Transaction
+import pt.up.feup.cpm.printerterminal.models.Customer
+import pt.up.feup.cpm.printerterminal.models.Transaction
 import pt.up.feup.cpm.printerterminal.http.GetCustomer
 import pt.up.feup.cpm.printerterminal.http.GetTransaction
 
 class ShowScanInfo : AppCompatActivity() {
-    val transactions_res by lazy { findViewById<TextView>(R.id.transaction_res) }
+    var transactions_res = ""
     var user_res = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_scan_info)
+
         var transactionID= intent.getStringExtra("info").toString()
         val textView = findViewById<TextView>(R.id.transactionId)
         textView.text="Transaction ID: " + transactionID
 
-
         runBlocking {
             launch {
-                Thread(GetTransaction(this@ShowScanInfo, transactionID.toString())).start()
+                Thread(GetTransaction(this@ShowScanInfo, transactionID)).start()
             }
-            delay(1000L)
+            delay(3000L)
 
-            val json = JSONObject(transactions_res.text.toString())
+            val json = JSONObject(transactions_res)
             val transaction = Gson().fromJson(json.toString(), Transaction::class.java)
 
             transaction.userID?.let { showUserInfo(it) }
@@ -66,9 +65,5 @@ class ShowScanInfo : AppCompatActivity() {
             nib.text = "Fiscal Number: "+ user.fiscalNumber
 
         }
-    }
-
-    fun writeText(a: String) {
-        transactions_res.text = a
     }
 }
