@@ -21,7 +21,7 @@ class ShowScanInfo : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_scan_info)
-        var transactionID= intent.getStringExtra("info")
+        var transactionID= intent.getStringExtra("info").toString()
         val textView = findViewById<TextView>(R.id.transactionId)
         textView.text="Transaction ID: " + transactionID
 
@@ -31,7 +31,6 @@ class ShowScanInfo : AppCompatActivity() {
                 Thread(GetTransaction(this@ShowScanInfo, transactionID.toString())).start()
             }
             delay(1000L)
-            System.err.println(transactions_res.text.toString())
 
             val json = JSONObject(transactions_res.text.toString())
             val transaction = Gson().fromJson(json.toString(), Transaction::class.java)
