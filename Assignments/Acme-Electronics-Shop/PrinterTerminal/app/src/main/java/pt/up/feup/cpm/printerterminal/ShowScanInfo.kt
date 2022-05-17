@@ -3,6 +3,7 @@ package pt.up.feup.cpm.printerterminal
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
+import android.widget.Toast
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -14,7 +15,7 @@ import pt.up.feup.cpm.printerterminal.http.GetCustomer
 import pt.up.feup.cpm.printerterminal.http.GetTransaction
 
 class ShowScanInfo : AppCompatActivity() {
-    var transactions_res = ""
+    val transactions_res by lazy { findViewById<TextView>(R.id.transaction_res) }
     var user_res = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,11 +28,12 @@ class ShowScanInfo : AppCompatActivity() {
 
         runBlocking {
             launch {
-                Thread(GetTransaction(this@ShowScanInfo,transactionID.toString())).start()
+                Thread(GetTransaction(this@ShowScanInfo, transactionID.toString())).start()
             }
             delay(1000L)
+            System.err.println(transactions_res.text.toString())
 
-            val json = JSONObject(transactions_res)
+            val json = JSONObject(transactions_res.text.toString())
             val transaction = Gson().fromJson(json.toString(), Transaction::class.java)
 
             transaction.userID?.let { showUserInfo(it) }
@@ -65,5 +67,9 @@ class ShowScanInfo : AppCompatActivity() {
             nib.text = "Fiscal Number: "+ user.fiscalNumber
 
         }
+    }
+
+    fun writeText(a: String) {
+        transactions_res.text = a
     }
 }

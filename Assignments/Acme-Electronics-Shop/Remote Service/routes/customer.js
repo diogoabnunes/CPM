@@ -24,6 +24,16 @@ router.get('/get/:email', async (req, res) => {
     }
 })
 
+router.get('/getfromID/:userID', async (req, res) => {
+    try {
+        const customers = await Customer.findOne({userID: req.params.userID});
+        res.status(200).json(customers);
+    }
+    catch (error) {
+        res.status(400).json({message: error.message})
+    }
+})
+
 router.post('/register', async (req, res) => {
     const hashedPassword = await bcrypt.hash(req.body.password, 10);
     const newCustomer = await new Customer(
