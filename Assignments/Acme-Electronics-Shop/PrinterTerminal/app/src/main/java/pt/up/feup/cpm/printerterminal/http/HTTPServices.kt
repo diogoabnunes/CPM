@@ -1,5 +1,6 @@
-package pt.up.feup.cpm.printerterminal
+package pt.up.feup.cpm.printerterminal.http
 
+import pt.up.feup.cpm.printerterminal.ShowScanInfo
 import java.io.BufferedReader
 import java.io.IOException
 import java.io.InputStream
@@ -7,7 +8,7 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
-var SERVER = "https://36ee-193-136-33-113.eu.ngrok.io"
+var SERVER = "https://54bd-193-136-33-112.eu.ngrok.io"
 
 fun readStream(input: InputStream): String {
     var reader: BufferedReader? = null
@@ -27,12 +28,12 @@ fun readStream(input: InputStream): String {
     return response.toString()
 }
 
-class GetTransaction(val transactionID: String): Runnable {
+class GetTransaction(val act: ShowScanInfo, val transactionID: String): Runnable {
     override fun run() {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL("$SERVER/transaction/$transactionID")
+            url = URL("$SERVER/transaction/get/$transactionID")
             System.out.println("GET " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doInput = true
@@ -40,11 +41,36 @@ class GetTransaction(val transactionID: String): Runnable {
             urlConnection.useCaches = false
             val responseCode = urlConnection.responseCode
             if (responseCode == 200)
-                System.out.println(readStream(urlConnection.inputStream))
+                act.writeText((readStream(urlConnection.inputStream)))
             else
                 System.out.println("Code: $responseCode")
         } catch (e: Exception) {
             System.out.println(e.toString())
+        } finally {
+            urlConnection?.disconnect()
+        }
+    }
+}
+
+
+class GetCustomer(val act: ShowScanInfo,val userID: String): Runnable {
+    override fun run() {
+        val url: URL
+        var urlConnection: HttpURLConnection? = null
+        try {
+            url = URL("$SERVER/customer/getfromID/$userID")
+            println("GET " + url.toExternalForm())
+            urlConnection = url.openConnection() as HttpURLConnection
+            urlConnection.doInput = true
+            urlConnection.setRequestProperty("Content-Type", "application/json")
+            urlConnection.useCaches = false
+            val responseCode = urlConnection.responseCode
+            if (responseCode == 200)
+                act.user_res = (readStream(urlConnection.inputStream))
+            else
+                println("Code: $responseCode")
+        } catch (e: Exception) {
+            println(e.toString())
         } finally {
             urlConnection?.disconnect()
         }
