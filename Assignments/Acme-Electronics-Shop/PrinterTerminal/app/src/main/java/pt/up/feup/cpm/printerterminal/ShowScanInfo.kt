@@ -3,16 +3,67 @@ package pt.up.feup.cpm.printerterminal
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
-import android.widget.Toast
-import org.w3c.dom.Text
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import com.google.gson.Gson
+import org.json.JSONObject
+import pt.up.feup.cpm.customerapp.models.Customer
+import pt.up.feup.cpm.customerapp.models.Transaction
+import pt.up.feup.cpm.printerterminal.http.GetCustomer
+import pt.up.feup.cpm.printerterminal.http.GetTransaction
 
 class ShowScanInfo : AppCompatActivity() {
+    var transactions_res = ""
+    var user_res = ""
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_scan_info)
-        var it= intent.getStringExtra("info")
-        //Toast.makeText(this, "Scan result: ${it}", Toast.LENGTH_LONG).show()
-        val textView = findViewById<TextView>(R.id.tv_show_info)
-        textView.text=it
+        var transactionID= intent.getStringExtra("info")
+        val textView = findViewById<TextView>(R.id.transactionId)
+        textView.text="Transaction ID: " + transactionID
+
+
+        runBlocking {
+            launch {
+                Thread(GetTransaction(this@ShowScanInfo,transactionID.toString())).start()
+            }
+            delay(1000L)
+
+            val json = JSONObject(transactions_res)
+            val transaction = Gson().fromJson(json.toString(), Transaction::class.java)
+
+            transaction.userID?.let { showUserInfo(it) }
+            showTransInfo(transaction)
+        }
+    }
+    private fun showTransInfo(transaction: Transaction){
+        val total : TextView = findViewById(R.id.total)
+        total.text = "Price: "
+
+        val date : TextView = findViewById(R.id.date)
+        date.text = "Characteristics: " + transaction.date.toString()
+
+    }
+    private fun showUserInfo(userID: String){
+        runBlocking {
+            launch {
+                Thread(GetCustomer(this@ShowScanInfo, userID)).start()
+            }
+            delay(1000L)
+            val json = JSONObject(user_res)
+            val user = Gson().fromJson(json.toString(), Customer::class.java)
+
+            val name : TextView = findViewById(R.id.name)
+            name.text = "Name: " + user.name
+
+            val address : TextView = findViewById(R.id.address)
+            address.text = "Address: "+ user.address
+
+            val nib : TextView = findViewById(R.id.nib)
+            nib.text = "Fiscal Number: "+ user.fiscalNumber
+
+        }
     }
 }
