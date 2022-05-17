@@ -12,6 +12,9 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.adapter.ShoppingCartAdapter
 import pt.up.feup.cpm.customerapp.http.AddTransaction
@@ -99,8 +102,13 @@ class ShoppingCart : AppCompatActivity() {
             Toast.makeText(this, "Payment Success! $random", Toast.LENGTH_SHORT).show()
 
             val transaction = Transaction()
-            saveTransaction(transaction)
-            generateQR(vw, transaction)
+            runBlocking {
+                launch {
+                    saveTransaction(transaction)
+                }
+                delay(1000L)
+                generateQR(vw, transaction)
+            }
         }
         else
             Toast.makeText(this, "Payment Failed! $random", Toast.LENGTH_SHORT).show()
@@ -125,8 +133,8 @@ class ShoppingCart : AppCompatActivity() {
         val intent = Intent(this, ShowQR::class.java)
         when (vw.id) {
             R.id.pay_btn -> { intent.putExtra("type", 1)
-                val value=Gson().toJson(transaction)
-                intent.putExtra("value", value)
+             //   val value=Gson().toJson(transaction.transactionID)
+                intent.putExtra("value", transaction.transactionID.toString())
             }
         }
         startActivity(intent)

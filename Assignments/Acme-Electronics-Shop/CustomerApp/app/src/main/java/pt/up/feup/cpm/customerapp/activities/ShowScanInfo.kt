@@ -27,8 +27,8 @@ class ShowScanInfo : AppCompatActivity() {
         setContentView(R.layout.activity_show_scan_info)
 
         val productID = intent.getStringExtra("info")
-        val textView : TextView = findViewById(R.id.tv_show_info)
-        textView.text = productID
+        val textView: TextView = findViewById(R.id.tv_show_info)
+        textView.text = "Product ID: " + productID
 
         runBlocking {
             launch {
@@ -38,30 +38,47 @@ class ShowScanInfo : AppCompatActivity() {
 
             val products = intent.getSerializableExtra("value2") as MutableList<Product>
             val quantities = intent.getSerializableExtra("quants2") as MutableList<Int>
+            val json = JSONObject(products_res)
+            val prod = Gson().fromJson(json.toString(), Product::class.java)
+            showInfo(prod)
 
-            val linkTextView2 = findViewById<TextView>(R.id.btn_back_shopping_cart)
-            linkTextView2.setOnClickListener {
+                val linkTextView2 = findViewById<TextView>(R.id.btn_back_shopping_cart)
+                linkTextView2.setOnClickListener {
+                    products.add(prod)
+                    quantities.add(1)
 
-                val json = JSONObject(products_res)
-                val prod = Gson().fromJson(json.toString(), Product::class.java)
-                products.add(prod)
-                quantities.add(1)
+                    val data = Intent()
+                    data.putExtra("value3", ArrayList(products))
+                    data.putExtra("quants3", ArrayList(quantities))
+                    setResult(Activity.RESULT_OK, data)
+                    finish()
+                }
 
-                val data = Intent()
-                data.putExtra("value3", ArrayList(products))
-                data.putExtra("quants3", ArrayList(quantities))
-                setResult(Activity.RESULT_OK, data)
-                finish()
-            }
-
-            val cancelBtn = findViewById<Button>(R.id.cancel_btn)
-            cancelBtn.setOnClickListener {
-                val data = Intent()
-                data.putExtra("value3", ArrayList(products))
-                data.putExtra("quants3", ArrayList(quantities))
-                setResult(Activity.RESULT_OK, data)
-                finish()
+                val cancelBtn = findViewById<Button>(R.id.cancel_btn)
+                cancelBtn.setOnClickListener {
+                    val data = Intent()
+                    data.putExtra("value3", ArrayList(products))
+                    data.putExtra("quants3", ArrayList(quantities))
+                    setResult(Activity.RESULT_OK, data)
+                    finish()
+                }
             }
         }
+
+    private fun showInfo(prod:Product){
+        val name : TextView = findViewById(R.id.tv_show_info2)
+        name.text = "Name: " + prod.name
+
+        val make : TextView = findViewById(R.id.tv_show_info3)
+        make.text = "Make: " +prod.make
+
+        val model : TextView = findViewById(R.id.tv_show_info4)
+        model.text = "Model: " +prod.model
+
+        val price : TextView = findViewById(R.id.tv_show_info5)
+        price.text = "Price: " +prod.price.toString()
+
+        val charac : TextView = findViewById(R.id.tv_show_info6)
+        charac.text = "Characteristics: " +prod.characteristics
     }
 }
