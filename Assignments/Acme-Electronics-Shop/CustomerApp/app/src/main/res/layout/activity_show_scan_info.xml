@@ -39,12 +39,24 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/tv_show_info" />
 
-        <Button
-            android:id="@+id/btn_back_shopping_cart"
+        <TableRow
+            android:id="@+id/show_scan_info_btns"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/products_res"
-            android:text="Back to Shopping Cart" />
+            android:layout_below="@id/products_res">
+
+            <Button
+                android:id="@+id/cancel_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@android:string/cancel" />
+
+            <Button
+                android:id="@+id/btn_back_shopping_cart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add to shopping cart" />
+        </TableRow>
 
     </RelativeLayout>
 

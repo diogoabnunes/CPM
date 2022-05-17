@@ -37,6 +37,20 @@ class ShoppingCart : AppCompatActivity() {
         }
     }
 
+    var observer: DataSetObserver = object : DataSetObserver() {
+        override fun onChanged() {
+            super.onChanged()
+            setTotal()
+
+            list.clear()
+            for (i in products.indices){
+                list.add(
+                    TransactionItem(products[i], quantities[i])
+                )
+            }
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shopping_cart)
@@ -128,12 +142,6 @@ class ShoppingCart : AppCompatActivity() {
             }
         }
         return String.format("%.2f", total).toDouble()
-    }
-    var observer: DataSetObserver = object : DataSetObserver() {
-        override fun onChanged() {
-            super.onChanged()
-            setTotal()
-        }
     }
 
     fun setTotal(){

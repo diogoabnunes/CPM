@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.security.KeyPairGeneratorSpec
 import android.util.Base64
 import android.widget.*
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import pt.up.feup.cpm.customerapp.R
@@ -66,6 +67,7 @@ class Register : AppCompatActivity() {
                 launch {
                     Thread(AddCustomer(this@Register, js.toString())).start()
                 }
+                delay(1000L)
                 if (tvResponse.text.endsWith("400")) {
                     Toast.makeText(this@Register, "Error registering customer...", Toast.LENGTH_LONG).show()
                 }
