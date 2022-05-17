@@ -42,15 +42,17 @@
                     android:layout_height="match_parent"
                     android:layout_weight="12" />
 
-                <TextView
-                    android:id="@+id/price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="10,99€"
-                    android:textStyle="bold"></TextView>
 
             </LinearLayout>
-
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="10dp"
+            android:text="10,99€"
+            android:layout_alignParentRight="true"
+            android:textStyle="bold"></TextView>
 
     </RelativeLayout>
 </LinearLayout>

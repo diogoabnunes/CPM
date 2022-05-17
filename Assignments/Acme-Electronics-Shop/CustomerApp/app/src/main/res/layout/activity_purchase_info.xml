@@ -125,24 +125,21 @@
 
     <LinearLayout
         android:id="@+id/LinearLayout02"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true">
 
-        <TextView
-            android:id="@+id/textView7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
-
-            android:text="@string/total" />
 
         <TextView
             android:id="@+id/total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="@string/_1000_00" />
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:text="Total: 10000€"/>
+
     </LinearLayout>
 
 </RelativeLayout>
