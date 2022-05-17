@@ -16,6 +16,7 @@ import java.util.*
 
 class PastTransactions : AppCompatActivity() {
     var pastTransactions = mutableListOf<Transaction>()
+    var response = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,7 +29,7 @@ class PastTransactions : AppCompatActivity() {
                 Thread(customer.userID?.let { GetTransactions(this@PastTransactions, it) })
             }
             delay(1000L)
-            
+
             val listview = findViewById<ListView>(R.id.list_item)
             val list = mutableListOf<Transaction>()
 

@@ -17,6 +17,7 @@
             android:id="@+id/textView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
             android:text="Purchase"
             android:gravity="center"
             android:textSize="30dp"
@@ -25,6 +26,8 @@
         <TextView
             android:id="@+id/tv_show_info"
             android:layout_width="match_parent"
+            android:layout_marginLeft="5dp"
+
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView1"
             android:text="productID: "
@@ -35,6 +38,7 @@
         <TextView
             android:id="@+id/tv_show_info2"
             android:layout_width="match_parent"
+            android:layout_marginLeft="5dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_show_info"
             android:text="Name: "
@@ -44,6 +48,7 @@
             />
         <TextView
             android:id="@+id/tv_show_info3"
+            android:layout_marginLeft="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_show_info2"
@@ -57,6 +62,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_show_info3"
+            android:layout_marginLeft="5dp"
             android:text="Model: "
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_marginTop="8dp"
@@ -65,6 +71,7 @@
         <TextView
             android:id="@+id/tv_show_info5"
             android:layout_width="match_parent"
+            android:layout_marginLeft="5dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_show_info4"
             android:text="Price: "
@@ -74,6 +81,7 @@
             />
         <TextView
             android:id="@+id/tv_show_info6"
+            android:layout_marginLeft="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_show_info5"
@@ -83,18 +91,25 @@
             android:textSize="16dp"
             />
 
-        <TextView
-            android:id="@+id/products_res"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_show_info6" />
 
-        <Button
-            android:id="@+id/btn_back_shopping_cart"
+        <TableRow
+            android:id="@+id/show_scan_info_btns"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/products_res"
-            android:text="Back to Shopping Cart" />
+            android:layout_below="@id/tv_show_info6">
+
+            <Button
+                android:id="@+id/cancel_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancel" />
+
+            <Button
+                android:id="@+id/btn_back_shopping_cart"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add to shopping cart" />
+        </TableRow>
 
     </RelativeLayout>
 

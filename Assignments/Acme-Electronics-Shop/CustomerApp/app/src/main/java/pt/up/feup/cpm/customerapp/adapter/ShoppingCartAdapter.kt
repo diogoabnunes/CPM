@@ -25,19 +25,16 @@ class ShoppingCartAdapter(var mCtx: Context, var resources: Int, var items: List
         val removeItem = view.findViewById(R.id.remove_btn) as TextView
 
 
-        var mItem: TransactionItem = items[position]
+        val mItem: TransactionItem = items[position]
 
         addQuantity.setOnClickListener {
-            mItem.addQuantity()
-            quantity.text = mItem.quantity.toString()
-            //adicionar func para atualizar o preço final
+            mItem.quantity = mItem.quantity?.plus(1)
             notifyDataSetChanged()
         }
 
         subtractQuantity.setOnClickListener {
-            mItem.removeQuantity()
-            quantity.text = mItem.quantity.toString()
-            //adicionar func para atualizar o preço final
+            if (mItem.quantity!! > 0)
+                mItem.quantity = mItem.quantity?.minus(1)
             notifyDataSetChanged()
         }
 

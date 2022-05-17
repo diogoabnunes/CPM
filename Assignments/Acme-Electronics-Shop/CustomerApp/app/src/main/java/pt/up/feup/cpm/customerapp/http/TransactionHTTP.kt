@@ -5,7 +5,7 @@ import java.io.DataOutputStream
 import java.net.HttpURLConnection
 import java.net.URL
 
-class GetTransactions(act: PastTransactions, val userID: String): Runnable {
+class GetTransactions(val act: PastTransactions, val userID: String): Runnable {
     override fun run() {
         val url: URL
         var urlConnection: HttpURLConnection? = null
@@ -18,7 +18,7 @@ class GetTransactions(act: PastTransactions, val userID: String): Runnable {
             urlConnection.useCaches = false
             val responseCode = urlConnection.responseCode
             if (responseCode == 200)
-                println(readStream(urlConnection.inputStream))
+               act.response = readStream(urlConnection.inputStream)
             else
                 println("Code: $responseCode")
         } catch (e: Exception) {
