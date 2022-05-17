@@ -15,6 +15,7 @@ import com.google.gson.Gson
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.json.JSONObject
 import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.adapter.ShoppingCartAdapter
 import pt.up.feup.cpm.customerapp.http.AddTransaction
@@ -101,7 +102,7 @@ class ShoppingCart : AppCompatActivity() {
         if(random <= 95) {
             Toast.makeText(this, "Payment Success! $random", Toast.LENGTH_SHORT).show()
 
-            val transaction = Transaction()
+            var transaction = Transaction()
             runBlocking {
                 launch {
                     saveTransaction(transaction)
@@ -125,7 +126,15 @@ class ShoppingCart : AppCompatActivity() {
         transaction.content = content
         val js: String? = Gson().toJson(transaction)
         println(js)
-        Thread(AddTransaction(this, js.toString())).start()
+        runBlocking {
+            launch {
+                Thread(AddTransaction(this@ShoppingCart, js.toString())).start()
+            }
+            delay(500L)
+            val json = JSONObject(transaction_res)
+            val resultTransaction = Gson().fromJson(json.toString(), Transaction::class.java)
+            transaction.transactionID = resultTransaction.transactionID
+        }
     }
 
     private fun generateQR(vw: View, transaction: Transaction) {
@@ -133,7 +142,6 @@ class ShoppingCart : AppCompatActivity() {
         val intent = Intent(this, ShowQR::class.java)
         when (vw.id) {
             R.id.pay_btn -> { intent.putExtra("type", 1)
-             //   val value=Gson().toJson(transaction.transactionID)
                 intent.putExtra("value", transaction.transactionID.toString())
             }
         }
