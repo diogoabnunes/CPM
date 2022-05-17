@@ -34,13 +34,6 @@ class ShoppingCart : AppCompatActivity() {
         if (result.resultCode == Activity.RESULT_OK) {
             products = result.data?.getSerializableExtra("value4") as MutableList<Product>
             quantities = result.data?.getSerializableExtra("quants4") as MutableList<Int>
-        }
-    }
-
-    var observer: DataSetObserver = object : DataSetObserver() {
-        override fun onChanged() {
-            super.onChanged()
-            setTotal()
 
             list.clear()
             for (i in products.indices){
@@ -48,6 +41,21 @@ class ShoppingCart : AppCompatActivity() {
                     TransactionItem(products[i], quantities[i])
                 )
             }
+            listview.adapter = ShoppingCartAdapter(this, R.layout.list_item, list)
+            listview.adapter.registerDataSetObserver(observer);
+            setTotal()
+        }
+    }
+
+    var observer: DataSetObserver = object : DataSetObserver() {
+        override fun onChanged() {
+            super.onChanged()
+
+            quantities.clear()
+            for (i in list) {
+                i.quantity?.let { quantities.add(it) }
+            }
+            setTotal()
         }
     }
 
@@ -58,10 +66,6 @@ class ShoppingCart : AppCompatActivity() {
         setupPayButton()
         setupAddItemButton()
 
-//        val transactionName = arrayOf( "iPad","iPad","Smartphone","Watch","Mouse","HeadPhones","Computer", "KeyBoard", "Door")
-//        val quantity = arrayOf(1,2,1,1,1,3,4,2,6)
-//        val price = arrayOf(1.0,10.5, 3.8, 2.0, 177.99, 35.4, 8.6, 23.0, 16.8, 234.6)
-
         for (i in products.indices){
             list.add(
                 TransactionItem(products[i], quantities[i])
@@ -70,6 +74,7 @@ class ShoppingCart : AppCompatActivity() {
 
         listview.adapter = ShoppingCartAdapter(this, R.layout.list_item, list)
         listview.adapter.registerDataSetObserver(observer);
+
     }
 
     private fun setupPayButton() {
@@ -105,8 +110,8 @@ class ShoppingCart : AppCompatActivity() {
         val customer = intent.getSerializableExtra("customer") as Customer
         transaction.userID = customer.userID
         val content = mutableListOf<TransactionItem>()
-        for (i in products) {
-            val transactionItem = TransactionItem(i, 1)
+        for (i in products.indices) {
+            val transactionItem = TransactionItem(products[i], quantities[i])
             content.add(transactionItem)
         }
         transaction.content = content
@@ -131,17 +136,17 @@ class ShoppingCart : AppCompatActivity() {
         runOnUiThread { transaction_res.text = value }
     }
 
-    private fun calculateTotal(): Double {
+    private fun calculateTotal(): String {
         var total = 0.0
-        for (product in list) {
-            val price = product.product?.price
-            val quanti = product.quantity
+        for (transactionItem in list) {
+            val price = transactionItem.product?.price
+            val quanti = transactionItem.quantity
             val num = price?.times(quanti!!)
             if (num != null) {
                 total += num
             }
         }
-        return String.format("%.2f", total).toDouble()
+        return "%.2f".format(total)
     }
 
     fun setTotal(){
