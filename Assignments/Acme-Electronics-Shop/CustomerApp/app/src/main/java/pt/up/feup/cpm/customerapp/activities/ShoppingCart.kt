@@ -26,7 +26,7 @@ class ShoppingCart : AppCompatActivity() {
     private var quantities = mutableListOf<Int>()
 
     val totalText by lazy { findViewById<TextView>(R.id.total) }
-    val transaction_res by lazy { findViewById<TextView>(R.id.transactions_res) }
+    var transaction_res = ""
     var list = mutableListOf<TransactionItem>()
     val listview by lazy { findViewById<ListView>(R.id.list_item) }
 
@@ -130,10 +130,6 @@ class ShoppingCart : AppCompatActivity() {
             }
         }
         startActivity(intent)
-    }
-
-    fun writeText(value: String) {
-        runOnUiThread { transaction_res.text = value }
     }
 
     private fun calculateTotal(): String {

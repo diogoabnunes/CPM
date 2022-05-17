@@ -49,11 +49,6 @@
             android:layout_height="50dp"
             android:layout_weight="10" />
 
-        <TextView
-            android:id="@+id/transactions_res"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
     </RelativeLayout>
 
     <TableRow

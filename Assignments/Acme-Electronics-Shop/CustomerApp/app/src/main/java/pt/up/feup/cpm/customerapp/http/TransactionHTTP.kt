@@ -50,7 +50,7 @@ class AddTransaction(val act: ShoppingCart, val body: String) : Runnable {
             // get response
             val responseCode = urlConnection.responseCode
             if (responseCode == 201)
-                act.writeText(readStream(urlConnection.inputStream))
+                act.transaction_res = (readStream(urlConnection.inputStream))
             else
                 println("Code: $responseCode")
         }
