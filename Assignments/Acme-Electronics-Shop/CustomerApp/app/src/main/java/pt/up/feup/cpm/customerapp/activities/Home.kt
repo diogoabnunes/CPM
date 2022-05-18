@@ -22,6 +22,7 @@ class Home : AppCompatActivity() {
 
         setupShoppingCart()
         setupPastTransitions()
+        setupLogout()
 
         val email = intent.getStringExtra("email").toString()
 
@@ -58,6 +59,14 @@ class Home : AppCompatActivity() {
         pastTransitionsBtn.setOnClickListener {
             val intent = Intent(this, PastTransactions::class.java)
             intent.putExtra("customer", customer)
+            startActivity(intent)
+        }
+    }
+
+    private fun setupLogout() {
+        val logoutBtn = findViewById<Button>(R.id.logout_button)
+        logoutBtn.setOnClickListener {
+            val intent = Intent(this, Login::class.java)
             startActivity(intent)
         }
     }

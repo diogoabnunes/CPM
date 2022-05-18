@@ -41,23 +41,12 @@
         android:inputType="textPassword"
         android:autofillHints="" />
 
-    <TextView
-        android:id="@+id/forgot_password"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/password"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="25dp"
-        android:text="@string/forgot_password"
-        android:textColor="#616161"
-        android:textSize="15sp" />
-
     <Button
 
         android:id="@+id/login_button"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_below="@+id/forgot_password"
+        android:layout_below="@id/password"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
         android:layout_marginRight="20dp"

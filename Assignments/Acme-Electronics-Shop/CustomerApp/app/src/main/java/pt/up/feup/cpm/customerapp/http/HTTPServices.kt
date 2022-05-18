@@ -2,7 +2,7 @@ package pt.up.feup.cpm.customerapp.http
 
 import java.io.*
 
-var SERVER = "https://c1dc-193-136-33-112.eu.ngrok.io"
+var SERVER = "https://383c-89-153-186-47.eu.ngrok.io"
 
 fun readStream(input: InputStream): String {
     var reader: BufferedReader? = null

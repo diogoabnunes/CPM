@@ -23,6 +23,9 @@ import pt.up.feup.cpm.customerapp.models.Product
 import pt.up.feup.cpm.customerapp.models.Transaction
 import pt.up.feup.cpm.customerapp.models.TransactionItem
 import pt.up.feup.cpm.customerapp.models.Customer
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 import kotlin.collections.mutableListOf
 
 class ShoppingCart : AppCompatActivity() {
@@ -82,13 +85,18 @@ class ShoppingCart : AppCompatActivity() {
     }
 
     private fun setupPayButton() {
+
         val payBtn = findViewById<Button>(R.id.pay_btn)
         payBtn.setOnClickListener {
             val random = (0..100).shuffled().random()
-            if(random <= 95) {
+            val customer = intent.getSerializableExtra("customer") as Customer
+
+            if(random <= 95 && cardValid(customer.cardValidity)) {
 
                 try {
                     val transaction = Transaction()
+                    transaction.userID = customer.userID
+
                     runBlocking {
                         launch {
                             saveTransaction(transaction)
@@ -107,6 +115,22 @@ class ShoppingCart : AppCompatActivity() {
         }
     }
 
+    fun Date.toString(format: String, locale: Locale = Locale.getDefault()): String {
+        val formatter = SimpleDateFormat(format, locale)
+        return formatter.format(this)
+    }
+
+    private fun cardValid(validity: String?): Boolean {
+        val date = Calendar.getInstance().time
+        val dateStr = date.toString("MM/yyyy")
+
+        val valStr = validity?.let { SimpleDateFormat("MM/yyyy").parse(it) }
+
+        val dateDate = SimpleDateFormat("MM/yyyy").parse(dateStr)
+
+        return valStr!! >= dateDate
+    }
+
     private fun setupAddItemButton() {
         val linkTextView2 = findViewById<TextView>(R.id.add_item_btn)
         linkTextView2.setOnClickListener {
@@ -118,8 +142,6 @@ class ShoppingCart : AppCompatActivity() {
     }
 
     private fun saveTransaction(transaction: Transaction) {
-        val customer = intent.getSerializableExtra("customer") as Customer
-        transaction.userID = customer.userID
         val content = mutableListOf<TransactionItem>()
         for (i in products.indices) {
             val transactionItem = TransactionItem(products[i], quantities[i])

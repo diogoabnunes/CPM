@@ -36,4 +36,5 @@
     <string name="content">Content:</string>
     <string name="total">Total:</string>
     <string name="_1000_00">1000$00</string>
+    <string name="logout">Logout</string>
 </resources>
