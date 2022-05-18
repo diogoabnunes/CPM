@@ -47,17 +47,15 @@ router.post('/add', async (req, res) => {
     }
 });
 
-router.patch('/update/:transactionID', async (req, res) => {
+router.get('/getAndUpdate/:transactionID', async (req, res) => {
     try {
-        const trans_id = req.params.transactionID;
-        const updatedData = req.body;
-        const options = { new: true };
+        const result = await Transaction.findOneAndUpdate(
+            { transactionID: req.params.transactionID },
+            { $set: {printed: true} },
+            { returnNewDocument: true }
+        );
 
-        const result = await Transaction.findByIdAndUpdate(
-            trans_id, updatedData, options
-        )
-
-        res.send(result)
+        res.status(200).json(result)
     }
     catch (error) {
         res.status(400).json({ message: error.message })
