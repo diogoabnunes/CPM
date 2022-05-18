@@ -5,7 +5,7 @@ import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
 
-var SERVER = "https://49c3-193-136-33-109.eu.ngrok.io"
+var SERVER = "https://1966-193-136-33-109.eu.ngrok.io"
 
 fun readStream(input: InputStream): String {
     var reader: BufferedReader? = null

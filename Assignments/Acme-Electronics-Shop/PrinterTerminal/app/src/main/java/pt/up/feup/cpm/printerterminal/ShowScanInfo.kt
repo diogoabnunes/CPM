@@ -1,7 +1,9 @@
 package pt.up.feup.cpm.printerterminal
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.ListView
 import android.widget.TextView
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -41,6 +43,10 @@ class ShowScanInfo : AppCompatActivity() {
                     setPrinted(transaction)
                     transaction.userID?.let { showUserInfo(it) }
                     showTransInfo(transaction)
+                    var list = transaction.content
+                    val listview by lazy { findViewById<ListView>(R.id.list_item) }
+                    listview.adapter = InfoAdapter(this@ShowScanInfo, R.layout.list_item_transaction, list)
+
 
                 }
                 else {
@@ -75,7 +81,8 @@ class ShowScanInfo : AppCompatActivity() {
         total.text = "Total: " + calculateTotal(transaction.content)
 
         val date : TextView = findViewById(R.id.date)
-        date.text = "Characteristics: " + transaction.date.toString()
+        val hora = transaction.date.toString().takeLast(13)
+        date.text = "Date: " + transaction.date.toString().take(10) + "     " + hora.take(8)
 
     }
     private fun showUserInfo(userID: String){
