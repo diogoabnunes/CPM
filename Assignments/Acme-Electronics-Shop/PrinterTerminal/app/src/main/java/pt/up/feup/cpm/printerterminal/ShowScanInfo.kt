@@ -13,6 +13,7 @@ import pt.up.feup.cpm.printerterminal.models.Customer
 import pt.up.feup.cpm.printerterminal.models.Transaction
 import pt.up.feup.cpm.printerterminal.http.GetCustomer
 import pt.up.feup.cpm.printerterminal.http.GetTransaction
+import pt.up.feup.cpm.printerterminal.models.TransactionItem
 
 class ShowScanInfo : AppCompatActivity() {
     var transactions_res = ""
@@ -67,7 +68,7 @@ class ShowScanInfo : AppCompatActivity() {
         textView.text="Transaction ID: " + transaction.transactionID
 
         val total : TextView = findViewById(R.id.total)
-        total.text = "Price: "
+        total.text = "Total: " + calculateTotal(transaction.content)
 
         val date : TextView = findViewById(R.id.date)
         date.text = "Characteristics: " + transaction.date.toString()
@@ -92,5 +93,18 @@ class ShowScanInfo : AppCompatActivity() {
             nib.text = "Fiscal Number: "+ user.fiscalNumber
 
         }
+    }
+
+    private fun calculateTotal(transactionItems: MutableList<TransactionItem>): String {
+        var total = 0.0
+        for (transactionItem in transactionItems ) {
+            val price = transactionItem.product?.price
+            val quanti = transactionItem.quantity
+            val num = price?.times(quanti!!)
+            if (num != null) {
+                total += num
+            }
+        }
+        return "%.2f".format(total)
     }
 }
