@@ -1,5 +1,7 @@
 package pt.up.feup.cpm.printerterminal.http
 
+import android.widget.Toast
+import kotlinx.coroutines.delay
 import pt.up.feup.cpm.printerterminal.ShowScanInfo
 import java.io.BufferedReader
 import java.io.IOException
@@ -8,7 +10,7 @@ import java.io.InputStreamReader
 import java.net.HttpURLConnection
 import java.net.URL
 
-var SERVER = "https://efc9-89-153-186-47.eu.ngrok.io"
+var SERVER = "https://03bb-193-136-33-109.eu.ngrok.io"
 
 fun readStream(input: InputStream): String {
     var reader: BufferedReader? = null
@@ -27,21 +29,24 @@ fun readStream(input: InputStream): String {
     }
     return response.toString()
 }
-
-class GetTransaction(val act: ShowScanInfo, val transactionID: String): Runnable {
+class GetTransaction(val act: ShowScanInfo, val transactionID: String?): Runnable {
     override fun run() {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL("$SERVER/transaction/get/$transactionID")
+            val str_url="$SERVER/transaction/get/$transactionID"
+            println("ola")
+            url = URL(str_url)
             println("GET " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doInput = true
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.useCaches = false
             val responseCode = urlConnection.responseCode
-            if (responseCode == 200)
+            if (responseCode == 200) {
                 act.transactions_res = (readStream(urlConnection.inputStream))
+                println("HELLLLLO")
+            }
             else
                 println("Code: $responseCode")
         } catch (e: Exception) {
@@ -51,7 +56,6 @@ class GetTransaction(val act: ShowScanInfo, val transactionID: String): Runnable
         }
     }
 }
-
 
 class GetCustomer(val act: ShowScanInfo,val userID: String): Runnable {
     override fun run() {

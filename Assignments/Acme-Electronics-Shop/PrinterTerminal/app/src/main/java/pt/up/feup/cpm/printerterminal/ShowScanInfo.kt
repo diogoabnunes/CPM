@@ -34,8 +34,12 @@ class ShowScanInfo : AppCompatActivity() {
             val json = JSONObject(transactions_res)
             val transaction = Gson().fromJson(json.toString(), Transaction::class.java)
 
-            transaction.userID?.let { showUserInfo(it) }
-            showTransInfo(transaction)
+            if(!transaction.printed){
+                transaction.userID?.let { showUserInfo(it) }
+                showTransInfo(transaction)
+                //alterar printed to true na db
+            }
+            //else showAlreadyPrinted
         }
     }
     private fun showTransInfo(transaction: Transaction){
