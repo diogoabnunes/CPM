@@ -32,7 +32,6 @@ class GetTransaction(val act: ShowScanInfo, val transactionID: String?): Runnabl
         var urlConnection: HttpURLConnection? = null
         try {
             val str_url="$SERVER/transaction/get/$transactionID"
-            println("ola")
             url = URL(str_url)
             println("GET " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
@@ -40,10 +39,8 @@ class GetTransaction(val act: ShowScanInfo, val transactionID: String?): Runnabl
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.useCaches = false
             val responseCode = urlConnection.responseCode
-            if (responseCode == 200) {
+            if (responseCode == 200)
                 act.transactions_res = (readStream(urlConnection.inputStream))
-                println("HELLLLLO")
-            }
             else
                 println("Code: $responseCode")
         } catch (e: Exception) {
