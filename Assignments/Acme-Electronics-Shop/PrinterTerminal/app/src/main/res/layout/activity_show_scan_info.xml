@@ -16,7 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="Client: Mario da Silva" />
+            />
 
         <TextView
             android:id="@+id/address"
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_below="@+id/name"
-            android:text="Address: Rua da FEUP, Porto" />
+            />
 
         <TextView
             android:id="@+id/nib"
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_below="@+id/address"
-            android:text="Fiscal Number: 234567891" />
+            />
 
         <TextView
             android:id="@+id/transactionId"
@@ -41,7 +41,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginLeft="5dp"
             android:layout_below="@+id/nib"
-            android:text="Transaction ID: #2345" />
+            />
 
         <TextView
             android:id="@+id/date"
@@ -49,7 +49,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_below="@+id/transactionId"
-            android:text="Date: 24/05/22" />
+            />
 
 
         <TextView
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_below="@+id/date"
-            android:text="Total: 10000€"/>
+            />
 
         <TextView
             android:id="@+id/textView5"
@@ -66,7 +66,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_below="@+id/total"
-            android:text="Items:" />
+            />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:textSize="30dp" />
 
         <ListView
             android:id="@+id/list_item"

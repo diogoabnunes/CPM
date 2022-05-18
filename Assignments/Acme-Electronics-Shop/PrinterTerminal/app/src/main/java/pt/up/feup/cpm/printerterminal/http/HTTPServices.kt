@@ -7,7 +7,7 @@ import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
 
-var SERVER = "https://03bb-193-136-33-109.eu.ngrok.io"
+var SERVER = "https://4ab1-193-136-33-109.eu.ngrok.io"
 
 fun readStream(input: InputStream): String {
     var reader: BufferedReader? = null
@@ -54,27 +54,21 @@ class GetTransaction(val act: ShowScanInfo, val transactionID: String?): Runnabl
     }
 }
 
-class ChangeToPrinted(val act: ShowScanInfo, val body: String, val id: String) : Runnable {
+class ChangeToPrinted(val act: ShowScanInfo, val id: String) : Runnable {
     override fun run() {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL("$SERVER/transaction/update/$id")
-            println("POST " + url.toExternalForm())
+            url = URL("$SERVER/transaction/getAndUpdate/$id")
+            println("GET " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
-            urlConnection.doOutput = true
             urlConnection.doInput = true
-            urlConnection.requestMethod = "POST"
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.useCaches = false
-            val outputStream = DataOutputStream(urlConnection.outputStream)
-            outputStream.writeBytes(body)
-            outputStream.flush()
-            outputStream.close()
 
             // get response
             val responseCode = urlConnection.responseCode
-            if (responseCode == 201)
+            if (responseCode == 200)
                 act.printed_res = (readStream(urlConnection.inputStream))
             else
                 println("Code: $responseCode")

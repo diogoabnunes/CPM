@@ -24,36 +24,38 @@ class ShowScanInfo : AppCompatActivity() {
         setContentView(R.layout.activity_show_scan_info)
 
         var transactionID= intent.getStringExtra("info").toString()
-        val textView = findViewById<TextView>(R.id.transactionId)
-        textView.text="Transaction ID: " + transactionID
+
 
         runBlocking {
             launch {
                 Thread(GetTransaction(this@ShowScanInfo, transactionID)).start()
             }
-            delay(3000L)
+            delay(1000L)
 
             val json = JSONObject(transactions_res)
             val transaction = Gson().fromJson(json.toString(), Transaction::class.java)
 
             if(!transaction.printed){
+                setPrinted(transaction)
                 transaction.userID?.let { showUserInfo(it) }
                 showTransInfo(transaction)
-                setPrinted(transaction)
+
             }
-            //else showAlreadyPrinted
+            else {
+                val tv : TextView = findViewById(R.id.textView6)
+                tv.text = "Already printed"
+                print("")
+            }
         }
     }
 
     private fun setPrinted(transaction: Transaction?) {
         if (transaction != null) {
-            transaction.printed=true
-            val body = Gson().toJson(transaction)
-
             runBlocking {
                 launch {
-                    Thread(ChangeToPrinted(this@ShowScanInfo,body, transaction.transactionID.toString())).start()
+                    Thread(ChangeToPrinted(this@ShowScanInfo,transaction.transactionID.toString())).start()
                 }
+                delay(1000L)
             }
         }
 
@@ -61,6 +63,9 @@ class ShowScanInfo : AppCompatActivity() {
 
 
     private fun showTransInfo(transaction: Transaction){
+        val textView = findViewById<TextView>(R.id.transactionId)
+        textView.text="Transaction ID: " + transaction.transactionID
+
         val total : TextView = findViewById(R.id.total)
         total.text = "Price: "
 
