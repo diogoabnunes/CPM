@@ -56,13 +56,18 @@ class Scan : AppCompatActivity() {
         // Callbacks
         codeScanner.decodeCallback = DecodeCallback {
             runOnUiThread {
-                val products = intent.getSerializableExtra("value1") as MutableList<Product>
-                val quantities = intent.getSerializableExtra("quants1") as MutableList<Int>
-                val intent = Intent(this, ShowScanInfo::class.java)
-                intent.putExtra("info",it.text)
-                intent.putExtra("value2", ArrayList(products))
-                intent.putExtra("quants2", ArrayList(quantities))
-                getAddItem.launch(intent)
+                try {
+                    val products = intent.getSerializableExtra("value1") as MutableList<Product>
+                    val quantities = intent.getSerializableExtra("quants1") as MutableList<Int>
+                    val intent = Intent(this, ShowScanInfo::class.java)
+                    intent.putExtra("info",it.text)
+                    intent.putExtra("value2", ArrayList(products))
+                    intent.putExtra("quants2", ArrayList(quantities))
+                    getAddItem.launch(intent)
+                }
+                catch (e: Exception) {
+                    Toast.makeText(this@Scan, "Failed to connect to Database...", Toast.LENGTH_LONG).show()
+                }
             }
         }
         codeScanner.errorCallback = ErrorCallback { // or ErrorCallback.SUPPRESS

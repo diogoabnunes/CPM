@@ -79,33 +79,24 @@
         android:textSize="15sp" />
 
     <!--- RETIRAR MAIS TARDE -->
-    <TextView
-        android:id="@+id/activity_link"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/activity_main_link"
-        android:layout_marginTop="30dp"
-        android:text="Home"
-        android:textAlignment="center"
-        android:textSize="15sp" />
 
-   <!-- <Button
-        android:id="@+id/bt_qr"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/activity_link"
-        android:text="GET QR CODE" />
+    <!-- <Button
+         android:id="@+id/bt_qr"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_weight="1"
+         android:layout_marginTop="30dp"
+         android:layout_below="@+id/activity_link"
+         android:text="GET QR CODE" />
 
-    <Button
-        android:id="@+id/bt_scan"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginTop="10dp"
-        android:layout_below="@+id/bt_qr"
-        android:text="SCAN CODE" />-->
+     <Button
+         android:id="@+id/bt_scan"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:layout_weight="1"
+         android:layout_marginTop="10dp"
+         android:layout_below="@+id/bt_qr"
+         android:text="SCAN CODE" />-->
 
 
 </RelativeLayout>

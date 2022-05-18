@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonElement
@@ -30,17 +31,19 @@ class ShowScanInfo : AppCompatActivity() {
         val textView: TextView = findViewById(R.id.tv_show_info)
         textView.text = "Product ID: " + productID
 
-        runBlocking {
-            launch {
-                Thread(GetProduct(this@ShowScanInfo, productID)).start()
-            }
-            delay(1000L)
+        val products = intent.getSerializableExtra("value2") as MutableList<Product>
+        val quantities = intent.getSerializableExtra("quants2") as MutableList<Int>
 
-            val products = intent.getSerializableExtra("value2") as MutableList<Product>
-            val quantities = intent.getSerializableExtra("quants2") as MutableList<Int>
-            val json = JSONObject(products_res)
-            val prod = Gson().fromJson(json.toString(), Product::class.java)
-            showInfo(prod)
+        try {
+            runBlocking {
+                launch {
+                    Thread(GetProduct(this@ShowScanInfo, productID)).start()
+                }
+                delay(1000L)
+
+                val json = JSONObject(products_res)
+                val prod = Gson().fromJson(json.toString(), Product::class.java)
+                showInfo(prod)
 
                 val linkTextView2 = findViewById<TextView>(R.id.btn_back_shopping_cart)
                 linkTextView2.setOnClickListener {
@@ -64,6 +67,17 @@ class ShowScanInfo : AppCompatActivity() {
                 }
             }
         }
+        catch (e: Exception) {
+            Toast.makeText(this@ShowScanInfo, "Failed to connect to Database..." ,Toast.LENGTH_LONG).show()
+            val data = Intent()
+            data.putExtra("value3", ArrayList(products))
+            data.putExtra("quants3", ArrayList(quantities))
+            setResult(Activity.RESULT_OK, data)
+            finish()
+        }
+    }
+
+
 
     private fun showInfo(prod:Product){
         val name : TextView = findViewById(R.id.tv_show_info2)

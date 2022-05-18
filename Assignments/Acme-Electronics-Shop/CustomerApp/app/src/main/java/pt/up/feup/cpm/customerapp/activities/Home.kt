@@ -3,6 +3,7 @@ package pt.up.feup.cpm.customerapp.activities
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import kotlinx.coroutines.*
@@ -24,17 +25,22 @@ class Home : AppCompatActivity() {
 
         val email = intent.getStringExtra("email").toString()
 
-        runBlocking {
-            launch {
-                Thread(GetCustomer(this@Home, email)).start()
+        try {
+            runBlocking {
+                launch {
+                    Thread(GetCustomer(this@Home, email)).start()
+                }
+                delay(1000L)
+                var json = JSONObject()
+                launch {
+                    json = JSONObject(user_response)
+                }
+                delay(1000L)
+                customer = Gson().fromJson(json.toString(), Customer::class.java)
             }
-            delay(1000L)
-            var json = JSONObject()
-            launch {
-                json = JSONObject(user_response)
-            }
-            delay(1000L)
-            customer = Gson().fromJson(json.toString(), Customer::class.java)
+        }
+        catch (e: Exception) {
+            Toast.makeText(this@Home, "Failed to connect to Database...", Toast.LENGTH_LONG).show()
         }
     }
 

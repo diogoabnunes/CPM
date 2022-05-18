@@ -82,37 +82,39 @@ class ShoppingCart : AppCompatActivity() {
     }
 
     private fun setupPayButton() {
-        findViewById<Button>(R.id.pay_btn).setOnClickListener {
-                vw -> onButtonClick(vw) }
+        val payBtn = findViewById<Button>(R.id.pay_btn)
+        payBtn.setOnClickListener {
+            val random = (0..100).shuffled().random()
+            if(random <= 95) {
+
+                try {
+                    val transaction = Transaction()
+                    runBlocking {
+                        launch {
+                            saveTransaction(transaction)
+                        }
+                        delay(1000L)
+                        generateQR(it, transaction)
+                        Toast.makeText(this@ShoppingCart, "Payment Success! $random", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                catch (e: Exception) {
+                    Toast.makeText(this@ShoppingCart, "Failed to connect to Database...", Toast.LENGTH_LONG).show()
+                }
+            }
+            else
+                Toast.makeText(this, "Payment Failed! $random", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun setupAddItemButton() {
         val linkTextView2 = findViewById<TextView>(R.id.add_item_btn)
         linkTextView2.setOnClickListener {
-
             val intent = Intent(this, Scan::class.java)
             intent.putExtra("value1", ArrayList(products))
             intent.putExtra("quants1", ArrayList(quantities))
             getAddItem.launch(intent)
         }
-    }
-
-    private fun onButtonClick(vw: View) {
-        val random = (0..100).shuffled().random()
-        if(random <= 95) {
-            Toast.makeText(this, "Payment Success! $random", Toast.LENGTH_SHORT).show()
-
-            var transaction = Transaction()
-            runBlocking {
-                launch {
-                    saveTransaction(transaction)
-                }
-                delay(1000L)
-                generateQR(vw, transaction)
-            }
-        }
-        else
-            Toast.makeText(this, "Payment Failed! $random", Toast.LENGTH_SHORT).show()
     }
 
     private fun saveTransaction(transaction: Transaction) {

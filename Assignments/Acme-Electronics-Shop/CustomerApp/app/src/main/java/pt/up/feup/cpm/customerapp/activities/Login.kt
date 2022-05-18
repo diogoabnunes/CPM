@@ -24,7 +24,6 @@ class Login : AppCompatActivity() {
 
         setupRegisterButton()
         setupLoginButton()
-        setupHomeButton() // TO DELETE
     }
 
     private fun setupRegisterButton() {
@@ -44,31 +43,30 @@ class Login : AppCompatActivity() {
             js.accumulate("email", email.text.toString())
             js.accumulate("password", password.text.toString())
 
-            runBlocking {
-                launch {
-                    Thread(LoginCustomer(this@Login, js.toString())).start()
-                }
-                delay(1000L)
+            try {
+                runBlocking {
+                    launch {
+                        Thread(LoginCustomer(this@Login, js.toString())).start()
+                    }
+                    delay(1000L)
 
-                if (!tvResponse.contains("failed") && tvResponse != "") {
-                    val intent = Intent(this@Login, Home::class.java)
-                    intent.putExtra("email", email.text.toString())
-                    startActivity(intent)
-                    Toast.makeText(this@Login, "Login Success!", Toast.LENGTH_LONG).show()
-                }
-                else {
-                    Toast.makeText(this@Login, "Login failed...", Toast.LENGTH_LONG).show()
+                    val customerRes = JSONObject(tvResponse)
+                    val customer = Gson().fromJson(customerRes.toString(), Customer::class.java)
+
+                    if (customer != null) {
+                        val intent = Intent(this@Login, Home::class.java)
+                        intent.putExtra("email", customer.email)
+                        startActivity(intent)
+                        Toast.makeText(this@Login, "Login Success!", Toast.LENGTH_LONG).show()
+                    }
+                    else {
+                        Toast.makeText(this@Login, "Login failed...", Toast.LENGTH_LONG).show()
+                    }
                 }
             }
-        }
-    }
-
-    // TO DELETE
-    private fun setupHomeButton() {
-        val linkTextView = findViewById<TextView>(R.id.activity_link)
-        linkTextView.setOnClickListener {
-            val intent = Intent(this, Home::class.java)
-            startActivity(intent)
+            catch (e: Exception) {
+                Toast.makeText(this@Login, "Failed to connect to Database...", Toast.LENGTH_LONG).show()
+            }
         }
     }
 }
