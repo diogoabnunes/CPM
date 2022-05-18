@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import com.google.gson.Gson
 import org.json.JSONObject
+import pt.up.feup.cpm.printerterminal.http.ChangeToPrinted
 import pt.up.feup.cpm.printerterminal.models.Customer
 import pt.up.feup.cpm.printerterminal.models.Transaction
 import pt.up.feup.cpm.printerterminal.http.GetCustomer
@@ -16,6 +17,7 @@ import pt.up.feup.cpm.printerterminal.http.GetTransaction
 class ShowScanInfo : AppCompatActivity() {
     var transactions_res = ""
     var user_res = ""
+    var printed_res=""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,11 +39,27 @@ class ShowScanInfo : AppCompatActivity() {
             if(!transaction.printed){
                 transaction.userID?.let { showUserInfo(it) }
                 showTransInfo(transaction)
-                //alterar printed to true na db
+                setPrinted(transaction)
             }
             //else showAlreadyPrinted
         }
     }
+
+    private fun setPrinted(transaction: Transaction?) {
+        if (transaction != null) {
+            transaction.printed=true
+            val body = Gson().toJson(transaction)
+
+            runBlocking {
+                launch {
+                    Thread(ChangeToPrinted(this@ShowScanInfo,body, transaction.transactionID.toString())).start()
+                }
+            }
+        }
+
+    }
+
+
     private fun showTransInfo(transaction: Transaction){
         val total : TextView = findViewById(R.id.total)
         total.text = "Price: "

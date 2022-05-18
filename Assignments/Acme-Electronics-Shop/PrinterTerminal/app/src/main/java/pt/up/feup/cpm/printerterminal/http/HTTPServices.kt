@@ -3,10 +3,7 @@ package pt.up.feup.cpm.printerterminal.http
 import android.widget.Toast
 import kotlinx.coroutines.delay
 import pt.up.feup.cpm.printerterminal.ShowScanInfo
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
+import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
 
@@ -50,6 +47,38 @@ class GetTransaction(val act: ShowScanInfo, val transactionID: String?): Runnabl
             else
                 println("Code: $responseCode")
         } catch (e: Exception) {
+            println(e.toString())
+        } finally {
+            urlConnection?.disconnect()
+        }
+    }
+}
+
+class ChangeToPrinted(val act: ShowScanInfo, val body: String, val id: String) : Runnable {
+    override fun run() {
+        val url: URL
+        var urlConnection: HttpURLConnection? = null
+        try {
+            url = URL("$SERVER/transaction/update/$id")
+            println("POST " + url.toExternalForm())
+            urlConnection = url.openConnection() as HttpURLConnection
+            urlConnection.doOutput = true
+            urlConnection.doInput = true
+            urlConnection.requestMethod = "POST"
+            urlConnection.setRequestProperty("Content-Type", "application/json")
+            urlConnection.useCaches = false
+            val outputStream = DataOutputStream(urlConnection.outputStream)
+            outputStream.writeBytes(body)
+            outputStream.flush()
+            outputStream.close()
+
+            // get response
+            val responseCode = urlConnection.responseCode
+            if (responseCode == 201)
+                act.printed_res = (readStream(urlConnection.inputStream))
+            else
+                println("Code: $responseCode")
+        } catch (e: java.lang.Exception) {
             println(e.toString())
         } finally {
             urlConnection?.disconnect()
