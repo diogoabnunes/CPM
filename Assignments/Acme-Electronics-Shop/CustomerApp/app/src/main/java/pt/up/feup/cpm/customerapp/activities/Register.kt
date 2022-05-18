@@ -59,6 +59,10 @@ class Register : AppCompatActivity() {
                 js.accumulate("address", address.text.toString())
                 js.accumulate("fiscalNumber", fiscal_number.text.toString())
                 js.accumulate("email", email.text.toString())
+
+                if (password.text.toString() == "") {
+                    throw Exception("Invalid password (null)")
+                }
                 js.accumulate("password", password.text.toString())
                 js.accumulate("cardType", type)
                 js.accumulate("cardNumber", card_number.text.toString())
