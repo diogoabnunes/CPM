@@ -87,33 +87,44 @@ class ShoppingCart : AppCompatActivity() {
 
         val payBtn = findViewById<Button>(R.id.pay_btn)
         payBtn.setOnClickListener {
-            val random = (0..100).shuffled().random()
-            val customer = intent.getSerializableExtra("customer") as Customer
+            if(products.isNotEmpty()) {
+                val random = (0..100).shuffled().random()
+                val customer = intent.getSerializableExtra("customer") as Customer
 
-            val cardValid = cardValid(customer.cardValidity)
-            if (random <= 95 && cardValid) {
+                val cardValid = cardValid(customer.cardValidity)
+                if (random <= 95 && cardValid) {
 
-                try {
-                    val transaction = Transaction()
-                    transaction.userID = customer.userID
+                    try {
+                        val transaction = Transaction()
+                        transaction.userID = customer.userID
 
-                    runBlocking {
-                        launch {
-                            saveTransaction(transaction)
+                        runBlocking {
+                            launch {
+                                saveTransaction(transaction)
+                            }
+                            delay(1000L)
+                            generateQR(it, transaction)
+                            Toast.makeText(
+                                this@ShoppingCart,
+                                "Payment Success! $random",
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
-                        delay(1000L)
-                        generateQR(it, transaction)
-                        Toast.makeText(this@ShoppingCart, "Payment Success! $random", Toast.LENGTH_SHORT).show()
+                    } catch (e: Exception) {
+                        Toast.makeText(
+                            this@ShoppingCart,
+                            "Failed to connect to Database...",
+                            Toast.LENGTH_LONG
+                        ).show()
                     }
-                }
-                catch (e: Exception) {
-                    Toast.makeText(this@ShoppingCart, "Failed to connect to Database...", Toast.LENGTH_LONG).show()
+                } else {
+                    Toast.makeText(this, "Payment Failed!", Toast.LENGTH_SHORT).show()
+                    finish()
                 }
             }
-            else {
-                Toast.makeText(this, "Payment Failed!", Toast.LENGTH_SHORT).show()
-                finish()
-            }
+            else
+                Toast.makeText(this, "Add something to the cart!", Toast.LENGTH_SHORT).show()
+
         }
     }
 
