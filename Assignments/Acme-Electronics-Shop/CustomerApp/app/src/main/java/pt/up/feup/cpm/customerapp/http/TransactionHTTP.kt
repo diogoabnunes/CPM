@@ -62,3 +62,28 @@ class AddTransaction(val act: ShoppingCart, val body: String) : Runnable {
         }
     }
 }
+
+class GetTransaction(val act: PastTransactionsInfo, val transactionID: String?): Runnable {
+    override fun run() {
+        val url: URL
+        var urlConnection: HttpURLConnection? = null
+        try {
+            val str_url="$SERVER/transaction/get/$transactionID"
+            url = URL(str_url)
+            println("GET " + url.toExternalForm())
+            urlConnection = url.openConnection() as HttpURLConnection
+            urlConnection.doInput = true
+            urlConnection.setRequestProperty("Content-Type", "application/json")
+            urlConnection.useCaches = false
+            val responseCode = urlConnection.responseCode
+            if (responseCode == 200)
+                act.transactions_res = (readStream(urlConnection.inputStream))
+            else
+                println("Code: $responseCode")
+        } catch (e: Exception) {
+            println(e.toString())
+        } finally {
+            urlConnection?.disconnect()
+        }
+    }
+}

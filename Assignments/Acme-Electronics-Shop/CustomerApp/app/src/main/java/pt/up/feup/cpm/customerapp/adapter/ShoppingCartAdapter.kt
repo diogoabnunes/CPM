@@ -22,8 +22,6 @@ class ShoppingCartAdapter(var mCtx: Context, var resources: Int, var items: List
 
         val subtractQuantity = view.findViewById(R.id.decrease_btn) as TextView
         val addQuantity = view.findViewById(R.id.increase_btn) as TextView
-        val removeItem = view.findViewById(R.id.remove_btn) as TextView
-
 
         val mItem: TransactionItem = items[position]
 
@@ -37,11 +35,6 @@ class ShoppingCartAdapter(var mCtx: Context, var resources: Int, var items: List
                 mItem.quantity = mItem.quantity?.minus(1)
             notifyDataSetChanged()
         }
-
-        //removeItem.setOnClickListener(View.OnClickListener {
-        //    items.remove(position)
-        //    notifyDataSetChanged()
-        //})
 
         quantity.text = mItem.quantity.toString()
         name.text = mItem.product?.name.toString()

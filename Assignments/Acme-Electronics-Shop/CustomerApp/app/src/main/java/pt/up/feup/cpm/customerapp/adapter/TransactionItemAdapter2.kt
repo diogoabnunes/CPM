@@ -9,19 +9,21 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.models.Transaction
+import pt.up.feup.cpm.customerapp.models.TransactionItem
 
-class TransactionItemAdapter(var mCtx: Context, var resources: Int, var items: List<Transaction>):ArrayAdapter<Transaction>(mCtx, resources, items){
+class TransactionItemAdapter2(var mCtx: Context, var resources: Int, var items: List<TransactionItem>):ArrayAdapter<TransactionItem>(mCtx, resources, items){
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         val layoutInflater:LayoutInflater = LayoutInflater.from(mCtx)
         val view:View = layoutInflater.inflate(resources, null)
 
-        val id : TextView = view.findViewById(R.id.transaction_id)
+        val name : TextView = view.findViewById(R.id.transaction_id)
         val date: TextView = view.findViewById(R.id.date)
         val price: TextView = view.findViewById(R.id.price)
 
-        var mItem:Transaction = items[position]
-        id.text = mItem.transactionID.toString()
-        date.text = mItem.date.toString()
+        var mItem: TransactionItem = items[position]
+        name.text = mItem.product?.name.toString()
+        price.text = mItem.product?.price.toString()
+        date.text = mItem.quantity.toString()
         return view
     }
 }
