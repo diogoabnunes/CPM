@@ -2,13 +2,11 @@ package pt.up.feup.cpm.printerterminal
 
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.content.PackageManagerCompat
 import com.budiyev.android.codescanner.*
 
 private const val CAMERA_REQUEST_CODE=101
@@ -24,7 +22,7 @@ class MainActivity : AppCompatActivity() {
         codeScanner()
     }
 
-    private fun codeScanner(){
+        private fun codeScanner(){
         val scannerView = findViewById<CodeScannerView>(R.id.scanner_view)
 
         codeScanner = CodeScanner(this, scannerView)

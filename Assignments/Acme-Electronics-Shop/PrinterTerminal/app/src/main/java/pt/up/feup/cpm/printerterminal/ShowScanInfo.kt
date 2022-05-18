@@ -25,7 +25,6 @@ class ShowScanInfo : AppCompatActivity() {
 
         var transactionID= intent.getStringExtra("info").toString()
 
-
         runBlocking {
             launch {
                 Thread(GetTransaction(this@ShowScanInfo, transactionID)).start()
@@ -44,7 +43,6 @@ class ShowScanInfo : AppCompatActivity() {
             else {
                 val tv : TextView = findViewById(R.id.textView6)
                 tv.text = "Already printed"
-                print("")
             }
         }
     }
