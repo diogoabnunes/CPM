@@ -37,4 +37,6 @@
     <string name="total">Total:</string>
     <string name="_1000_00">1000$00</string>
     <string name="logout">Logout</string>
+    <string name="year">Year</string>
+    <string name="month">Month</string>
 </resources>

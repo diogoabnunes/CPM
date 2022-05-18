@@ -81,7 +81,6 @@ class ShoppingCart : AppCompatActivity() {
 
         listview.adapter = ShoppingCartAdapter(this, R.layout.list_item, list)
         listview.adapter.registerDataSetObserver(observer);
-
     }
 
     private fun setupPayButton() {
@@ -91,7 +90,8 @@ class ShoppingCart : AppCompatActivity() {
             val random = (0..100).shuffled().random()
             val customer = intent.getSerializableExtra("customer") as Customer
 
-            if(random <= 95 && cardValid(customer.cardValidity)) {
+            val cardValid = cardValid(customer.cardValidity)
+            if (random <= 95 && cardValid) {
 
                 try {
                     val transaction = Transaction()
@@ -110,8 +110,10 @@ class ShoppingCart : AppCompatActivity() {
                     Toast.makeText(this@ShoppingCart, "Failed to connect to Database...", Toast.LENGTH_LONG).show()
                 }
             }
-            else
-                Toast.makeText(this, "Payment Failed! $random", Toast.LENGTH_SHORT).show()
+            else {
+                Toast.makeText(this, "Payment Failed!", Toast.LENGTH_SHORT).show()
+                finish()
+            }
         }
     }
 

@@ -61,8 +61,6 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
 
     const customer = await Customer.findOne({email: req.body.email});
-    console.log(req.body.email)
-    console.log(customer.password)
 
     const validPassword = await bcrypt.compare(req.body.password, customer.password);
     if (customer && validPassword) {
