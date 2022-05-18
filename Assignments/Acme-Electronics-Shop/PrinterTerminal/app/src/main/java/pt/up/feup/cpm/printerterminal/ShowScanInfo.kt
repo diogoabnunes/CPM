@@ -18,6 +18,7 @@ class ShowScanInfo : AppCompatActivity() {
     var transactions_res = ""
     var user_res = ""
     var printed_res=""
+    val tv by lazy { findViewById<TextView>(R.id.textView6) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,19 +32,24 @@ class ShowScanInfo : AppCompatActivity() {
             }
             delay(1000L)
 
-            val json = JSONObject(transactions_res)
-            val transaction = Gson().fromJson(json.toString(), Transaction::class.java)
+            try {
+                val json = JSONObject(transactions_res)
+                val transaction = Gson().fromJson(json.toString(), Transaction::class.java)
 
-            if(!transaction.printed){
-                setPrinted(transaction)
-                transaction.userID?.let { showUserInfo(it) }
-                showTransInfo(transaction)
+                if(!transaction.printed){
+                    setPrinted(transaction)
+                    transaction.userID?.let { showUserInfo(it) }
+                    showTransInfo(transaction)
 
+                }
+                else {
+                    tv.text = "Already printed"
+                }
             }
-            else {
-                val tv : TextView = findViewById(R.id.textView6)
-                tv.text = "Already printed"
+            catch (e:Exception) {
+                tv.text = "Failed to connect to Database..."
             }
+
         }
     }
 

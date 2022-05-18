@@ -1,13 +1,11 @@
 package pt.up.feup.cpm.printerterminal.http
 
-import android.widget.Toast
-import kotlinx.coroutines.delay
 import pt.up.feup.cpm.printerterminal.ShowScanInfo
 import java.io.*
 import java.net.HttpURLConnection
 import java.net.URL
 
-var SERVER = "https://a52d-193-136-33-109.eu.ngrok.io"
+var SERVER = "https://49c3-193-136-33-109.eu.ngrok.io"
 
 fun readStream(input: InputStream): String {
     var reader: BufferedReader? = null
