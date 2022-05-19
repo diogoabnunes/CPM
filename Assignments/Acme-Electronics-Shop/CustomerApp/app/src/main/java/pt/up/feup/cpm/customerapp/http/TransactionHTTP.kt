@@ -10,15 +10,17 @@ class GetTransactions(val act: PastTransactions, val userID: String): Runnable {
         val url: URL
         var urlConnection: HttpURLConnection? = null
         try {
-            url = URL("$SERVER/transaction/$userID")
+            url = URL("$SERVER/transaction/getfromID/$userID")
             println("GET " + url.toExternalForm())
             urlConnection = url.openConnection() as HttpURLConnection
             urlConnection.doInput = true
             urlConnection.setRequestProperty("Content-Type", "application/json")
             urlConnection.useCaches = false
             val responseCode = urlConnection.responseCode
-            if (responseCode == 200)
-               act.response = readStream(urlConnection.inputStream)
+            if (responseCode == 200) {
+                act.response = readStream(urlConnection.inputStream)
+                println("Hey " + act.response)
+            }
             else
                 println("Code: $responseCode")
         } catch (e: Exception) {

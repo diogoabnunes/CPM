@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageButton
 import android.widget.ListView
+import com.google.gson.GsonBuilder
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -15,7 +16,7 @@ import pt.up.feup.cpm.customerapp.models.Transaction
 import java.util.*
 
 class PastTransactions : AppCompatActivity() {
-    var pastTransactions = mutableListOf<Transaction>()
+    var pastTransactions: List<Transaction> = ArrayList()
     var response = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,12 +24,16 @@ class PastTransactions : AppCompatActivity() {
         setContentView(R.layout.activity_past_transactions)
 
         val customer = intent.getSerializableExtra("customer") as Customer
+        val a = 1
 
         runBlocking {
             launch {
-                Thread(customer.userID?.let { GetTransactions(this@PastTransactions, it) })
+                Thread(customer.userID?.let { GetTransactions(this@PastTransactions, it) }).start()
             }
             delay(1000L)
+
+            pastTransactions =
+                GsonBuilder().create().fromJson(response, Array<Transaction>::class.java).toList()
 
             val listview = findViewById<ListView>(R.id.list_item)
             val list = mutableListOf<Transaction>()
@@ -39,23 +44,35 @@ class PastTransactions : AppCompatActivity() {
 //            )
 //        }
 
-//        for (i in pastTransactions.indices) {
-//            list.add(Transaction(pastTransactions[i].transactionID, pastTransactions[i].userID,
-//                pastTransactions[i].content, pastTransactions[i].date, pastTransactions[i].printed))
-//        }
+            for (i in pastTransactions.indices) {
+                list.add(
+                    Transaction(
+                        pastTransactions[i].transactionID,
+                        pastTransactions[i].userID,
+                        pastTransactions[i].content,
+                        pastTransactions[i].date,
+                        pastTransactions[i].printed
+                    )
+                )
 
-            listview.adapter = TransactionItemAdapter(this@PastTransactions, R.layout.past_transaction_item, list)
 
-            val context = this@PastTransactions
-            listview.setOnItemClickListener { _, _, position, _ ->
-                // 1
-                val selectedRecipe = list[position]
+                listview.adapter = TransactionItemAdapter(
+                    this@PastTransactions,
+                    R.layout.past_transaction_item,
+                    list
+                )
 
-                // 2
-                val detailIntent = PastTransactionsInfo.newIntent(context, selectedRecipe)
+                val context = this@PastTransactions
+                listview.setOnItemClickListener { _, _, position, _ ->
+                    // 1
+                    val selectedRecipe = list[position]
 
-                // 3
-                startActivity(detailIntent)
+                    // 2
+                    val detailIntent = PastTransactionsInfo.newIntent(context, selectedRecipe)
+
+                    // 3
+                    startActivity(detailIntent)
+                }
             }
         }
     }
