@@ -17,12 +17,14 @@
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
+                android:textSize="18dp"
                 android:layout_height="wrap_content"
                 android:text="@string/transaction_id" />
 
             <TextView
                 android:id="@+id/transaction_id"
                 android:layout_width="wrap_content"
+                android:textSize="18dp"
                 android:layout_height="wrap_content"
                 android:text="@string/_2345" />
         </LinearLayout>
@@ -36,6 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:textSize="18dp"
                 android:text="@string/date" />
 
             <TextView
@@ -43,6 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
+                android:textSize="18dp"
                 android:text="@string/_23_04_2022" />
 
         </LinearLayout>
@@ -56,6 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="60dp"
+                android:textSize="18dp"
                 android:text="@string/content" />
 
         </LinearLayout>
@@ -76,11 +81,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
 
+
         <TextView
             android:id="@+id/total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
+            android:textSize="18dp"
             android:text="Total: " />
     </LinearLayout>
 

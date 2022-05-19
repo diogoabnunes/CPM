@@ -16,14 +16,16 @@ class TransactionItemAdapter2(var mCtx: Context, var resources: Int, var items: 
         val layoutInflater:LayoutInflater = LayoutInflater.from(mCtx)
         val view:View = layoutInflater.inflate(resources, null)
 
-        val name : TextView = view.findViewById(R.id.transaction_id)
-        val date: TextView = view.findViewById(R.id.date)
-        val price: TextView = view.findViewById(R.id.price)
+        val name : TextView = view.findViewById(R.id.productName)
+        val quantity: TextView = view.findViewById(R.id.quantity1)
+        val price: TextView = view.findViewById(R.id.pricee)
 
         var mItem: TransactionItem = items[position]
         name.text = mItem.product?.name.toString()
-        price.text = mItem.product?.price.toString()
-        date.text = mItem.quantity.toString()
+        quantity.text = " " + mItem.quantity.toString()
+        price.text = mItem.product?.price.toString() + "€"
+
+
         return view
     }
 }

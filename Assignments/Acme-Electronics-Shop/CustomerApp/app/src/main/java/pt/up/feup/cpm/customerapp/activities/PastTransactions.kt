@@ -2,18 +2,15 @@ package pt.up.feup.cpm.customerapp.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageButton
 import android.widget.ListView
 import com.google.gson.GsonBuilder
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.json.JSONObject
 import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.adapter.TransactionItemAdapter
 import pt.up.feup.cpm.customerapp.http.GetTransactions
 import pt.up.feup.cpm.customerapp.models.Customer
-import pt.up.feup.cpm.customerapp.models.Product
 import pt.up.feup.cpm.customerapp.models.Transaction
 import pt.up.feup.cpm.customerapp.models.TransactionItem
 import java.util.*
@@ -66,7 +63,6 @@ class PastTransactions : AppCompatActivity() {
                     detailIntent.putExtra("id", list[position].transactionID);
                     detailIntent.putExtra("data", list[position].date);
                     detailIntent.putExtra("price", calculateTotal(list[position].content))
-
                     startActivity(detailIntent)
                 }
             }

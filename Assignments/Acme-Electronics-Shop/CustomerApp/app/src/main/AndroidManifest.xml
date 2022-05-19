@@ -18,12 +18,11 @@
             android:exported="false" />
         <activity
             android:name=".activities.PastTransactionsInfo"
-            android:exported="false" />
-        <activity
-            android:name=".activities.PastTransactionInfo"
-            android:exported="false" />
+            android:parentActivityName=".activities.PastTransactions"
+        android:exported="false" />
         <activity
             android:name=".activities.ShowScanInfo"
+            android:parentActivityName=".activities.ShoppingCart"
             android:exported="false" />
         <activity
             android:name=".activities.Scan"

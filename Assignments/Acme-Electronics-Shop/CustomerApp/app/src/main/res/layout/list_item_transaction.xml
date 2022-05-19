@@ -32,20 +32,15 @@
                     android:text="x"
                     android:textStyle="bold"></TextView>
                 <TextView
-                    android:id="@+id/quantity"
+                    android:id="@+id/quantity1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2"
                     android:textStyle="bold"></TextView>
-                <Space
-                    android:layout_width="50dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="12" />
-
 
             </LinearLayout>
         <TextView
-            android:id="@+id/price"
+            android:id="@+id/pricee"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="15dp"

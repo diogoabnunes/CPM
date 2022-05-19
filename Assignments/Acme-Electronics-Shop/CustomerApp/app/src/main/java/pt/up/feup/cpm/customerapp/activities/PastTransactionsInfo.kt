@@ -42,10 +42,12 @@ class PastTransactionsInfo : AppCompatActivity() {
             val date = findViewById<TextView>(R.id.date)
             val total : TextView = findViewById(R.id.total)
 
-            total.text = "Total: " + calculateTotal(transaction.content)
-            transactionId.text = "#" + ss.take(4).uppercase() + ss.takeLast(4).uppercase()
-            date.text = sss
-            listview.adapter = TransactionItemAdapter2(this@PastTransactionsInfo, R.layout.list_item, transaction.content)
+            total.text = "Total: " + calculateTotal(transaction.content) + "€"
+            transactionId.text = " #" + ss.take(4).uppercase() + ss.takeLast(4).uppercase()
+            date.text = sss.take(10) + "  " + (sss.takeLast(13)).take(5)
+
+
+            listview.adapter = TransactionItemAdapter2(this@PastTransactionsInfo, R.layout.list_item_transaction, transaction.content)
         }
 
 
