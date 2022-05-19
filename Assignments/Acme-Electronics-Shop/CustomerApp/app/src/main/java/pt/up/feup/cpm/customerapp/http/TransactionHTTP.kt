@@ -19,7 +19,6 @@ class GetTransactions(val act: PastTransactions, val userID: String): Runnable {
             val responseCode = urlConnection.responseCode
             if (responseCode == 200) {
                 act.response = readStream(urlConnection.inputStream)
-                println("Hey " + act.response)
             }
             else
                 println("Code: $responseCode")
