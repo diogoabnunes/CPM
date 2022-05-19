@@ -8,11 +8,14 @@ import com.google.gson.GsonBuilder
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import org.json.JSONObject
 import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.adapter.TransactionItemAdapter
 import pt.up.feup.cpm.customerapp.http.GetTransactions
 import pt.up.feup.cpm.customerapp.models.Customer
+import pt.up.feup.cpm.customerapp.models.Product
 import pt.up.feup.cpm.customerapp.models.Transaction
+import pt.up.feup.cpm.customerapp.models.TransactionItem
 import java.util.*
 
 class PastTransactions : AppCompatActivity() {
@@ -38,12 +41,6 @@ class PastTransactions : AppCompatActivity() {
             val listview = findViewById<ListView>(R.id.list_item)
             val list = mutableListOf<Transaction>()
 
-
-//        for (i in transactionId.indices){
-//            list.add(Transaction(transactionId[i], "29", null, "22/03/2022", price[i] )
-//            )
-//        }
-
             for (i in pastTransactions.indices) {
                 list.add(
                     Transaction(
@@ -64,16 +61,28 @@ class PastTransactions : AppCompatActivity() {
 
                 val context = this@PastTransactions
                 listview.setOnItemClickListener { _, _, position, _ ->
-                    // 1
                     val selectedRecipe = list[position]
-
-                    // 2
                     val detailIntent = PastTransactionsInfo.newIntent(context, selectedRecipe)
+                    detailIntent.putExtra("id", list[position].transactionID);
+                    detailIntent.putExtra("data", list[position].date);
+                    detailIntent.putExtra("price", calculateTotal(list[position].content))
 
-                    // 3
                     startActivity(detailIntent)
                 }
             }
         }
+    }
+
+    private fun calculateTotal(transactionItems: MutableList<TransactionItem>): String {
+        var total = 0.0
+        for (transactionItem in transactionItems ) {
+            val price = transactionItem.product?.price
+            val quanti = transactionItem.quantity
+            val num = price?.times(quanti!!)
+            if (num != null) {
+                total += num
+            }
+        }
+        return "%.2f".format(total)
     }
 }

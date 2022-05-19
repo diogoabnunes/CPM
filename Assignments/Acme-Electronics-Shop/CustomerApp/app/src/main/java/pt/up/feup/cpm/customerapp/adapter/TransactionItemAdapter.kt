@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import pt.up.feup.cpm.customerapp.R
 import pt.up.feup.cpm.customerapp.models.Transaction
+import pt.up.feup.cpm.customerapp.models.TransactionItem
 
 class TransactionItemAdapter(var mCtx: Context, var resources: Int, var items: List<Transaction>):ArrayAdapter<Transaction>(mCtx, resources, items){
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -20,8 +21,22 @@ class TransactionItemAdapter(var mCtx: Context, var resources: Int, var items: L
         val price: TextView = view.findViewById(R.id.price)
 
         var mItem:Transaction = items[position]
-        id.text = mItem.transactionID
-        date.text = mItem.date
+        id.text = "Transaction" + " #" + mItem.transactionID.toString().take(4).uppercase() + mItem.transactionID.toString().takeLast(4).uppercase()
+        date.text = mItem.date.toString().take(10) + "  " + (mItem.date.toString().takeLast(13)).take(5)
+        price.text = calculateTotal(mItem.content) + "€"
         return view
+    }
+
+    private fun calculateTotal(transactionItems: MutableList<TransactionItem>): String {
+        var total = 0.0
+        for (transactionItem in transactionItems ) {
+            val price = transactionItem.product?.price
+            val quanti = transactionItem.quantity
+            val num = price?.times(quanti!!)
+            if (num != null) {
+                total += num
+            }
+        }
+        return "%.2f".format(total)
     }
 }
