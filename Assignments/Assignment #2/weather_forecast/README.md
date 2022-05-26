@@ -1,6 +1,6 @@
 # weather_forecast
 
-My preferred cities weather
+Weather Forecast - My preferred cities weather
 
 ## Getting Started
 

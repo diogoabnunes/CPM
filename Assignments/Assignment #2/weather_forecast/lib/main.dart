@@ -11,7 +11,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Weather Forecast',
+      debugShowCheckedModeBanner: false,
+      title: 'Home',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -24,8 +25,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      debugShowCheckedModeBanner: false,
-      home: const MyHomePage(title: 'Home'),
+      home: const MyHomePage(title: 'Weather Forecast'),
     );
   }
 }
@@ -97,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text(
-              'Bateste com a cabeça na parede este número de vezes:',
+              'Número de cabeçadas:',
             ),
             Text(
               '$_counter',
