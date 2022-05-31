@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
+import 'package:weather_forecast/requests.dart';
+import 'package:weather_forecast/weather_info.dart';
 
 void main() {
   runApp(const WeatherApp());
@@ -29,7 +32,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  Future<String> message = Future<String>.value('');
+  String message = "";
 
   @override
   Widget build(BuildContext context) {
@@ -40,19 +43,16 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
-                onPressed: () { setState(() { message = getCityWeather(); }); } ,
+                onPressed: () {
+                  setState(() {
+                    getCityWeather().then((result) => {
+                      message = result
+                    });
+                    WeatherInfo wi = WeatherInfo.fromJson(jsonDecode(message.toString()));
+                    print(wi);
+                    });
+                  } ,
                 child: const Text('Add City')
-            ),
-            FutureBuilder<String> (
-                future: message,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Text(snapshot.data!);
-                  } else if (snapshot.hasError) {
-                    return Text('${snapshot.error}');
-                  }
-                  return const CircularProgressIndicator();
-                }
             )
           ],
         )
@@ -61,15 +61,3 @@ class _HomeState extends State<Home> {
   }
 }
 
-Future<String> getCityWeather() async {
-  final response = await http.get(Uri.http('api.openweathermap.org', '/data/2.5/weather',
-      { 'appid': 'a178a302491f20b4079a8e30ef112a78',
-        'units': 'metric',
-        'q': 'Porto, Portugal'}
-  ));
-  if (response.statusCode == 200) {
-    return response.body;
-  } else {
-    throw Exception('HTTP failed');
-  }
-}
