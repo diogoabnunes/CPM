@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'cityWeather.dart';
 
 void main() {
   runApp(const WeatherApp());
@@ -19,6 +20,7 @@ class WeatherApp extends StatelessWidget {
     );
   }
 }
+
 class Cities extends StatefulWidget {
   const Cities({Key? key, required this.title}) : super(key: key);
   final String title;
@@ -32,6 +34,7 @@ class _CitiesState extends State<Cities> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text(widget.title)),
+        resizeToAvoidBottomInset: false,
         body: Stack(children: [
           Container(
             decoration: BoxDecoration(
@@ -105,7 +108,14 @@ class _CitiesState extends State<Cities> {
                                         //(controller.dataList.length > 0)
                                         //? data = controller.dataList[index]
                                         //    : data = null;
-                                        return Container(
+                                        return GestureDetector(
+                                          onTap: () {
+                                            Navigator.push(
+                                              context,
+                                              MaterialPageRoute(builder: (context) => City(title: "Weather Forecast")),
+                                            );
+                                          },
+                                          child: Container(
                                           width: 140,
                                           height: 150,
                                           child: Card(
@@ -173,7 +183,7 @@ class _CitiesState extends State<Cities> {
                                               ),
                                             ),
                                           ),
-                                        );
+                                          ));
                                       },
                                     ),
                                   ),
