@@ -37,7 +37,7 @@ class _CitiesState extends State<Cities> {
             decoration: BoxDecoration(
               image: DecorationImage(
                 image: NetworkImage(
-                    'https://www.publicdomainpictures.net/pictures/310000/nahled/-1571046681AOt.jpg'),
+                    'https://i.pinimg.com/564x/1e/da/30/1eda30c2aa2def050aee09c5517fbc17.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -46,20 +46,7 @@ class _CitiesState extends State<Cities> {
               flex: 1,
               child: Stack(children: <Widget>[
                 Container(
-                  child: AppBar(
-                    backgroundColor: Colors.transparent,
-                    elevation: 0,
-                    leading: IconButton(
-                      icon: Icon(
-                        Icons.menu,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {},
-                    ),
-                  ),
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 100, left: 20, right: 20),
+                  padding: EdgeInsets.only(top: 40, left: 20, right: 20),
                   child: TextField(
                     //onChanged: (value) => controller.city = value,
                     style: TextStyle(
@@ -96,14 +83,14 @@ class _CitiesState extends State<Cities> {
                 Padding(
                     padding: EdgeInsets.symmetric(horizontal: 15),
                     child: Container(
-                        padding: EdgeInsets.only(top: 200),
+                        padding: EdgeInsets.only(top: 150),
                         child: Align(
                             alignment: Alignment.topLeft,
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Container(
-                                    height: 400,
+                                    height: 450,
                                     child: ListView.separated(
                                       physics: BouncingScrollPhysics(),
                                       scrollDirection: Axis.vertical,
