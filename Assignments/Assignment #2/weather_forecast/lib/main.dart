@@ -32,7 +32,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  String message = "";
+  Future<String> message = Future<String>.value('');
 
   @override
   Widget build(BuildContext context) {
@@ -43,16 +43,19 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    getCityWeather().then((result) => {
-                      message = result
-                    });
-                    WeatherInfo wi = WeatherInfo.fromJson(jsonDecode(message.toString()));
-                    print(wi);
-                    });
-                  } ,
+                onPressed: () { setState(() { message = getCityWeather(); }); } ,
                 child: const Text('Add City')
+            ),
+            FutureBuilder<String> (
+                future: message,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(snapshot.data!);
+                  } else if (snapshot.hasError) {
+                    return Text('${snapshot.error}');
+                  }
+                  return const CircularProgressIndicator();
+                }
             )
           ],
         )
