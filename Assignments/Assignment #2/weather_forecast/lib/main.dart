@@ -18,5 +18,3 @@ class WeatherApp extends StatelessWidget {
     );
   }
 }
-
-
