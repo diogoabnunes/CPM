@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:weather_forecast/utils.dart';
 import 'cityWeather.dart';
-import 'package:weather_forecast/services/requests.dart';
-import 'package:weather_forecast/models/weather_info.dart';
+import 'package:weather_forecast/requests.dart';
+import 'package:weather_forecast/weather_info.dart';
 
 void main() {
   runApp(const WeatherApp());
@@ -39,15 +40,7 @@ class _CitiesState extends State<Cities> {
         appBar: AppBar(title: Text(widget.title)),
         resizeToAvoidBottomInset: false,
         body: Stack(children: [
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(
-                    'https://i.pinimg.com/564x/1e/da/30/1eda30c2aa2def050aee09c5517fbc17.jpg'),
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
+          getBackground('https://i.pinimg.com/564x/1e/da/30/1eda30c2aa2def050aee09c5517fbc17.jpg'),
           Expanded(
               flex: 1,
               child: Stack(children: <Widget>[
@@ -105,7 +98,7 @@ class _CitiesState extends State<Cities> {
                                         color: Colors.transparent,
                                         width: 5,
                                       ),
-                                      itemCount: 6,
+                                      itemCount: 2,
                                       itemBuilder: (context, index) {
                                         //CurrentWeatherData data;
                                         //(controller.dataList.length > 0)
