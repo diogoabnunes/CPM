@@ -17,9 +17,9 @@ class WeatherInfo {
 
   final String? countryCode; // sys.country
   final String? cityName; // name
-  final String? sunriseTime; // sys.sunrise
-  final String? sunsetTime; // sys.sunset
-  final String? timezone; // timezone
+  final int? sunriseTime; // sys.sunrise
+  final int? sunsetTime; // sys.sunset
+  final int? timezone; // timezone
 
   factory WeatherInfo.fromJson(dynamic json) {
     if (json == null) {

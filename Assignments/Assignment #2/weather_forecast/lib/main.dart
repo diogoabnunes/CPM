@@ -10,13 +10,11 @@ class WeatherApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'is IT raining?',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: Cities(title: 'is IT raining?', cities: const ["Porto", "Lisbon"]),
+      home: const Cities(title: 'is IT raining?'),
     );
   }
 }

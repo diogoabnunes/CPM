@@ -8,25 +8,25 @@ import '../models/weather_info.dart';
 import '../services/requests.dart';
 
 class Cities extends StatefulWidget {
-  Cities({Key? key, required this.title, required this.cities}) : super(key: key);
+  const Cities({Key? key, required this.title}) : super(key: key);
   final String title;
-  final List<String> cities;
-
-  final List<WeatherInfo> citiesWeather = <WeatherInfo>[];
 
   @override
   State<Cities> createState() => _CitiesState();
 }
 
 class _CitiesState extends State<Cities> {
+  List<String> cities = ["Porto", "Lisbon"];
+  List<WeatherInfo> citiesWeather = <WeatherInfo>[];
+
   @override
   Widget build(BuildContext context) {
-    widget.citiesWeather.clear();
-    for (var city in widget.cities) {
+    citiesWeather.clear();
+    for (var city in cities) {
       WeatherInfo wi;
       getCityWeather(city).then((result) => {
         wi = WeatherInfo.fromJson(jsonDecode(result)),
-        widget.citiesWeather.add(wi)
+        citiesWeather.add(wi)
       });
     }
 
@@ -62,7 +62,7 @@ class _CitiesState extends State<Cities> {
                   //   widget.citiesWeather.add(wi),
                   //   widget.cities.add(str)
                   // });
-                  widget.cities.add(str);
+                  cities.add(str);
                 });
               },
               decoration: InputDecoration(
@@ -113,7 +113,7 @@ class _CitiesState extends State<Cities> {
                                   color: Colors.transparent,
                                   width: 5,
                                 ),
-                                itemCount: widget.cities.length,
+                                itemCount: cities.length,
                                 itemBuilder: (context, index) {
                                   //CurrentWeatherData data;
                                   //(controller.dataList.length > 0)
@@ -140,7 +140,7 @@ class _CitiesState extends State<Cities> {
                                               MainAxisAlignment.center,
                                               children: <Widget>[
                                                 Text(
-                                                  widget.cities.length.toString(),
+                                                  cities.length.toString(),
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .caption
