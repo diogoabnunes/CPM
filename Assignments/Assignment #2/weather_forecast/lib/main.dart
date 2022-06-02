@@ -98,7 +98,7 @@ class _CitiesState extends State<Cities> {
                                         color: Colors.transparent,
                                         width: 5,
                                       ),
-                                      itemCount: 2,
+                                      itemCount: 6,
                                       itemBuilder: (context, index) {
                                         //CurrentWeatherData data;
                                         //(controller.dataList.length > 0)
