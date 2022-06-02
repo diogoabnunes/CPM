@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:weather_forecast/requests.dart';
-import 'package:weather_forecast/weather_info.dart';
+import 'package:weather_forecast/services/requests.dart';
+import 'package:weather_forecast/models/weather_info.dart';
 
 void main() {
   runApp(const WeatherApp());
