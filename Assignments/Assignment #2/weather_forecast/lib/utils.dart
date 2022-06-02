@@ -1,6 +1,8 @@
-import 'package:flutter/material.dart';
+import 'dart:convert';
 
-import 'city.dart';
+import 'package:flutter/material.dart';
+import 'package:weather_forecast/services/requests.dart';
+import 'models/weather_info.dart';
 
 Container getBackground(String url) {
   return Container(
@@ -12,4 +14,3 @@ Container getBackground(String url) {
     ),
   );
 }
-
