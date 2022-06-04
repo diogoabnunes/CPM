@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class City extends StatefulWidget {
   const City({Key? key, required this.title}) : super(key: key);
   final String title;
+
   // WeatherInfo
   // ForecastInfo
 
@@ -22,11 +23,9 @@ class _CityState extends State<City> {
               child: Column(
                 children: [
                   const Text("Porto",
-                      style: TextStyle(
-                          fontSize: 35,
-                          color: Colors.black54)
-                  ),
-                  Center(child: Row(
+                      style: TextStyle(fontSize: 35, color: Colors.black54)),
+                  Center(
+                      child: Row(
                     children: [
                       Container(
                         decoration: const BoxDecoration(
@@ -39,13 +38,11 @@ class _CityState extends State<City> {
                       ),
                       const Text("14º",
                           textAlign: TextAlign.center,
-                          style: TextStyle(
-                              color: Colors.blue,
-                              fontSize: 60)
-                      )
+                          style: TextStyle(color: Colors.blue, fontSize: 60))
                     ],
                   )),
                 ],
-              ))]));
+              ))
+        ]));
   }
 }

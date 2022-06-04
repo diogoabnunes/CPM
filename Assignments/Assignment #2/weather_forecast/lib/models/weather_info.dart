@@ -9,7 +9,7 @@ class WeatherInfo {
   final double? mainTemp; // main.temp
   final double? mainFeelsLike; // main.feels_like
   final int? mainPressure; // main.pressure
-  final int? mainHumidity; // main-humidity
+  final int? mainHumidity; // main.humidity
   final double? mainTempMin; // main.temp_min
   final double? mainTempMax; // main.temp_max
 
@@ -27,7 +27,7 @@ class WeatherInfo {
     }
 
     return WeatherInfo(
-      weatherID: 1,
+      weatherID: json['weather'][0]['id'],
       weatherMain: json['weather'][0]['main'],
       weatherDescription: json['weather'][0]['description'],
       weatherIcon: json['weather'][0]['icon'],
