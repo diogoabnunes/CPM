@@ -24,7 +24,8 @@ class _CitiesState extends State<Cities> {
     citiesWeather.clear();
     for (var city in cities) {
       WeatherInfo wi;
-      getCityWeather(city).then((result) => {
+      getCityWeather(city).then((result) =>
+      {
         wi = WeatherInfo.fromJson(jsonDecode(result)),
         citiesWeather.add(wi)
       });
@@ -33,12 +34,19 @@ class _CitiesState extends State<Cities> {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
       resizeToAvoidBottomInset: false,
-      body: Stack(
-        children: [
-          getBackground('https://i.pinimg.com/564x/1e/da/30/1eda30c2aa2def050aee09c5517fbc17.jpg'),
-          getSearch(),
-          getListView()
-        ],
+      body: Container(
+        constraints: const BoxConstraints.expand(),
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage("assets/images/bluesky.jpg"),
+              fit: BoxFit.cover),
+        ),
+        child: Stack(
+          children: <Widget>[
+            Row( children: [getSearch()]),
+            Row( children: [getListView()]),
+          ],
+        ),
       ),
     );
   }
