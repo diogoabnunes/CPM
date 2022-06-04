@@ -16,21 +16,42 @@ class Cities extends StatefulWidget {
 }
 
 class _CitiesState extends State<Cities> {
-  List<String> cities = ["Porto", "Lisbon"];
+  List<String> cities = ["Porto","Sydney"];
   List<WeatherInfo> citiesWeather = <WeatherInfo>[];
+  late Future<String> _value;
 
-  @override
-  Widget build(BuildContext context) {
+  Future<String> loadInfo() async {
     citiesWeather.clear();
     for (var city in cities) {
       WeatherInfo wi;
-      getCityWeather(city).then((result) =>
+      await getCityWeather(city).then((result) =>
       {
         wi = WeatherInfo.fromJson(jsonDecode(result)),
         citiesWeather.add(wi)
       });
     }
+    return 'hello';
+  }
 
+  Future<String> requestCity(String str) async{
+    WeatherInfo wi;
+    await getCityWeather(str).then((result) =>
+    {
+      wi = WeatherInfo.fromJson(jsonDecode(result)),
+      citiesWeather.add(wi),
+      cities.add(str)
+    });
+    return 'new city';
+  }
+
+  @override
+  initState() {
+    super.initState();
+    _value = loadInfo();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
       resizeToAvoidBottomInset: false,
@@ -41,17 +62,39 @@ class _CitiesState extends State<Cities> {
               image: AssetImage("assets/images/bluesky.jpg"),
               fit: BoxFit.cover),
         ),
-        child: Stack(
+        child:
+        Stack(
           children: <Widget>[
             Row( children: [getSearch()]),
-            Row( children: [getListView()]),
+            FutureBuilder<String>(
+              future: _value,
+              builder: (
+                  BuildContext context,
+                  AsyncSnapshot<String> snapshot,
+                  ) {
+                print(snapshot.connectionState);
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return CircularProgressIndicator();
+                } else if (snapshot.connectionState == ConnectionState.done) {
+                  if (snapshot.hasError) {
+                    return const Text('Error');
+                  } else if (snapshot.hasData) {
+                    return Row(children: [getListView()],);
+                  } else {
+                    return const Text('Empty data');
+                  }
+                } else {
+                  return Text('State: ${snapshot.connectionState}');
+                }
+              },
+            )
           ],
         ),
       ),
     );
   }
 
-  Expanded getSearch() {
+  Expanded getSearch(){
     return Expanded(
         flex: 1,
         child: Stack(children: <Widget>[
@@ -63,15 +106,7 @@ class _CitiesState extends State<Cities> {
               ),
               textInputAction: TextInputAction.search,
               onSubmitted: (String str) {
-                setState(() {
-                  // WeatherInfo wi;
-                  // getCityWeather(str).then((result) => {
-                  //   wi = WeatherInfo.fromJson(jsonDecode(result)),
-                  //   widget.citiesWeather.add(wi),
-                  //   widget.cities.add(str)
-                  // });
-                  cities.add(str);
-                });
+                setState( () {_value=requestCity(str);});
               },
               decoration: InputDecoration(
                 suffix: const Icon(
@@ -148,7 +183,7 @@ class _CitiesState extends State<Cities> {
                                               MainAxisAlignment.center,
                                               children: <Widget>[
                                                 Text(
-                                                  cities.length.toString(),
+                                                  citiesWeather[0].cityName.toString(),
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .caption
@@ -162,7 +197,7 @@ class _CitiesState extends State<Cities> {
                                                   ),
                                                 ),
                                                 Text(
-                                                  "22ºC",
+                                                  citiesWeather[0].mainTemp.toString(),
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .caption
@@ -178,16 +213,17 @@ class _CitiesState extends State<Cities> {
                                                 Container(
                                                   width: 50,
                                                   height: 50,
-                                                  decoration: const BoxDecoration(
+                                                  decoration: BoxDecoration(
                                                     image: DecorationImage(
                                                       image: NetworkImage(
-                                                          'https://cdn1.iconfinder.com/data/icons/weather-forecast-meteorology-color-1/128/weather-partly-sunny-512.png'),
+                                                          'https://openweathermap.org/img/wn/'+ citiesWeather[0].weatherIcon.toString()+'@2x.png'
+                                                      ),
                                                       fit: BoxFit.cover,
                                                     ),
                                                   ),
                                                 ),
                                                 Text(
-                                                  "FRIO",
+                                                  citiesWeather[0].weatherDescription.toString(),
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .caption
@@ -210,4 +246,5 @@ class _CitiesState extends State<Cities> {
                           ]))))
         ]));
   }
+  
 }

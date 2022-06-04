@@ -28,9 +28,9 @@ class WeatherInfo {
 
     return WeatherInfo(
       weatherID: 1,
-      weatherMain: "a",
-      weatherDescription: "b",
-      weatherIcon: "c",
+      weatherMain: json['weather'][0]['main'],
+      weatherDescription: json['weather'][0]['description'],
+      weatherIcon: json['weather'][0]['icon'],
 
       mainTemp: json['main']['temp'],
       mainFeelsLike: json['main']['feels_like'],
