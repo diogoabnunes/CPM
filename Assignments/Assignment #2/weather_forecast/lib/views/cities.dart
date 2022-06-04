@@ -242,35 +242,43 @@ class _CitiesState extends State<Cities> {
                                               Column(
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
-                                                  Row(
-                                                    children: [
-                                                      Text(
-                                                              (citiesWeather[index].mainTempMax?.toInt()).toString()+'ºC',
-                                                            style: Theme.of(context)
-                                                                .textTheme
-                                                                .caption
-                                                                ?.copyWith(
-                                                              color: Colors.black45,
-                                                              fontFamily:
-                                                              'flutterfonts',
-                                                              fontSize: 14,
-                                                            ),
-                                                      )],
-                                                  ),
-                                                Row(
-                                                  children: [
-                                                    Text(
-                                                    (citiesWeather[index].mainTempMin?.toInt()).toString()+'ºC',
-                                                      style: Theme.of(context)
-                                                      .textTheme
-                                                      .caption
-                                                      ?.copyWith(
-                                                    color: Colors.black45,
-                                                    fontFamily: 'flutterfonts',
-                                                    fontSize: 14,
-                                                  ),
-                                                )],
-                                                )
+                                                    Align(
+                                                        alignment: Alignment.centerRight,
+                                                        child: Column(
+                                                          mainAxisAlignment: MainAxisAlignment.end,
+                                                        children: [
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                (citiesWeather[index].mainTempMax?.toInt()).toString()+'ºC',
+                                                                style: Theme.of(context)
+                                                                    .textTheme
+                                                                    .caption
+                                                                    ?.copyWith(
+                                                                  color: Colors.black45,
+                                                                  fontFamily:
+                                                                  'flutterfonts',
+                                                                  fontSize: 14,
+                                                                ),
+                                                              )],
+                                                          ),
+                                                          Row(
+                                                            children: [
+                                                              Text(
+                                                                (citiesWeather[index].mainTempMin?.toInt()).toString()+'ºC',
+                                                                style: Theme.of(context)
+                                                                    .textTheme
+                                                                    .caption
+                                                                    ?.copyWith(
+                                                                  color: Colors.black45,
+                                                                  fontFamily: 'flutterfonts',
+                                                                  fontSize: 14,
+                                                                ),
+                                                              )],
+                                                          )
+                                                        ],
+                                                      )
+                                                    ),
                                                 ])
                                             ]),
                                           )
