@@ -156,7 +156,7 @@ class _CitiesState extends State<Cities> {
                                   color: Colors.transparent,
                                   width: 5,
                                 ),
-                                itemCount: cities.length,
+                                itemCount: citiesWeather.length,
                                 itemBuilder: (context, index) {
                                   //CurrentWeatherData data;
                                   //(controller.dataList.length > 0)
@@ -171,75 +171,112 @@ class _CitiesState extends State<Cities> {
                                       },
                                       child: Container(
                                         width: 140,
-                                        height: 150,
+                                        height: 120,
                                         child: Card(
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                             BorderRadius.circular(15),
                                           ),
                                           child: Container(
-                                            child: Column(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.start,
                                               children: <Widget>[
-                                                Text(
-                                                  citiesWeather[0].cityName.toString(),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .caption
-                                                      ?.copyWith(
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                    FontWeight.bold,
-                                                    color: Colors.black45,
-                                                    fontFamily:
-                                                    'flutterfonts',
-                                                  ),
-                                                ),
-                                                Text(
-                                                  citiesWeather[0].mainTemp.toString(),
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .caption
-                                                      ?.copyWith(
-                                                    fontSize: 18,
-                                                    fontWeight:
-                                                    FontWeight.bold,
-                                                    color: Colors.black45,
-                                                    fontFamily:
-                                                    'flutterfonts',
-                                                  ),
-                                                ),
-                                                Container(
-                                                  width: 50,
-                                                  height: 50,
-                                                  decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                      image: NetworkImage(
-                                                          'https://openweathermap.org/img/wn/'+ citiesWeather[0].weatherIcon.toString()+'@2x.png'
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      width: 100,
+                                                      height: 100,
+                                                      decoration: BoxDecoration(
+                                                        image: DecorationImage(
+                                                          image: NetworkImage(
+                                                              'https://openweathermap.org/img/wn/'+ citiesWeather[index].weatherIcon.toString()+'@4x.png'
+                                                          ),
+                                                          fit: BoxFit.cover,
+                                                        ),
                                                       ),
-                                                      fit: BoxFit.cover,
                                                     ),
-                                                  ),
+                                                  ],
                                                 ),
-                                                Text(
-                                                  citiesWeather[0].weatherDescription.toString(),
-                                                  style: Theme.of(context)
+                                                Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Container(
+                                                        child: Text(
+                                                          citiesWeather[index].cityName.toString() + ': ' + (citiesWeather[index].mainTemp?.toInt()).toString()+'ºC',
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .caption
+                                                              ?.copyWith(
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                            FontWeight.bold,
+                                                            color: Colors.black45,
+                                                            fontFamily:
+                                                            'flutterfonts',
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Align(
+                                                      alignment: Alignment.centerLeft,
+                                                      child: Container(
+                                                        child: Text(
+                                                          citiesWeather[index].weatherDescription.toString(),
+                                                          style: Theme.of(context)
+                                                              .textTheme
+                                                              .caption
+                                                              ?.copyWith(
+                                                            color: Colors.black45,
+                                                            fontFamily:
+                                                            'flutterfonts',
+                                                            fontSize: 14,
+                                                          ),
+                                                      ),
+                                                    ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              Column(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                  Row(
+                                                    children: [
+                                                      Text(
+                                                              (citiesWeather[index].mainTempMax?.toInt()).toString()+'ºC',
+                                                            style: Theme.of(context)
+                                                                .textTheme
+                                                                .caption
+                                                                ?.copyWith(
+                                                              color: Colors.black45,
+                                                              fontFamily:
+                                                              'flutterfonts',
+                                                              fontSize: 14,
+                                                            ),
+                                                      )],
+                                                  ),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                    (citiesWeather[index].mainTempMin?.toInt()).toString()+'ºC',
+                                                      style: Theme.of(context)
                                                       .textTheme
                                                       .caption
                                                       ?.copyWith(
                                                     color: Colors.black45,
-                                                    fontFamily:
-                                                    'flutterfonts',
+                                                    fontFamily: 'flutterfonts',
                                                     fontSize: 14,
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
+                                                )],
+                                                )
+                                                ])
+                                            ]),
+                                          )
                                         ),
-                                      )
-                                  );
+                                        ),
+                                      );
                                 },
                               ),
                             ),
