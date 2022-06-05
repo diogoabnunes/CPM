@@ -1,12 +1,11 @@
 import 'package:http/http.dart' as http;
-import 'package:weather_forecast/models/constants.dart';
+import 'package:weather_forecast/utils.dart';
 
 Future<String> getCityWeather(String city) async {
-  final response = await http.get(Uri.http('api.openweathermap.org', '/data/2.5/weather',
-      { 'appid': APP_ID,
-        'units': UNITS_METRIC,
-        'q': city,
-        'lang': LANGUAGE_PT
+  final response = await http.get(Uri.http(openWeatherMapAPI, weatherPath,
+      { 'appid': appID,
+        'units': unitsMETRIC,
+        'q': city
       }
   ));
   if (response.statusCode == 200) {
@@ -17,11 +16,10 @@ Future<String> getCityWeather(String city) async {
 }
 
 Future<String> getFiveDaysWeather(String city) async {
-  final response = await http.get(Uri.http('api.openweathermap.org', '/data/2.5/forecast',
-      { 'appid': APP_ID,
-        'units': UNITS_METRIC,
-        'q': city,
-        'lang': LANGUAGE_PT
+  final response = await http.get(Uri.http(openWeatherMapAPI, forecastPath,
+      { 'appid': appID,
+        'units': unitsMETRIC,
+        'q': city
         }
   ));
   if (response.statusCode == 200) {

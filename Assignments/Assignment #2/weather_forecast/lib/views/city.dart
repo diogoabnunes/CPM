@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:weather_forecast/models/weather_info.dart';
+import 'package:weather_forecast/models/list_forecast_info.dart';
 
 class City extends StatefulWidget {
-  const City({Key? key, required this.title}) : super(key: key);
-  final String title;
-
-  // WeatherInfo
-  // ForecastInfo
+  const City({Key? key, required this.weatherInfo/*, required this.listForecastInfo*/}) : super(key: key);
+  final WeatherInfo weatherInfo;
+  //final ListForecastInfo listForecastInfo;
 
   @override
   State<City> createState() => _CityState();
@@ -15,17 +15,19 @@ class _CityState extends State<City> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(widget.title)), // WeatherInfo.city
+        appBar: AppBar(title: Text(widget.weatherInfo.cityName.toString())),
         resizeToAvoidBottomInset: false,
         body: Stack(children: [
           Container(
               padding: const EdgeInsets.only(top: 30),
               child: Column(
                 children: [
-                  const Text("Porto",
-                      style: TextStyle(fontSize: 35, color: Colors.black54)),
-                  Center(
-                      child: Row(
+                  Text(widget.weatherInfo.cityName.toString(),
+                      style: const TextStyle(
+                          fontSize: 35,
+                          color: Colors.black54)
+                  ),
+                  Center(child: Row(
                     children: [
                       Container(
                         decoration: const BoxDecoration(
@@ -38,11 +40,13 @@ class _CityState extends State<City> {
                       ),
                       const Text("14º",
                           textAlign: TextAlign.center,
-                          style: TextStyle(color: Colors.blue, fontSize: 60))
+                          style: TextStyle(
+                              color: Colors.blue,
+                              fontSize: 60)
+                      )
                     ],
                   )),
                 ],
-              ))
-        ]));
+              ))]));
   }
 }

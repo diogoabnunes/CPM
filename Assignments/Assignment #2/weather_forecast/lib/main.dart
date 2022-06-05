@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:weather_forecast/views/cities.dart';
 
+import 'file_manager.dart';
+
 void main() {
   runApp(const WeatherApp());
 }
@@ -14,7 +16,7 @@ class WeatherApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'is IT raining?',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const Cities(title: 'is IT raining?'),
+      home: Cities(title: 'is IT raining?', storage: FileManager()),
     );
   }
 }
