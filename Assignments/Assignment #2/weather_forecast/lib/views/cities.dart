@@ -237,7 +237,7 @@ class _CitiesState extends State<Cities> {
                                       width: 140,
                                       height: 120,
                                       child: Card(
-                                          color: Colors.white38,
+                                          color: Colors.white70,
                                           shape: RoundedRectangleBorder(
                                             borderRadius:
                                                 BorderRadius.circular(15),
