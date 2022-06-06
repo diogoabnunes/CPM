@@ -9,8 +9,10 @@ Future<String> getCityWeather(String city) async {
       }
   ));
   if (response.statusCode == 200) {
+    print(response.body);
     return response.body;
   } else {
+    print(response.body);
     throw Exception('HTTP failed');
   }
 }

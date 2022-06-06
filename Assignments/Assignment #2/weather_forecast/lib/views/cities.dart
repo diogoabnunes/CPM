@@ -27,9 +27,7 @@ class _CitiesState extends State<Cities> {
   late Future<String> _value;
 
   Future<String> loadInfo() async {
-    await widget.storage.read().then((value) => {
-        cities = value
-    });
+    await widget.storage.read().then((value) => {cities = value});
     for (var city in cities) {
       try {
         WeatherInfo wi;
@@ -179,7 +177,7 @@ class _CitiesState extends State<Cities> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
                             SizedBox(
-                              height: 450,
+                              height: 500,
                               child: ListView.separated(
                                 physics: const BouncingScrollPhysics(),
                                 scrollDirection: Axis.vertical,
@@ -206,6 +204,32 @@ class _CitiesState extends State<Cities> {
                                                 )), // aqui é pra mandar a WeatherInfo e ListForecastInfo
                                       );
                                     },
+                                    onLongPress: () => showDialog<String>(
+                                      context: context,
+                                      builder: (BuildContext context) => AlertDialog(
+                                        title: Text(citiesWeather[index].cityName.toString()),
+                                        content: const Text("Do you want to delete this city?"),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () {
+                                              Navigator.pop(context, 'Cancel');
+                                            },
+                                            child: const Text('Cancel'),
+                                          ),
+                                          TextButton(
+                                            onPressed: () {
+                                              setState(() {
+                                                cities.removeAt(index);
+                                                citiesWeather.removeAt(index);
+                                                // citiesForecast.removeAt(index);
+                                              });
+                                              Navigator.pop(context, 'Delete');
+                                            },
+                                            child: const Text('Delete'),
+                                          )
+                                        ],
+                                      )
+                                    ),
                                     child: SizedBox(
                                       width: 140,
                                       height: 120,
@@ -290,9 +314,11 @@ class _CitiesState extends State<Cities> {
     if (citiesWeather[i].weatherMain.toString() == "Rain" ||
         ["200", "201", "202", "310", "311", "312", "313", "314"]
             .contains(citiesWeather[i].weatherID.toString())) {
-      comment = "Yes, IT is!";
+      comment = citiesWeather.length.toString();
+      //comment = "Yes, IT is!";
     } else {
-      comment = "No, IT's not...";
+      comment = citiesWeather.length.toString();
+      //comment = "No, IT's not...";
     }
 
     return Align(
