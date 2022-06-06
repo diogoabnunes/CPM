@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:weather_forecast/views/city.dart';
 import 'package:weather_forecast/models/weather_info.dart';
-import 'package:weather_forecast/models/list_forecast_info.dart';
 import 'package:weather_forecast/models/forecast_info.dart';
 import 'package:weather_forecast/services/requests.dart';
 import 'package:weather_forecast/file_manager.dart';
@@ -21,7 +20,7 @@ class Cities extends StatefulWidget {
 class _CitiesState extends State<Cities> {
   List<String> cities = [];
   List<WeatherInfo> citiesWeather = <WeatherInfo>[];
-  //List<ListForecastInfo> citiesForecast = <ListForecastInfo>[];
+  List<ListForecastInfo> citiesForecast = <ListForecastInfo>[];
 
   final TextEditingController _controller = TextEditingController();
   late Future<String> _value;
@@ -29,23 +28,7 @@ class _CitiesState extends State<Cities> {
   Future<String> loadInfo() async {
     await widget.storage.read().then((value) => {cities = value});
     for (var city in cities) {
-      try {
-        WeatherInfo wi = WeatherInfo();
-        //ListForecastInfo lfi = ListForecastInfo();
-        await getCityWeather(city).then((result) => {
-              wi = WeatherInfo.fromJson(jsonDecode(result)),
-            });
-        // await getFiveDaysWeather(city).then((result) => {
-        //       lfi =
-        //           ForecastInfo.fromJson(jsonDecode(result)) as ListForecastInfo,
-        //     });
-        citiesWeather.add(wi);
-        //citiesForecast.add(lfi);
-        cities.add(city);
-        widget.storage.write(cities);
-      } catch (e) {
-        return 'exception';
-      }
+      requestCity(city);
     }
     return 'hello';
   }
@@ -53,12 +36,12 @@ class _CitiesState extends State<Cities> {
   Future<String> requestCity(String str) async {
     try {
       WeatherInfo wi = WeatherInfo();
-      //ListForecastInfo lfi = ListForecastInfo();
       await getCityWeather(str).then((result) => {
             wi = WeatherInfo.fromJson(jsonDecode(result)),
           });
+      // ListForecastInfo lfi = ListForecastInfo();
       // await getFiveDaysWeather(str).then((result) => {
-      //       lfi = ForecastInfo.fromJson(jsonDecode(result)) as ListForecastInfo,
+      //       lfi = ListForecastInfo.fromJson(jsonDecode(result)),
       //     });
       citiesWeather.add(wi);
       //citiesForecast.add(lfi);

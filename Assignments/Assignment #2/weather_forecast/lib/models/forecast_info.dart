@@ -1,45 +1,95 @@
-class ForecastInfo {
-  ForecastInfo({this.mainTemp, this.mainTempMin, this.mainTempMax, this.mainPressure, this.mainHumidity, this.weatherID, this.weatherMain, this.weatherDescription, this.weatherIcon, this.windSpeed, this.probabilityOfPrecipitation, this.forecastedData});
+class ListForecastInfo {
+  List<ForecastInfo>? list;
 
-  final String? mainTemp; // list.main.temp
-  final String? mainTempMin; // list.main.temp_min
-  final String? mainTempMax; // list.main.temp_max
-  final int? mainPressure; // list.main.pressure
-  final int? mainHumidity; // list.main.humidity
+  ListForecastInfo({this.list});
 
-  final int? weatherID; // list.weather.id
-  final String? weatherMain; // list.weather.main
-  final String? weatherDescription; // list.weather.description
-  final String? weatherIcon; // list.weather.icon
-
-  final double? windSpeed; // list.wind.speed
-  final double? probabilityOfPrecipitation; // list.pop
-
-  final String? forecastedData; // list.dt_txt
-
-  factory ForecastInfo.fromJson(dynamic json) {
-    if (json == null) {
-      return ForecastInfo();
+  ListForecastInfo.fromJson(Map<String, dynamic> json) {
+    if (json['list'] != null) {
+      list = <ForecastInfo>[];
+      json['list'].forEach((v) {
+        list!.add(ForecastInfo.fromJson(v));
+      });
     }
-
-    return ForecastInfo(
-        mainTemp: json['main']['temp'],
-        mainTempMin: json['main']['temp_min'],
-        mainTempMax: json['main']['temp_max'],
-        mainPressure: json['main']['pressure'],
-        mainHumidity: json['main']['humidity'],
-        weatherID: json['weather']['id'],
-        weatherMain: json['weather']['main'],
-        weatherDescription: json['weather']['description'],
-        weatherIcon: json['weather']['icon'],
-        windSpeed: json['wind']['speed'],
-        probabilityOfPrecipitation: json['pop'],
-        forecastedData: json['dt_txt']
-    );
   }
+}
 
-  @override
-  String toString() {
-    return 'ForecastInfo{dt_txt: $forecastedData}';
+class ForecastInfo {
+  int? dt;
+  Main? main;
+  List<Weather>? weather;
+  Wind? wind;
+  int? visibility;
+  double? pop;
+  String? dtTxt;
+
+  ForecastInfo(
+      {this.dt,
+        this.main,
+        this.weather,
+        this.wind,
+        this.visibility,
+        this.pop,
+        this.dtTxt});
+
+  ForecastInfo.fromJson(Map<String, dynamic> json) {
+    main = json['main'] != null ? Main.fromJson(json['main']) : null;
+    if (json['weather'] != null) {
+      weather = <Weather>[];
+      json['weather'].forEach((v) {
+        weather!.add(Weather.fromJson(v));
+      });
+    }
+    wind = json['wind'] != null ? Wind.fromJson(json['wind']) : null;
+    pop = json['pop'];
+    dtTxt = json['dt_txt'];
+  }
+}
+
+class Main {
+  double? temp;
+  double? tempMin;
+  double? tempMax;
+  int? pressure;
+  int? humidity;
+
+  Main(
+      {this.temp,
+        this.tempMin,
+        this.tempMax,
+        this.pressure,
+        this.humidity});
+
+  Main.fromJson(Map<String, dynamic> json) {
+    temp = json['temp'];
+    tempMin = json['temp_min'];
+    tempMax = json['temp_max'];
+    pressure = json['pressure'];
+    humidity = json['humidity'];
+  }
+}
+
+class Weather {
+  int? id;
+  String? main;
+  String? description;
+  String? icon;
+
+  Weather({this.id, this.main, this.description, this.icon});
+
+  Weather.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    main = json['main'];
+    description = json['description'];
+    icon = json['icon'];
+  }
+}
+
+class Wind {
+  double? speed;
+
+  Wind({this.speed});
+
+  Wind.fromJson(Map<String, dynamic> json) {
+    speed = json['speed'];
   }
 }

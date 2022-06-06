@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:weather_forecast/models/weather_info.dart';
-import 'package:weather_forecast/models/list_forecast_info.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class City extends StatefulWidget {
