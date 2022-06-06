@@ -39,12 +39,12 @@ class _CitiesState extends State<Cities> {
       await getCityWeather(str).then((result) => {
             wi = WeatherInfo.fromJson(jsonDecode(result)),
           });
-      // ListForecastInfo lfi = ListForecastInfo();
-      // await getFiveDaysWeather(str).then((result) => {
-      //       lfi = ListForecastInfo.fromJson(jsonDecode(result)),
-      //     });
+      ListForecastInfo lfi = ListForecastInfo(list:[]);
+      await getFiveDaysWeather(str).then((result) => {
+             lfi = ListForecastInfo.fromJson(jsonDecode(result)),
+          });
       citiesWeather.add(wi);
-      //citiesForecast.add(lfi);
+      citiesForecast.add(lfi);
       cities.add(str);
       widget.storage.write(cities);
       return 'new city';
@@ -179,8 +179,8 @@ class _CitiesState extends State<Cities> {
                                             builder: (context) => City(
                                                   weatherInfo:
                                                       citiesWeather[index],
-                                                  // listForecastInfo:
-                                                  //     citiesForecast[index],
+                                                  listForecastInfo:
+                                                       citiesForecast[index],
                                                 )),
                                       );
                                     },
@@ -207,7 +207,7 @@ class _CitiesState extends State<Cities> {
                                                       cities.removeAt(index);
                                                       citiesWeather
                                                           .removeAt(index);
-                                                      // citiesForecast.removeAt(index);
+                                                      citiesForecast.removeAt(index);
                                                     });
                                                     Navigator.pop(
                                                         context, 'Delete');

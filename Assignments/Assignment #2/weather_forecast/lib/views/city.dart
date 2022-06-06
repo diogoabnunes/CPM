@@ -5,12 +5,12 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 class City extends StatefulWidget {
   const City(
-      {Key? key, required this.weatherInfo /*, required this.listForecastInfo*/
+      {Key? key, required this.weatherInfo , required this.listForecastInfo
       })
       : super(key: key);
   final WeatherInfo weatherInfo;
 
-  //final ListForecastInfo listForecastInfo;
+  final ListForecastInfo listForecastInfo;
 
   @override
   State<City> createState() => _CityState();
