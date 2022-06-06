@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:weather_forecast/models/weather_info.dart';
+import 'package:weather_forecast/models/forecast_info.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class City extends StatefulWidget {
   const City(
-      {Key? key, required this.weatherInfo/*, required this.listForecastInfo*/})
+      {Key? key, required this.weatherInfo /*, required this.listForecastInfo*/
+      })
       : super(key: key);
   final WeatherInfo weatherInfo;
+
   //final ListForecastInfo listForecastInfo;
 
   @override
@@ -17,72 +20,130 @@ class _CityState extends State<City> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: Text(widget.weatherInfo.cityName.toString())),
+        appBar: AppBar(title: Text("Is IT raining?")),
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
-            child: Stack(children: [
-          Container(
-              padding: const EdgeInsets.only(top: 30),
-              child: Column(children: [
-                Text(widget.weatherInfo.cityName.toString(),
-                    style:
-                        const TextStyle(fontSize: 35, color: Colors.black54)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  //Center Row contents horizontally,
+            child: Container(
+                decoration: const BoxDecoration(
+                  image: DecorationImage(
+                      image: AssetImage('assets/images/degrade.jpg'),
+                      fit: BoxFit.cover),
+                ),
+                child: Stack(
                   children: [
-                    Image.network(
-                      'https://cdn1.iconfinder.com/data/icons/weather-forecast-meteorology-color-1/128/weather-partly-sunny-512.png',
-                      width: 100,
+                    SizedBox(
+                      height: 50,
                     ),
-                    const Text("14º",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(color: Colors.blue, fontSize: 70))
+                    Container(
+                        padding: const EdgeInsets.only(top: 30),
+                        child: Column(children: [
+                          Text(widget.weatherInfo.cityName.toString(),
+                              style: const TextStyle(
+                                  fontSize: 35, color: Colors.white)),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            //Center Row contents horizontally,
+                            children: [
+                              Image.network(
+                                'https://openweathermap.org/img/wn/${widget.weatherInfo.weatherIcon}@4x.png',
+                                width: 150,
+                              ),
+                              Text(
+                                  (widget.weatherInfo.mainTemp?.toInt())
+                                          .toString() +
+                                      'ºC',
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                      color: Colors.lightBlueAccent, fontSize: 70))
+                            ],
+                          ),
+                          Divider(
+
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          SizedBox(
+                            height: 100,
+                            child: ListView.builder(
+                              itemCount: 5,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) => SizedBox(
+                                height: 90,
+                                width: 90,
+                                child: Column(children: [
+                                  Text(
+                                    "$index h",
+                                    style:
+                                        const TextStyle(color: Colors.white),
+                                  ),
+                                  Image.network(
+                                    'https://openweathermap.org/img/wn/${widget.weatherInfo.weatherIcon}@4x.png',
+                                    width: 60,
+                                  ),
+                                  const Text(
+                                    "22º",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                ]),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(children: [
+                            Row(children: [data("Precipitation", "10%")]),
+                            const SizedBox(width: 50),
+                            Row(children: [
+                              data(
+                                  "Wind",
+                                  (widget.weatherInfo.wind.toString() +
+                                      " km/h"))
+                            ]),
+                          ]),
+                          Row(children: [
+                            Row(children: [
+                              data(
+                                  "Humidity",
+                                  widget.weatherInfo.mainHumidity.toString() +
+                                      "%")
+                            ]),
+                            const SizedBox(width: 50),
+                            Row(children: [
+                              data(
+                                  "Pressure",
+                                  widget.weatherInfo.mainPressure.toString() +
+                                      " hPa")
+                            ]),
+                          ]),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(children: [graphTitle('Temperature Tomorrow')]),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Row(children: [graph()]),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(children: [graphTitle('Precipitation Tomorrow')]),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Row(children: [graph()]),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Row(children: [graphTitle('Wind Tomorrow')]),
+                          SizedBox(
+                            height: 5, // <-- SEE HERE
+                          ),
+                          Row(children: [graph()]),
+                        ]))
                   ],
-                ),
-                SizedBox(
-                  height: 70,
-                  child: ListView.builder(
-                    itemCount: 24,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) => SizedBox(
-                      height: 70,
-                      width: 70,
-                      child: Column(children: [
-                        Text(
-                          "$index h",
-                          style: const TextStyle(color: Colors.black54),
-                        ),
-                        Image.network(
-                          'https://cdn1.iconfinder.com/data/icons/weather-forecast-meteorology-color-1/128/weather-partly-sunny-512.png',
-                          width: 30,
-                        ),
-                        const Text(
-                          "22º",
-                          style: TextStyle(color: Colors.black54),
-                        ),
-                      ]),
-                    ),
-                  ),
-                ),
-                Row(children: [
-                  Row(children: [data("Precipitation", "10%")]),
-                  const SizedBox(width: 50),
-                  Row(children: [data("Wind", "10 km/h")]),
-                ]),
-                Row(children: [
-                  Row(children: [data("Humidity", "54%")]),
-                  const SizedBox(width: 50),
-                  Row(children: [data("Pressure", "1017 hPa")]),
-                ]),
-                Row(children: [graphTitle('Temperature Tomorrow')]),
-                Row(children: [graph()]),
-                Row(children: [graphTitle('Precipitation Tomorrow')]),
-                Row(children: [graph()]),
-                Row(children: [graphTitle('Wind Tomorrow')]),
-                Row(children: [graph()]),
-              ]))
-        ])));
+                ))));
   }
 
   Container graphTitle(title) {
@@ -94,9 +155,9 @@ class _CityState extends State<City> {
           Text(
             title.toUpperCase(),
             style: Theme.of(context).textTheme.caption?.copyWith(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
                   color: Colors.black45,
+                  fontWeight: FontWeight.bold,
                 ),
           ),
         ],
@@ -131,11 +192,13 @@ class _CityState extends State<City> {
     return Column(children: [
       Text(
         title,
-        style: const TextStyle(color: Colors.black54, fontSize: 20),
+        style: const TextStyle(color: Colors.white, fontSize: 20,
+          fontWeight: FontWeight.bold,),
       ),
+      const SizedBox(width: 10),
       Text(
         data,
-        style: const TextStyle(color: Colors.black54, fontSize: 30),
+        style: const TextStyle(color: Colors.white, fontSize: 30),
       ),
     ]);
   }
