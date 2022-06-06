@@ -21,26 +21,26 @@ class Cities extends StatefulWidget {
 class _CitiesState extends State<Cities> {
   List<String> cities = [];
   List<WeatherInfo> citiesWeather = <WeatherInfo>[];
-  final TextEditingController _controller = TextEditingController();
-
   //List<ListForecastInfo> citiesForecast = <ListForecastInfo>[];
+
+  final TextEditingController _controller = TextEditingController();
   late Future<String> _value;
 
   Future<String> loadInfo() async {
     await widget.storage.read().then((value) => {cities = value});
     for (var city in cities) {
       try {
-        WeatherInfo wi;
+        WeatherInfo wi = WeatherInfo();
+        //ListForecastInfo lfi = ListForecastInfo();
         await getCityWeather(city).then((result) => {
               wi = WeatherInfo.fromJson(jsonDecode(result)),
-              citiesWeather.add(wi)
             });
-        //ListForecastInfo lfi;
-        // await getFiveDaysWeather(city).then((result) =>
-        // {
-        //   lfi = ForecastInfo.fromJson(jsonDecode(result)) as ListForecastInfo,
-        //   citiesForecast.add(lfi)
-        // });
+        // await getFiveDaysWeather(city).then((result) => {
+        //       lfi =
+        //           ForecastInfo.fromJson(jsonDecode(result)) as ListForecastInfo,
+        //     });
+        citiesWeather.add(wi);
+        //citiesForecast.add(lfi);
         cities.add(city);
         widget.storage.write(cities);
       } catch (e) {
@@ -52,21 +52,21 @@ class _CitiesState extends State<Cities> {
 
   Future<String> requestCity(String str) async {
     try {
-      WeatherInfo wi;
+      WeatherInfo wi = WeatherInfo();
+      //ListForecastInfo lfi = ListForecastInfo();
       await getCityWeather(str).then((result) => {
             wi = WeatherInfo.fromJson(jsonDecode(result)),
-            citiesWeather.add(wi),
           });
-      // ListForecastInfo lfi;
-      // await getFiveDaysWeather(str).then((result) =>
-      // {
-      //   lfi = ForecastInfo.fromJson(jsonDecode(result)) as ListForecastInfo,
-      //   citiesForecast.add(lfi)
-      // });
+      // await getFiveDaysWeather(str).then((result) => {
+      //       lfi = ForecastInfo.fromJson(jsonDecode(result)) as ListForecastInfo,
+      //     });
+      citiesWeather.add(wi);
+      //citiesForecast.add(lfi);
       cities.add(str);
       widget.storage.write(cities);
       return 'new city';
     } catch (e) {
+      print(e.toString());
       return 'exception';
     }
   }
@@ -188,10 +188,6 @@ class _CitiesState extends State<Cities> {
                                 ),
                                 itemCount: citiesWeather.length,
                                 itemBuilder: (context, index) {
-                                  //CurrentWeatherData data;
-                                  //(controller.dataList.length > 0)
-                                  //? data = controller.dataList[index]
-                                  //    : data = null;
                                   return GestureDetector(
                                     onTap: () {
                                       Navigator.push(
@@ -200,36 +196,43 @@ class _CitiesState extends State<Cities> {
                                             builder: (context) => City(
                                                   weatherInfo:
                                                       citiesWeather[index],
-                                                  //listForecastInfo: citiesForecast[index],
-                                                )), // aqui é pra mandar a WeatherInfo e ListForecastInfo
+                                                  // listForecastInfo:
+                                                  //     citiesForecast[index],
+                                                )),
                                       );
                                     },
                                     onLongPress: () => showDialog<String>(
-                                      context: context,
-                                      builder: (BuildContext context) => AlertDialog(
-                                        title: Text(citiesWeather[index].cityName.toString()),
-                                        content: const Text("Do you want to delete this city?"),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context, 'Cancel');
-                                            },
-                                            child: const Text('Cancel'),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              setState(() {
-                                                cities.removeAt(index);
-                                                citiesWeather.removeAt(index);
-                                                // citiesForecast.removeAt(index);
-                                              });
-                                              Navigator.pop(context, 'Delete');
-                                            },
-                                            child: const Text('Delete'),
-                                          )
-                                        ],
-                                      )
-                                    ),
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            AlertDialog(
+                                              title: Text(citiesWeather[index]
+                                                  .cityName
+                                                  .toString()),
+                                              content: const Text(
+                                                  "Do you want to delete this city?"),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(
+                                                        context, 'Cancel');
+                                                  },
+                                                  child: const Text('Cancel'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    setState(() {
+                                                      cities.removeAt(index);
+                                                      citiesWeather
+                                                          .removeAt(index);
+                                                      // citiesForecast.removeAt(index);
+                                                    });
+                                                    Navigator.pop(
+                                                        context, 'Delete');
+                                                  },
+                                                  child: const Text('Delete'),
+                                                )
+                                              ],
+                                            )),
                                     child: SizedBox(
                                       width: 140,
                                       height: 120,
@@ -314,11 +317,9 @@ class _CitiesState extends State<Cities> {
     if (citiesWeather[i].weatherMain.toString() == "Rain" ||
         ["200", "201", "202", "310", "311", "312", "313", "314"]
             .contains(citiesWeather[i].weatherID.toString())) {
-      comment = citiesWeather.length.toString();
-      //comment = "Yes, IT is!";
+      comment = "Yes, IT is!";
     } else {
-      comment = citiesWeather.length.toString();
-      //comment = "No, IT's not...";
+      comment = "No, IT's not...";
     }
 
     return Align(

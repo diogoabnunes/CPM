@@ -4,7 +4,9 @@ import 'package:weather_forecast/models/list_forecast_info.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class City extends StatefulWidget {
-  const City({Key? key, required this.weatherInfo/*, required this.listForecastInfo*/}) : super(key: key);
+  const City(
+      {Key? key, required this.weatherInfo/*, required this.listForecastInfo*/})
+      : super(key: key);
   final WeatherInfo weatherInfo;
   //final ListForecastInfo listForecastInfo;
 
@@ -20,94 +22,91 @@ class _CityState extends State<City> {
         resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
             child: Stack(children: [
-              Container(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: Column(children: [
-                    Text(widget.weatherInfo.cityName.toString(),
-                        style: TextStyle(fontSize: 35, color: Colors.black54)),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      //Center Row contents horizontally,
-                      children: [
+          Container(
+              padding: const EdgeInsets.only(top: 30),
+              child: Column(children: [
+                Text(widget.weatherInfo.cityName.toString(),
+                    style:
+                        const TextStyle(fontSize: 35, color: Colors.black54)),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  //Center Row contents horizontally,
+                  children: [
+                    Image.network(
+                      'https://cdn1.iconfinder.com/data/icons/weather-forecast-meteorology-color-1/128/weather-partly-sunny-512.png',
+                      width: 100,
+                    ),
+                    const Text("14º",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(color: Colors.blue, fontSize: 70))
+                  ],
+                ),
+                SizedBox(
+                  height: 70,
+                  child: ListView.builder(
+                    itemCount: 24,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) => SizedBox(
+                      height: 70,
+                      width: 70,
+                      child: Column(children: [
+                        Text(
+                          "$index h",
+                          style: const TextStyle(color: Colors.black54),
+                        ),
                         Image.network(
                           'https://cdn1.iconfinder.com/data/icons/weather-forecast-meteorology-color-1/128/weather-partly-sunny-512.png',
-                          width: 100,
+                          width: 30,
                         ),
-                        const Text("14º",
-                            textAlign: TextAlign.center,
-                            style: TextStyle(color: Colors.blue, fontSize: 70))
-                      ],
-                    ),
-                    SizedBox(
-                      height: 70,
-                      child: ListView.builder(
-                        itemCount: 24,
-                        scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => Container(
-                          height: 70,
-                          width: 70,
-                          child: Column(children: [
-                            Text(
-                              "$index h",
-                              style: TextStyle(color: Colors.black54),
-                            ),
-                            Image.network(
-                              'https://cdn1.iconfinder.com/data/icons/weather-forecast-meteorology-color-1/128/weather-partly-sunny-512.png',
-                              width: 30,
-                            ),
-                            Text(
-                              "22º",
-                              style: TextStyle(color: Colors.black54),
-                            ),
-                          ]),
+                        const Text(
+                          "22º",
+                          style: TextStyle(color: Colors.black54),
                         ),
-                      ),
+                      ]),
                     ),
-                    Row(
-//Center Row contents horizontally,
-                        children: [
-                          Row(children: [data("Precipitation", "10%")]),
-                          SizedBox(width: 50),
-                          Row(children: [data("Wind", "10 km/h")]),
-                        ]),
-                    Row(
-//Center Row contents horizontally,
-                        children: [
-                          Row(children: [data("Humidity", "54%")]),
-                          SizedBox(width: 50),
-                          Row(children: [data("Pressure", "1017 hPa")]),
-                        ]),
-                    Row(children: [tituloGrafico('Temperature Tomorrow')]),
-                    Row(children: [grafico()]),
-                    Row(children: [tituloGrafico('Precipitation Tomorrow')]),
-                    Row(children: [grafico()]),
-                    Row(children: [tituloGrafico('Wind Tomorrow')]),
-                    Row(children: [grafico()]),
-                  ]))
-            ])));
+                  ),
+                ),
+                Row(children: [
+                  Row(children: [data("Precipitation", "10%")]),
+                  const SizedBox(width: 50),
+                  Row(children: [data("Wind", "10 km/h")]),
+                ]),
+                Row(children: [
+                  Row(children: [data("Humidity", "54%")]),
+                  const SizedBox(width: 50),
+                  Row(children: [data("Pressure", "1017 hPa")]),
+                ]),
+                Row(children: [graphTitle('Temperature Tomorrow')]),
+                Row(children: [graph()]),
+                Row(children: [graphTitle('Precipitation Tomorrow')]),
+                Row(children: [graph()]),
+                Row(children: [graphTitle('Wind Tomorrow')]),
+                Row(children: [graph()]),
+              ]))
+        ])));
   }
 
-  Container tituloGrafico(titulo) {
+  Container graphTitle(title) {
     return Container(
-      padding: EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
-            titulo.toUpperCase(),
+            title.toUpperCase(),
             style: Theme.of(context).textTheme.caption?.copyWith(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black45,
-            ),
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black45,
+                ),
           ),
         ],
       ),
     );
   }
 
-  Container grafico() {
-    return Container(
+  SizedBox graph() {
+    return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: 240,
       child: Card(
@@ -129,20 +128,18 @@ class _CityState extends State<City> {
     );
   }
 
-  Column data(titulo, data) {
+  Column data(title, data) {
     return Column(children: [
       Text(
-        titulo,
-        style: TextStyle(color: Colors.black54, fontSize: 20),
+        title,
+        style: const TextStyle(color: Colors.black54, fontSize: 20),
       ),
       Text(
         data,
-        style: TextStyle(color: Colors.black54, fontSize: 30),
+        style: const TextStyle(color: Colors.black54, fontSize: 30),
       ),
     ]);
   }
-
-
 
   ///////////////////////////////////////////////////////////////////////////////////////////
   /////////////////// MUDAR AS FUNÇÕES ABAIXO ///////////////////////////////////////////////
@@ -173,7 +170,3 @@ class ExpenseData {
   final num son;
   final num daughter;
 }
-
-
-
-

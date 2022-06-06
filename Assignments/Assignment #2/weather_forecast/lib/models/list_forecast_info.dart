@@ -6,7 +6,7 @@ class ListForecastInfo {
   final List<ForecastInfo>? list;
 
   factory ListForecastInfo.fromJson(Map<String, dynamic> json) {
-    if (json.keys.isEmpty) {
+    if (json.isEmpty) {
       return ListForecastInfo();
     }
 

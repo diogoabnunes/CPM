@@ -14,9 +14,9 @@ class WeatherApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'is IT raining?',
+      title: 'Is IT raining?',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: Cities(title: 'is IT raining?', storage: FileManager()),
+      home: Cities(title: 'Is IT raining?', storage: FileManager()),
     );
   }
 }
