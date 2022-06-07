@@ -311,9 +311,9 @@ class _CitiesPageState extends State<CitiesPage> {
     if (citiesWeather[i].weatherMain?.toString() == "Rain" ||
         ["200", "201", "202", "310", "311", "312", "313", "314"]
             .contains(citiesWeather[i].weatherId?.toString())) {
-      comment = "Yes, IT is!";
+      comment = "Yes, IT is raining!";
     } else {
-      comment = "No, IT's not...";
+      comment = "No, IT's not raining...";
     }
 
     return Align(
