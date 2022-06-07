@@ -25,12 +25,14 @@ class _CitiesPageState extends State<CitiesPage> {
   late Future<String> _value;
 
   Future<String> loadInfo() async {
+    List<String> citiesLoaded = [];
     await widget.storage.read().then((value) => {
           setState(() {
-            cities = value;
+            citiesLoaded = value;
+            widget.storage.clear();
           })
         });
-    for (var city in cities) {
+    for (var city in citiesLoaded) {
       requestCity(city);
     }
     return 'hello';

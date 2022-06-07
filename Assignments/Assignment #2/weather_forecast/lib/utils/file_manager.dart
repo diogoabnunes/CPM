@@ -20,7 +20,7 @@ class FileManager {
     for (var item in list) {
       item = item.toLowerCase();
     }
-    // print("Writing ${list.join(',')} in ${file.path}");
+    print("Writing ${list.join(',')} in ${file.path}");
     return file.writeAsString(list.join(','));
   }
 
@@ -28,7 +28,7 @@ class FileManager {
     try {
       final file = await _localFile;
       final contents = await file.readAsString();
-      // print("Reading $contents from ${file.path}");
+      print("Reading $contents from ${file.path}");
       if (contents == '') return [];
       return contents.split(',');
     } catch (e) {
