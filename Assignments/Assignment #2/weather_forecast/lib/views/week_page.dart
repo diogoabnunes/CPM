@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:weather_forecast/models/weather_info.dart';
 import 'package:weather_forecast/models/forecast_info.dart';
 import 'package:intl/intl.dart';
-import 'dart:math';
+import 'package:collection/collection.dart';
+import 'package:dart_numerics/dart_numerics.dart';
 
 class WeekPage extends StatefulWidget {
   const WeekPage(
@@ -17,11 +18,11 @@ class WeekPage extends StatefulWidget {
 }
 
 class _WeekPageState extends State<WeekPage> {
-  List<DailyInfo> weeklyInfo=[];
+  List<DailyInfo> weeklyInfo = [];
 
   @override
   Widget build(BuildContext context) {
-    weeklyInfo=getWeekInfo(widget.forecastInfo.list!);
+    weeklyInfo = getWeekInfo(widget.forecastInfo.list!);
     return Scaffold(
       appBar: AppBar(title: const Text("Is IT raining?")),
       resizeToAvoidBottomInset: false,
@@ -34,17 +35,21 @@ class _WeekPageState extends State<WeekPage> {
         ),
         child: Column(
           children: [
-            const SizedBox(height: 20,),
+            const SizedBox(
+              height: 20,
+            ),
             Row(children: const [
-              const SizedBox(width: 70,),
+              SizedBox(
+                width: 70,
+              ),
               Text(
-                  'This Week Forecast',
-                  style: TextStyle(
-                    fontSize: 30,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
+                'This Week Forecast',
+                style: TextStyle(
+                  fontSize: 30,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
                 ),
+              ),
             ]),
             const SizedBox(height: 40),
             SizedBox(
@@ -57,10 +62,9 @@ class _WeekPageState extends State<WeekPage> {
                     Row(children: [
                       row(
                         weeklyInfo[index].weekday,
-                        weeklyInfo[index].icon,
-                        //'https://openweathermap.org/img/wn/${weeklyInfo[index].icon}@4x.png',
-                      ( weeklyInfo[index].maxTemp?.toInt()).toString(),
-                      ( weeklyInfo[index].minTemp?.toInt()).toString(),
+                        'https://openweathermap.org/img/wn/${weeklyInfo[index].icon}@4x.png',
+                        (weeklyInfo[index].maxTemp?.toInt()).toString(),
+                        (weeklyInfo[index].minTemp?.toInt()).toString(),
                       )
                     ]),
                   ]),
@@ -91,16 +95,13 @@ class _WeekPageState extends State<WeekPage> {
       Align(
         alignment: Alignment.centerLeft,
         child: SizedBox(
-          width: 70,
-          height: 50,
-          child:Text(
-            icon,
-            style: const TextStyle(color: Colors.white, fontSize: 25),
-          ) /*Image.network(
+            width: 70,
+            height: 50,
+            child: Image.network(
             icon,
             width: 40,
-          ),*/
-        ),
+          ),
+            ),
       ),
       const SizedBox(width: 60),
       Row(children: <Widget>[
@@ -110,7 +111,7 @@ class _WeekPageState extends State<WeekPage> {
             width: 50,
             height: 50,
             child: Text(
-              maxTemp + "º  " ,
+              maxTemp + "º  ",
               style: const TextStyle(color: Colors.white, fontSize: 25),
             ),
           ),
@@ -131,92 +132,69 @@ class _WeekPageState extends State<WeekPage> {
     ]);
   }
 
-  List<DailyInfo> getWeekInfo(List<Forecast> list){
-    List<DailyInfo> week =[];
+  List<DailyInfo> getWeekInfo(List<Forecast> list) {
+    // for (var i in list) {
+    //   print(i);
+    // }
 
-    List<String> weekdays=[];
-    List<List<String?>> iconList=[];
-    List<List<num?>> maxTempList=[];
-    List<List<num?>> minTempList=[];
+    List<DailyInfo> result = <DailyInfo>[];
+    List<DailyInfo> daily = <DailyInfo>[];
+    String today = DateFormat('EEEE').format(DateTime.now());
 
-    List<String?> iconAux=[];
-    List<num?> maxTempAux=[];
-    List<num?> minTempAux=[];
+    for (var i = 0; i < list.length; i++) {
+      Forecast f = list[i];
+      String weekday = DateFormat('EEEE').format(DateTime.parse('${f.dtTxt}'));
+      if (weekday == today) continue;
 
-    for(Forecast forecast in list){
-      String weekday = DateFormat('EEEE').format(DateTime.parse('${forecast.dtTxt}'));
-      if( !weekdays.contains(weekday)){
-          if(iconAux.isNotEmpty){
-            iconList.add(iconAux);
-            iconAux.clear();
-          }
-          if(maxTempAux.isNotEmpty) {
-            maxTempList.add(maxTempAux);
-            maxTempAux.clear();
-          }
-          if(minTempAux.isNotEmpty) {
-            minTempList.add(minTempAux);
-            minTempAux.clear();
-          }
-
-          weekdays.add(weekday);
-      }
-
-      iconAux.add(forecast.weatherIcon);
-      maxTempAux.add(forecast.mainTempMax);
-      minTempAux.add(forecast.mainTempMin);
-
-      if(forecast==list.last){
-        minTempList.add(minTempAux);
-        maxTempList.add(maxTempAux);
-        iconList.add(iconAux);
-      }
+      daily.add(DailyInfo(
+          weekday: weekday,
+          icon: f.weatherIcon,
+          maxTemp: f.mainTempMax,
+          minTemp: f.mainTempMin));
     }
 
-      for(int i=0; i<weekdays.length;i++){
-        // find icon
-        String icon=findICon(iconList[i]);
-        // find maxtemp
-        num? max= (maxTempList[i]).reduce((value, element) => value! > element!? value: element);
-        // find mintemp
-        num? min= (minTempList[i]).reduce((value, element) => value! < element!? value: element);
+    var groupby = groupBy(daily, (DailyInfo di) => di.weekday);
 
-        week.add(DailyInfo(weekday: weekdays[i],icon: icon,maxTemp: max,minTemp: min));
+    for (var day in groupby.keys) {
+      num maxTemp = int64MinValue;
+      num minTemp = int64MaxValue;
+      String? icon;
 
+      var icons = {};
+
+      for (DailyInfo di in groupby[day]!.toList()) {
+        maxTemp = (di.maxTemp! > maxTemp) ? di.maxTemp! : maxTemp;
+        minTemp = (di.minTemp! < minTemp) ? di.minTemp! : minTemp;
+        if (!icons.containsKey(di.icon)) {
+          icons[di.icon] = 1;
+        }
+        else {
+          icons[di.icon] += 1;
+        }
       }
 
-      return week;
+      List sortedValues = icons.values.toList()..sort();
+      int popularValue = sortedValues.last;
+      icons.forEach((k, v) {
+        if (v == popularValue) {
+          icon = k;
+        }
+      });
+
+      result.add(DailyInfo(
+        weekday: day,
+        icon: icon,
+        maxTemp: maxTemp,
+        minTemp: minTemp
+      ));
     }
 
-  String findICon(List<String?> list) {
-    var dict = Map();
-
-    list.forEach((l) {
-      if(!dict.containsKey(l)) {
-        dict[l] = 1;
-      } else {
-        dict[l] +=1;
-      }
-    });
-
-    List sortedValues = dict.values.toList()..sort();
-    int popularValue = sortedValues.last;
-
-    dict.forEach((k, v) {
-      if (v == popularValue) {
-        return k;
-      }
-      print(k);
-    });
-    return dict.keys.toString();
+    return result;
   }
-
-
 }
 
 class DailyInfo {
-
-  DailyInfo({this.weekday,this.icon,this.maxTemp, this.minTemp});
+  DailyInfo({this.weekday, this.icon, this.maxTemp, this.minTemp});
 
   final String? weekday;
   final String? icon;

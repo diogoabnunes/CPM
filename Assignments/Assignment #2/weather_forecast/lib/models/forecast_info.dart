@@ -71,6 +71,11 @@ class Forecast {
         pop: json['pop'],
         dtTxt: json['dt_txt']);
   }
+
+  @override
+  String toString() {
+    return 'Forecast{mainTemp: $mainTemp, mainTempMin: $mainTempMin, mainTempMax: $mainTempMax, weatherId: $weatherId, weatherIcon: $weatherIcon, dtTxt: $dtTxt}';
+  }
 }
 
 String? parseHours(String? datetime) {
