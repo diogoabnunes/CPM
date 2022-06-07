@@ -1,25 +1,40 @@
 class WeatherInfo {
-  WeatherInfo({this.weatherID, this.weatherMain, this.weatherDescription, this.weatherIcon, this.mainTemp, this.mainFeelsLike, this.mainPressure, this.mainHumidity, this.mainTempMin, this.mainTempMax, this.wind, this.countryCode, this.cityName, this.sunriseTime, this.sunsetTime, this.timezone});
+  WeatherInfo(
+      {this.weatherId,
+      this.weatherMain,
+      this.weatherDescription,
+      this.weatherIcon,
+      this.mainTemp,
+      this.mainFeelsLike,
+      this.mainPressure,
+      this.mainHumidity,
+      this.mainTempMin,
+      this.mainTempMax,
+      this.windSpeed,
+      this.countryCode,
+      this.cityName,
+      this.sunrise,
+      this.sunset,
+      this.timezone});
 
-  final int? weatherID; // weather.id
-  final String? weatherMain; // weather.main
-  final String? weatherDescription; // weather.description
-  final String? weatherIcon; // weather.icon
+  final int? weatherId;
+  final String? weatherMain;
+  final String? weatherDescription;
+  final String? weatherIcon;
 
-  final double? mainTemp; // main.temp
-  final double? mainFeelsLike; // main.feels_like
-  final int? mainPressure; // main.pressure
-  final int? mainHumidity; // main.humidity
-  final double? mainTempMin; // main.temp_min
-  final double? mainTempMax; // main.temp_max
+  final double? mainTemp;
+  final double? mainFeelsLike;
+  final int? mainPressure;
+  final int? mainHumidity;
+  final double? mainTempMin;
+  final double? mainTempMax;
 
-  final double? wind; // wind.speed
-
-  final String? countryCode; // sys.country
-  final String? cityName; // name
-  final int? sunriseTime; // sys.sunrise
-  final int? sunsetTime; // sys.sunset
-  final int? timezone; // timezone
+  final double? windSpeed;
+  final String? countryCode;
+  final String? cityName;
+  final int? sunrise;
+  final int? sunset;
+  final int? timezone;
 
   factory WeatherInfo.fromJson(dynamic json) {
     if (json == null) {
@@ -27,26 +42,22 @@ class WeatherInfo {
     }
 
     return WeatherInfo(
-      weatherID: json['weather'][0]['id'],
-      weatherMain: json['weather'][0]['main'],
-      weatherDescription: json['weather'][0]['description'],
-      weatherIcon: json['weather'][0]['icon'],
-
-      mainTemp: json['main']['temp'],
-      mainFeelsLike: json['main']['feels_like'],
-      mainPressure: json['main']['pressure'],
-      mainHumidity: json['main']['humidity'],
-      mainTempMin: json['main']['temp_min'],
-      mainTempMax: json['main']['temp_max'],
-
-      wind: json['wind']['speed'],
-
-      countryCode: json['sys']['country'],
-      cityName: json['name'],
-      sunriseTime: json['sys']['sunrise'],
-      sunsetTime: json['sys']['sunset'],
-      timezone: json['timezone']
-    );
+        weatherId: json['weather'][0]['id'],
+        weatherMain: json['weather'][0]['main'],
+        weatherDescription: json['weather'][0]['description'],
+        weatherIcon: json['weather'][0]['icon'],
+        mainTemp: json['main']['temp'],
+        mainFeelsLike: json['main']['feels_like'],
+        mainPressure: json['main']['pressure'],
+        mainHumidity: json['main']['humidity'],
+        mainTempMin: json['main']['temp_min'],
+        mainTempMax: json['main']['temp_max'],
+        windSpeed: json['wind']['speed'],
+        countryCode: json['sys']['country'],
+        cityName: json['name'],
+        sunrise: json['sys']['sunrise'],
+        sunset: json['sys']['sunset'],
+        timezone: json['timezone']);
   }
 
   @override

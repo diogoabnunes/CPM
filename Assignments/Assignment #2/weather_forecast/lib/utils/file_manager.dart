@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
-import 'package:weather_forecast/utils.dart';
+import 'package:weather_forecast/utils/constants.dart';
 import 'package:flutter/services.dart';
 
 class FileManager {

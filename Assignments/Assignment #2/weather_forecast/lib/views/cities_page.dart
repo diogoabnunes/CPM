@@ -1,26 +1,26 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:weather_forecast/views/city.dart';
+import 'package:weather_forecast/views/city_page.dart';
 import 'package:weather_forecast/models/weather_info.dart';
 import 'package:weather_forecast/models/forecast_info.dart';
 import 'package:weather_forecast/services/requests.dart';
-import 'package:weather_forecast/file_manager.dart';
+import 'package:weather_forecast/utils/file_manager.dart';
 
-class Cities extends StatefulWidget {
-  const Cities({Key? key, required this.title, required this.storage})
+class CitiesPage extends StatefulWidget {
+  const CitiesPage({Key? key, required this.title, required this.storage})
       : super(key: key);
   final String title;
   final FileManager storage;
 
   @override
-  State<Cities> createState() => _CitiesState();
+  State<CitiesPage> createState() => _CitiesPageState();
 }
 
-class _CitiesState extends State<Cities> {
+class _CitiesPageState extends State<CitiesPage> {
   List<String> cities = [];
   List<WeatherInfo> citiesWeather = <WeatherInfo>[];
-  List<ListForecastInfo> citiesForecast = <ListForecastInfo>[];
+  List<ForecastInfo> citiesForecast = <ForecastInfo>[];
 
   final TextEditingController _controller = TextEditingController();
   late Future<String> _value;
@@ -35,22 +35,25 @@ class _CitiesState extends State<Cities> {
 
   Future<String> requestCity(String str) async {
     try {
+      for (var i = 0; i < citiesWeather.length; i++) {
+        if (citiesWeather[i].cityName.toString().toLowerCase() ==
+            str.toLowerCase()) throw Exception("duplicate city");
+      }
       WeatherInfo wi = WeatherInfo();
       await getCityWeather(str).then((result) => {
             wi = WeatherInfo.fromJson(jsonDecode(result)),
           });
-      ListForecastInfo lfi = ListForecastInfo(list:[]);
+      ForecastInfo fi = ForecastInfo(list: []);
       await getFiveDaysWeather(str).then((result) => {
-             lfi = ListForecastInfo.fromJson(jsonDecode(result)),
+            fi = ForecastInfo.fromJson(jsonDecode(result)),
           });
       citiesWeather.add(wi);
-      citiesForecast.add(lfi);
+      citiesForecast.add(fi);
       cities.add(str);
       widget.storage.write(cities);
       return 'new city';
     } catch (e) {
-      print(e.toString());
-      return 'exception';
+      return e.toString();
     }
   }
 
@@ -176,11 +179,11 @@ class _CitiesState extends State<Cities> {
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                            builder: (context) => City(
+                                            builder: (context) => CityPage(
                                                   weatherInfo:
                                                       citiesWeather[index],
-                                                  listForecastInfo:
-                                                       citiesForecast[index],
+                                                  forecastInfo:
+                                                      citiesForecast[index],
                                                 )),
                                       );
                                     },
@@ -207,7 +210,8 @@ class _CitiesState extends State<Cities> {
                                                       cities.removeAt(index);
                                                       citiesWeather
                                                           .removeAt(index);
-                                                      citiesForecast.removeAt(index);
+                                                      // citiesForecast
+                                                      //     .removeAt(index);
                                                     });
                                                     Navigator.pop(
                                                         context, 'Delete');
@@ -270,7 +274,7 @@ class _CitiesState extends State<Cities> {
         Align(
           alignment: Alignment.centerLeft,
           child: Text(
-            '${citiesWeather[index].cityName}',
+            citiesWeather[index].cityName.toString(),
             style: Theme.of(context).textTheme.caption?.copyWith(
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
@@ -297,9 +301,9 @@ class _CitiesState extends State<Cities> {
 
   Align getComment(int i) {
     String comment;
-    if (citiesWeather[i].weatherMain.toString() == "Rain" ||
+    if (citiesWeather[i].weatherMain?.toString() == "Rain" ||
         ["200", "201", "202", "310", "311", "312", "313", "314"]
-            .contains(citiesWeather[i].weatherID.toString())) {
+            .contains(citiesWeather[i].weatherId?.toString())) {
       comment = "Yes, IT is!";
     } else {
       comment = "No, IT's not...";

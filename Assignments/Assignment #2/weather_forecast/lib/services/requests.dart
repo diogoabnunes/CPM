@@ -1,5 +1,5 @@
 import 'package:http/http.dart' as http;
-import 'package:weather_forecast/utils.dart';
+import 'package:weather_forecast/utils/constants.dart';
 
 Future<String> getCityWeather(String city) async {
   final response = await http.get(Uri.http(openWeatherMapAPI, weatherPath,

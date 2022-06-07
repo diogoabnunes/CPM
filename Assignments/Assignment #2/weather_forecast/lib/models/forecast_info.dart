@@ -1,106 +1,95 @@
-class ListForecastInfo {
-  List<ForecastInfo> list;
-
-  ListForecastInfo({required this.list});
-
-  factory ListForecastInfo.fromJson(dynamic json) {
-    if(json['list'] == null ){
-      return  ListForecastInfo(list:[]);
-    }
-    List<ForecastInfo> info=[];
-    for(var i=0; i<json['cnt']; i++){
-      info.add(ForecastInfo.fromJson(json['list'][i]));
-    }
-    return ListForecastInfo(list:info);
-  }
-}
-
 class ForecastInfo {
-  int? dt;
-  Main? main;
-  Weather? weather;
-  String? wind;
-  int? visibility;
-  String? pop;
-  String? dtTxt;
+  ForecastInfo({this.list});
 
-  ForecastInfo(
-      {this.dt,
-        this.main,
-        this.weather,
-        this.wind,
-        this.visibility,
-        this.pop,
-        this.dtTxt});
+  final List<Forecast>? list;
 
-  factory ForecastInfo.fromJson(dynamic json) {
-    Main main= Main();
-    if(json['main']!= null){
-      main = Main.fromJson(json['main']);
+  factory ForecastInfo.fromJson(Map<String, dynamic> json) {
+    if (json['list'] == null) {
+      return ForecastInfo(list: []);
     }
 
-    Weather weather =Weather();
-    if (json['weather'] != null) {
-        weather=Weather.fromJson(json['weather'][0]);
+    List<Forecast> l = <Forecast>[];
+    for (var i = 0; i < json['cnt']; i++) {
+      l.add(Forecast.fromJson(json['list'][i]));
     }
-   String wind =json['wind']['speed'].toString();
-
-    String pop = json['pop'].toString();
-    String dtTxt = json['dt_txt'];
-    int visibility = json['visibility'];
-    int dt = json['dt'];
-
-    return ForecastInfo(dt: dt ,main: main ,weather: weather, wind: wind, visibility: visibility, pop: pop, dtTxt: dtTxt );
+    return ForecastInfo(list: l);
   }
 }
 
-class Main {
-  double? temp;
-  double? tempMin;
-  double? tempMax;
-  int? pressure;
-  int? humidity;
+class Forecast {
+  Forecast(
+      {this.mainTemp,
+      this.mainFeelsLike,
+      this.mainTempMin,
+      this.mainTempMax,
+      this.mainPressure,
+      this.mainHumidity,
+      this.weatherId,
+      this.weatherMain,
+      this.weatherDescription,
+      this.weatherIcon,
+      this.windSpeed,
+      this.visibility,
+      this.pop,
+      this.dtTxt});
 
-  Main(
-      {this.temp,
-        this.tempMin,
-        this.tempMax,
-        this.pressure,
-        this.humidity});
+  final num? mainTemp;
+  final num? mainFeelsLike;
+  final num? mainTempMin;
+  final num? mainTempMax;
+  final num? mainPressure;
+  final num? mainHumidity;
 
-  factory Main.fromJson(dynamic json) {
-    double temp = json['temp'];
-    double tempMin = json['temp_min'];
-    double tempMax = json['temp_max'];
-    int pressure = json['pressure'];
-    int humidity = json['humidity'];
-    return Main(temp: temp, tempMin: tempMin, tempMax: tempMax, pressure: pressure, humidity: humidity);
+  final num? weatherId;
+  final String? weatherMain;
+  final String? weatherDescription;
+  final String? weatherIcon;
+
+  final num? windSpeed;
+  final num? visibility;
+  final num? pop;
+  final String? dtTxt;
+
+  factory Forecast.fromJson(dynamic json) {
+    if (json == null) {
+      return Forecast();
+    }
+
+    return Forecast(
+        mainTemp: json['main']['temp'],
+        mainFeelsLike: json['main']['feels_like'],
+        mainTempMin: json['main']['temp_min'],
+        mainTempMax: json['main']['temp_max'],
+        mainPressure: json['main']['pressure'],
+        mainHumidity: json['main']['humidity'],
+        weatherId: json['weather'][0]['id'],
+        weatherMain: json['weather'][0]['main'],
+        weatherDescription: json['weather'][0]['description'],
+        weatherIcon: json['weather'][0]['icon'],
+        windSpeed: json['wind']['speed'],
+        visibility: json['visibility'],
+        pop: json['pop'],
+        dtTxt: json['dt_txt']);
   }
 }
 
-class Weather {
-  int? id;
-  String? main;
-  String? description;
-  String? icon;
-
-  Weather({this.id, this.main, this.description, this.icon});
-
-  factory Weather.fromJson(dynamic json) {
-    int id = json['id'];
-    String main = json['main'];
-    String description = json['description'];
-    String icon = json['icon'];
-    return Weather(id: id, main: main, description: description, icon: icon);
-  }
+String? parseHours(String? datetime) {
+  return datetime?.split(' ')[1].split(':')[0];
 }
 
-/*class Wind {
-  double? speed;
+String? parseDay(String? datetime) {
+  return datetime?.split(' ')[0].split('-')[2];
+}
 
-  Wind({this.speed});
+String? parseMonth(String? datetime) {
+  return datetime?.split(' ')[0].split('-')[1];
+}
 
-  factory Wind.fromJson(dynamic json) {
-    return Wind(speed: json['speed']);
+int? getFirstTomorrowIndex(List<Forecast>? list) {
+  for (var item in list!) {
+    if (parseHours(item.dtTxt) == "00") {
+      return list.indexOf(item);
+    }
   }
-}*/
+  return null;
+}
