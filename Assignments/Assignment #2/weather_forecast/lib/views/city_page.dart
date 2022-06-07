@@ -47,7 +47,7 @@ class _CityPageState extends State<CityPage> {
                     Text('${widget.weatherInfo.mainTemp?.toInt()}ºC',
                         textAlign: TextAlign.center,
                         style: const TextStyle(
-                            color: Colors.lightBlueAccent,
+                            color: Colors.white,
                             fontSize: 70))
                   ],
                 ),
@@ -182,7 +182,12 @@ class _CityPageState extends State<CityPage> {
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               )))),
-                ])
+                ]),
+                const Divider(
+                  height: 1,
+                  thickness: 1,
+                  color: Colors.white70,
+                ),
               ]))
         ],
         ))

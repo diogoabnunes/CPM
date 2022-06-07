@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pt.up.feup.cpm.weatherapp.weather_forecast">
    <application
-        android:label="weather_forecast"
+        android:label="Is IT raining?"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
