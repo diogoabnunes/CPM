@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather_forecast/models/weather_info.dart';
 import 'package:weather_forecast/models/forecast_info.dart';
 import 'package:intl/intl.dart';
+import 'dart:math';
 
 class WeekPage extends StatefulWidget {
   const WeekPage(
@@ -16,8 +17,11 @@ class WeekPage extends StatefulWidget {
 }
 
 class _WeekPageState extends State<WeekPage> {
+  List<DailyInfo> weeklyInfo=[];
+
   @override
   Widget build(BuildContext context) {
+    weeklyInfo=getWeekInfo(widget.forecastInfo.list!);
     return Scaffold(
       appBar: AppBar(title: const Text("Is IT raining?")),
       resizeToAvoidBottomInset: false,
@@ -52,10 +56,11 @@ class _WeekPageState extends State<WeekPage> {
                   child: Column(children: [
                     Row(children: [
                       row(
-                        DateFormat('EEEE').format(DateTime.parse('${widget.forecastInfo.list?[index].dtTxt}')),
-                        'https://openweathermap.org/img/wn/${widget.forecastInfo.list?[index].weatherIcon}@4x.png',
-                      (widget.forecastInfo.list?[index].mainTempMax?.toInt()).toString(),
-                      (widget.forecastInfo.list?[index].mainTempMin?.toInt()).toString(),
+                        weeklyInfo[index].weekday,
+                        weeklyInfo[index].icon,
+                        //'https://openweathermap.org/img/wn/${weeklyInfo[index].icon}@4x.png',
+                      ( weeklyInfo[index].maxTemp?.toInt()).toString(),
+                      ( weeklyInfo[index].minTemp?.toInt()).toString(),
                       )
                     ]),
                   ]),
@@ -86,12 +91,15 @@ class _WeekPageState extends State<WeekPage> {
       Align(
         alignment: Alignment.centerLeft,
         child: SizedBox(
-          width: 80,
+          width: 70,
           height: 50,
-          child: Image.network(
+          child:Text(
+            icon,
+            style: const TextStyle(color: Colors.white, fontSize: 25),
+          ) /*Image.network(
             icon,
             width: 40,
-          ),
+          ),*/
         ),
       ),
       const SizedBox(width: 60),
@@ -122,4 +130,96 @@ class _WeekPageState extends State<WeekPage> {
       ]),
     ]);
   }
+
+  List<DailyInfo> getWeekInfo(List<Forecast> list){
+    List<DailyInfo> week =[];
+
+    List<String> weekdays=[];
+    List<List<String?>> iconList=[];
+    List<List<num?>> maxTempList=[];
+    List<List<num?>> minTempList=[];
+
+    List<String?> iconAux=[];
+    List<num?> maxTempAux=[];
+    List<num?> minTempAux=[];
+
+    for(Forecast forecast in list){
+      String weekday = DateFormat('EEEE').format(DateTime.parse('${forecast.dtTxt}'));
+      if( !weekdays.contains(weekday)){
+          if(iconAux.isNotEmpty){
+            iconList.add(iconAux);
+            iconAux.clear();
+          }
+          if(maxTempAux.isNotEmpty) {
+            maxTempList.add(maxTempAux);
+            maxTempAux.clear();
+          }
+          if(minTempAux.isNotEmpty) {
+            minTempList.add(minTempAux);
+            minTempAux.clear();
+          }
+
+          weekdays.add(weekday);
+      }
+
+      iconAux.add(forecast.weatherIcon);
+      maxTempAux.add(forecast.mainTempMax);
+      minTempAux.add(forecast.mainTempMin);
+
+      if(forecast==list.last){
+        minTempList.add(minTempAux);
+        maxTempList.add(maxTempAux);
+        iconList.add(iconAux);
+      }
+    }
+
+      for(int i=0; i<weekdays.length;i++){
+        // find icon
+        String icon=findICon(iconList[i]);
+        // find maxtemp
+        num? max= (maxTempList[i]).reduce((value, element) => value! > element!? value: element);
+        // find mintemp
+        num? min= (minTempList[i]).reduce((value, element) => value! < element!? value: element);
+
+        week.add(DailyInfo(weekday: weekdays[i],icon: icon,maxTemp: max,minTemp: min));
+
+      }
+
+      return week;
+    }
+
+  String findICon(List<String?> list) {
+    var dict = Map();
+
+    list.forEach((l) {
+      if(!dict.containsKey(l)) {
+        dict[l] = 1;
+      } else {
+        dict[l] +=1;
+      }
+    });
+
+    List sortedValues = dict.values.toList()..sort();
+    int popularValue = sortedValues.last;
+
+    dict.forEach((k, v) {
+      if (v == popularValue) {
+        return k;
+      }
+      print(k);
+    });
+    return dict.keys.toString();
+  }
+
+
+}
+
+class DailyInfo {
+
+  DailyInfo({this.weekday,this.icon,this.maxTemp, this.minTemp});
+
+  final String? weekday;
+  final String? icon;
+  final num? maxTemp;
+  final num? minTemp;
 }
