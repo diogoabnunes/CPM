@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:weather_forecast/views/city_page.dart';
 import 'package:weather_forecast/models/weather_info.dart';

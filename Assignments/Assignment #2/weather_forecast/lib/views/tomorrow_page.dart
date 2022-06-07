@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_forecast/models/weather_info.dart';
 import 'package:weather_forecast/models/forecast_info.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class TomorrowPage extends StatefulWidget {
   const TomorrowPage(
@@ -66,6 +67,150 @@ class _TomorrowPageState extends State<TomorrowPage> {
           ),
         )
       ),
-    )
+    );
+  }
+
+  Container graphTitle(title) {
+    return Container(
+      padding: const EdgeInsets.only(top: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
+            title,
+            style: Theme.of(context).textTheme.caption?.copyWith(
+              fontSize: 20,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  SizedBox temperatureGraph(List<Forecast>? list) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 240,
+      child: Card(
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: SfCartesianChart(
+          primaryXAxis: CategoryAxis(),
+          series: <ChartSeries<Forecast, String>>[
+            SplineSeries<Forecast, String>(
+              dataSource: list?.sublist(getFirstTomorrowIndex(list)!,
+                  getFirstTomorrowIndex(list)! + 8) ??
+                  [],
+              xValueMapper: (Forecast f, _) => parseHours(f.dtTxt),
+              yValueMapper: (Forecast f, _) => f.mainTemp,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  SizedBox precipitationGraph(List<Forecast>? list) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 240,
+      child: Card(
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: SfCartesianChart(
+          primaryXAxis: CategoryAxis(),
+          series: <ChartSeries<Forecast, String>>[
+            SplineSeries<Forecast, String>(
+              dataSource: list?.sublist(getFirstTomorrowIndex(list)!,
+                  getFirstTomorrowIndex(list)! + 8) ??
+                  [],
+              xValueMapper: (Forecast f, _) => parseHours(f.dtTxt),
+              yValueMapper: (Forecast f, _) => 100 * f.pop!,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  SizedBox windGraph(List<Forecast>? list) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 240,
+      child: Card(
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: SfCartesianChart(
+          primaryXAxis: CategoryAxis(),
+          series: <ChartSeries<Forecast, String>>[
+            SplineSeries<Forecast, String>(
+              dataSource: list?.sublist(getFirstTomorrowIndex(list)!,
+                  getFirstTomorrowIndex(list)! + 8) ??
+                  [],
+              xValueMapper: (Forecast f, _) => parseHours(f.dtTxt),
+              yValueMapper: (Forecast f, _) => f.windSpeed,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  SizedBox pressureGraph(List<Forecast>? list) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 240,
+      child: Card(
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: SfCartesianChart(
+          primaryXAxis: CategoryAxis(),
+          series: <ChartSeries<Forecast, String>>[
+            SplineSeries<Forecast, String>(
+              dataSource: list?.sublist(getFirstTomorrowIndex(list)!,
+                  getFirstTomorrowIndex(list)! + 8) ??
+                  [],
+              xValueMapper: (Forecast f, _) => parseHours(f.dtTxt),
+              yValueMapper: (Forecast f, _) => f.mainPressure,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  SizedBox humidityGraph(List<Forecast>? list) {
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: 240,
+      child: Card(
+        elevation: 5,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15),
+        ),
+        child: SfCartesianChart(
+          primaryXAxis: CategoryAxis(),
+          series: <ChartSeries<Forecast, String>>[
+            SplineSeries<Forecast, String>(
+              dataSource: list?.sublist(getFirstTomorrowIndex(list)!,
+                  getFirstTomorrowIndex(list)! + 8) ??
+                  [],
+              xValueMapper: (Forecast f, _) => parseHours(f.dtTxt),
+              yValueMapper: (Forecast f, _) => f.mainHumidity,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
