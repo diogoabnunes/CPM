@@ -25,7 +25,11 @@ class _CitiesPageState extends State<CitiesPage> {
   late Future<String> _value;
 
   Future<String> loadInfo() async {
-    await widget.storage.read().then((value) => {cities = value});
+    await widget.storage.read().then((value) => {
+          setState(() {
+            cities = value;
+          })
+        });
     for (var city in cities) {
       requestCity(city);
     }
@@ -46,9 +50,11 @@ class _CitiesPageState extends State<CitiesPage> {
       await getFiveDaysWeather(str).then((result) => {
             fi = ForecastInfo.fromJson(jsonDecode(result)),
           });
-      citiesWeather.add(wi);
-      citiesForecast.add(fi);
-      cities.add(str);
+      setState(() {
+        citiesWeather.add(wi);
+        citiesForecast.add(fi);
+        cities.add(str);
+      });
       widget.storage.write(cities);
       return 'new city';
     } catch (e) {
