@@ -90,22 +90,24 @@ class _CityPageState extends State<CityPage> {
                           ),
                           const SizedBox(height: 10),
                           Row(children: [
+                            const SizedBox(width: 10),
                             Row(children: [
                               data("Thermal Sensation",
                                   "${widget.weatherInfo.mainFeelsLike?.toInt()}ºC")
                             ]),
-                            const SizedBox(width: 50),
+                            const SizedBox(width: 32),
                             Row(children: [
                               data("Wind",
                                   ("${widget.weatherInfo.windSpeed} km/h"))
                             ]),
                           ]),
                           Row(children: [
+                            const SizedBox(width: 10),
                             Row(children: [
                               data("Humidity",
                                   "${widget.weatherInfo.mainHumidity}%")
                             ]),
-                            const SizedBox(width: 50),
+                            const SizedBox(width: 120),
                             Row(children: [
                               data("Pressure",
                                   "${widget.weatherInfo.mainPressure} hPa")
@@ -179,9 +181,9 @@ class _CityPageState extends State<CityPage> {
             child: Text(
               title,
               style: const TextStyle(
-            color: Colors.white,
-            fontSize: 20,
-            fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
