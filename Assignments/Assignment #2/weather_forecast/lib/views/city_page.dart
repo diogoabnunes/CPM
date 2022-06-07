@@ -34,6 +34,9 @@ class _CityPageState extends State<CityPage> {
                 Text(widget.weatherInfo.cityName.toString(),
                     style: const TextStyle(
                         fontSize: 35, color: Colors.white)),
+                Text(widget.weatherInfo.weatherDescription.toString(),
+                    style: const TextStyle(
+                        fontSize: 20, color: Colors.white)),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -48,6 +51,22 @@ class _CityPageState extends State<CityPage> {
                             fontSize: 70))
                   ],
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text('Max.:${widget.weatherInfo.mainTempMax?.toInt()}º',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 20)),
+                    Text(' Min.:${widget.weatherInfo.mainTempMin?.toInt()}º',
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 20))
+                  ],
+                ),
+                const SizedBox(height: 20),
                 const Divider(
                   height: 1,
                   thickness: 1,
