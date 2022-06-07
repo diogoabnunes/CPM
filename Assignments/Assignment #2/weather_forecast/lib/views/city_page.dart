@@ -54,7 +54,7 @@ class _CityPageState extends State<CityPage> {
                           const Divider(
                             height: 1,
                             thickness: 1,
-                            color: Colors.white,
+                            color: Colors.white70,
                           ),
                           const SizedBox(height: 20),
                           SizedBox(
@@ -86,7 +86,7 @@ class _CityPageState extends State<CityPage> {
                           const Divider(
                             height: 1,
                             thickness: 1,
-                            color: Colors.white,
+                            color: Colors.white70,
                           ),
                           const SizedBox(height: 10),
                           Row(children: [
@@ -115,7 +115,7 @@ class _CityPageState extends State<CityPage> {
                           const Divider(
                             height: 1,
                             thickness: 1,
-                            color: Colors.white,
+                            color: Colors.white70,
                           ),
                           const SizedBox(height: 10),
                           Row(children: [
@@ -142,7 +142,7 @@ class _CityPageState extends State<CityPage> {
                           const Divider(
                             height: 1,
                             thickness: 1,
-                            color: Colors.white,
+                            color: Colors.white70,
                           ),
                           const SizedBox(height: 10),
                           Row(children: [
@@ -171,20 +171,28 @@ class _CityPageState extends State<CityPage> {
   }
 
   Column data(title, data) {
-    return Column(children: [
-      Text(
-        title,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 20,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      const SizedBox(width: 10),
-      Text(
-        data,
-        style: const TextStyle(color: Colors.white, fontSize: 30),
-      ),
-    ]);
+    return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              title,
+              style: const TextStyle(
+            color: Colors.white,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              data,
+              style: const TextStyle(color: Colors.white, fontSize: 30),
+            ),
+          ),
+          const SizedBox(width: 10),
+        ]);
   }
 }
