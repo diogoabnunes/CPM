@@ -5,7 +5,7 @@ import 'package:weather_forecast/utils/functions.dart';
 import 'package:weather_forecast/views/tomorrow_page.dart';
 import 'package:weather_forecast/views/week_page.dart';
 
-class CityPage extends StatefulWidget {
+class CityPage extends StatelessWidget {
   const CityPage(
       {Key? key, required this.weatherInfo, required this.forecastInfo})
       : super(key: key);
@@ -13,14 +13,7 @@ class CityPage extends StatefulWidget {
   final ForecastInfo forecastInfo;
 
   @override
-  State<CityPage> createState() => _CityPageState();
-}
-
-class _CityPageState extends State<CityPage> {
-  @override
   Widget build(BuildContext context) {
-    print(widget.forecastInfo.list);
-
     return Scaffold(
         appBar: AppBar(title: const Text("Is IT raining?")),
         resizeToAvoidBottomInset: false,
@@ -33,20 +26,20 @@ class _CityPageState extends State<CityPage> {
               Container(
                   padding: const EdgeInsets.only(top: 30),
                   child: Column(children: [
-                    Text(widget.weatherInfo.cityName.toString(),
+                    Text(weatherInfo.cityName.toString(),
                         style:
                             const TextStyle(fontSize: 35, color: Colors.white)),
-                    Text(widget.weatherInfo.weatherDescription.toString(),
+                    Text(weatherInfo.weatherDescription.toString(),
                         style:
                             const TextStyle(fontSize: 20, color: Colors.white)),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Image.network(
-                          'https://openweathermap.org/img/wn/${widget.weatherInfo.weatherIcon}@4x.png',
+                          'https://openweathermap.org/img/wn/${weatherInfo.weatherIcon}@4x.png',
                           width: 150,
                         ),
-                        Text('${widget.weatherInfo.mainTemp?.toInt()}ºC',
+                        Text('${weatherInfo.mainTemp?.toInt()}ºC',
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                                 color: Colors.white, fontSize: 70))
@@ -55,13 +48,13 @@ class _CityPageState extends State<CityPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text('Min.:${widget.weatherInfo.mainTempMin?.toInt()}ºC',
+                        Text('Min.:${weatherInfo.mainTempMin?.toInt()}ºC',
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                                 color: Colors.white, fontSize: 20)),
                         Text(
 
-                            '       Max.:${widget.weatherInfo.mainTempMax?.toInt()}ºC',
+                            '       Max.:${weatherInfo.mainTempMax?.toInt()}ºC',
                             textAlign: TextAlign.center,
                             style: const TextStyle(
                                 color: Colors.white, fontSize: 20))
@@ -84,17 +77,17 @@ class _CityPageState extends State<CityPage> {
                           width: 90,
                           child: Column(children: [
                             Text(
-                              "${parseHours(widget.forecastInfo.list?[index + 1].dtTxt)} h",
+                              "${parseHours(forecastInfo.list?[index + 1].dtTxt)} h",
                               style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
                             ),
                             Image.network(
-                              'https://openweathermap.org/img/wn/${widget.forecastInfo.list?[index + 1].weatherIcon}@4x.png',
+                              'https://openweathermap.org/img/wn/${forecastInfo.list?[index + 1].weatherIcon}@4x.png',
                               width: 60,
                             ),
                             Text(
-                              "${widget.forecastInfo.list?[index + 1].mainTemp?.toInt()}ºC",
+                              "${forecastInfo.list?[index + 1].mainTemp?.toInt()}ºC",
                               style: const TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
@@ -114,22 +107,22 @@ class _CityPageState extends State<CityPage> {
                       const SizedBox(width: 10),
                       Row(children: [
                         data("Thermal Sensation",
-                            "${widget.weatherInfo.mainFeelsLike?.toInt()}ºC")
+                            "${weatherInfo.mainFeelsLike?.toInt()}ºC")
                       ]),
                       const SizedBox(width: 32),
                       Row(children: [
-                        data("Wind", ("${widget.weatherInfo.windSpeed} km/h"))
+                        data("Wind", ("${weatherInfo.windSpeed} km/h"))
                       ]),
                     ]),
                     Row(children: [
                       const SizedBox(width: 10),
                       Row(children: [
-                        data("Humidity", "${widget.weatherInfo.mainHumidity}%")
+                        data("Humidity", "${weatherInfo.mainHumidity}%")
                       ]),
                       const SizedBox(width: 120),
                       Row(children: [
                         data("Pressure",
-                            "${widget.weatherInfo.mainPressure} hPa")
+                            "${weatherInfo.mainPressure} hPa")
                       ]),
                     ]),
                     const SizedBox(height: 10),
@@ -145,8 +138,8 @@ class _CityPageState extends State<CityPage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => TomorrowPage(
-                                          weatherInfo: widget.weatherInfo,
-                                          forecastInfo: widget.forecastInfo,
+                                          weatherInfo: weatherInfo,
+                                          forecastInfo: forecastInfo,
                                         )),
                               ),
                           child: const SizedBox(
@@ -171,8 +164,8 @@ class _CityPageState extends State<CityPage> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => WeekPage(
-                                          weatherInfo: widget.weatherInfo,
-                                          forecastInfo: widget.forecastInfo,
+                                          weatherInfo: weatherInfo,
+                                          forecastInfo: forecastInfo,
                                         )),
                               ),
                           child: const SizedBox(
