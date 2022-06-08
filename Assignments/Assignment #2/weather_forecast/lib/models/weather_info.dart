@@ -17,24 +17,24 @@ class WeatherInfo {
       this.sunset,
       this.timezone});
 
-  final int? weatherId;
+  final num? weatherId;
   final String? weatherMain;
   final String? weatherDescription;
   final String? weatherIcon;
 
-  final double? mainTemp;
-  final double? mainFeelsLike;
-  final int? mainPressure;
-  final int? mainHumidity;
-  final double? mainTempMin;
-  final double? mainTempMax;
+  final num? mainTemp;
+  final num? mainFeelsLike;
+  final num? mainPressure;
+  final num? mainHumidity;
+  final num? mainTempMin;
+  final num? mainTempMax;
 
-  final double? windSpeed;
+  final num? windSpeed;
   final String? countryCode;
   final String? cityName;
-  final int? sunrise;
-  final int? sunset;
-  final int? timezone;
+  final num? sunrise;
+  final num? sunset;
+  final num? timezone;
 
   factory WeatherInfo.fromJson(dynamic json) {
     if (json == null) {
