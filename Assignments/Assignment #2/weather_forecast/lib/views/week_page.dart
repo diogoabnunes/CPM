@@ -4,7 +4,7 @@ import 'package:weather_forecast/models/forecast_info.dart';
 import 'package:intl/intl.dart';
 import 'package:collection/collection.dart';
 
-class WeekPage extends StatefulWidget {
+class WeekPage extends StatelessWidget {
   const WeekPage(
       {Key? key, required this.weatherInfo, required this.forecastInfo})
       : super(key: key);
@@ -13,15 +13,8 @@ class WeekPage extends StatefulWidget {
   final ForecastInfo forecastInfo;
 
   @override
-  State<WeekPage> createState() => _WeekPageState();
-}
-
-class _WeekPageState extends State<WeekPage> {
-  List<DailyInfo> weeklyInfo = [];
-
-  @override
   Widget build(BuildContext context) {
-    weeklyInfo = getWeekInfo(widget.forecastInfo.list!);
+    List<DailyInfo> weeklyInfo = getWeekInfo(forecastInfo.list!);
     return Scaffold(
       appBar: AppBar(title: const Text("Is IT raining?")),
       resizeToAvoidBottomInset: false,

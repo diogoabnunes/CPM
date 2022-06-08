@@ -3,7 +3,7 @@ import 'package:weather_forecast/models/weather_info.dart';
 import 'package:weather_forecast/models/forecast_info.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class TomorrowPage extends StatefulWidget {
+class TomorrowPage extends StatelessWidget {
   const TomorrowPage(
       {Key? key, required this.weatherInfo, required this.forecastInfo})
       : super(key: key);
@@ -11,11 +11,6 @@ class TomorrowPage extends StatefulWidget {
   final WeatherInfo weatherInfo;
   final ForecastInfo forecastInfo;
 
-  @override
-  State<TomorrowPage> createState() => _TomorrowPageState();
-}
-
-class _TomorrowPageState extends State<TomorrowPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,37 +26,37 @@ class _TomorrowPageState extends State<TomorrowPage> {
           child: Column(
             children: [
               Row(children: [
-                graphTitle('Temperature Tomorrow (ºC)')
+                graphTitle('Temperature Tomorrow (ºC)', context)
               ]),
               const SizedBox(height: 5),
               Row(children: [
-                temperatureGraph(widget.forecastInfo.list)
+                temperatureGraph(forecastInfo.list, context)
               ]),
               const SizedBox(height: 20),
               Row(children: [
-                graphTitle('Precipitation Tomorrow (%)')
+                graphTitle('Precipitation Tomorrow (%)', context)
               ]),
               const SizedBox(height: 5),
               Row(children: [
-                precipitationGraph(widget.forecastInfo.list)
-              ]),
-              const SizedBox(height: 20),
-              Row(children: [graphTitle('Wind Tomorrow (km/h)')]),
-              const SizedBox(height: 5),
-              Row(children: [windGraph(widget.forecastInfo.list)]),
-              const SizedBox(height: 20),
-              Row(children: [
-                graphTitle('Pressure Tomorrow (hPa)')
-              ]),
-              const SizedBox(height: 5),
-              Row(children: [
-                pressureGraph(widget.forecastInfo.list)
+                precipitationGraph(forecastInfo.list, context)
               ]),
               const SizedBox(height: 20),
-              Row(children: [graphTitle('Humidity Tomorrow (%)')]),
+              Row(children: [graphTitle('Wind Tomorrow (km/h)', context)]),
+              const SizedBox(height: 5),
+              Row(children: [windGraph(forecastInfo.list, context)]),
+              const SizedBox(height: 20),
+              Row(children: [
+                graphTitle('Pressure Tomorrow (hPa)', context)
+              ]),
               const SizedBox(height: 5),
               Row(children: [
-                humidityGraph(widget.forecastInfo.list)
+                pressureGraph(forecastInfo.list, context)
+              ]),
+              const SizedBox(height: 20),
+              Row(children: [graphTitle('Humidity Tomorrow (%)', context)]),
+              const SizedBox(height: 5),
+              Row(children: [
+                humidityGraph(forecastInfo.list, context)
               ]),
             ],
           ),
@@ -70,7 +65,7 @@ class _TomorrowPageState extends State<TomorrowPage> {
     );
   }
 
-  Container graphTitle(title) {
+  Container graphTitle(title, BuildContext context) {
     return Container(
       padding: const EdgeInsets.only(top: 10),
       child: Row(
@@ -89,7 +84,7 @@ class _TomorrowPageState extends State<TomorrowPage> {
     );
   }
 
-  SizedBox temperatureGraph(List<Forecast>? list) {
+  SizedBox temperatureGraph(List<Forecast>? list, BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: 240,
@@ -114,7 +109,7 @@ class _TomorrowPageState extends State<TomorrowPage> {
     );
   }
 
-  SizedBox precipitationGraph(List<Forecast>? list) {
+  SizedBox precipitationGraph(List<Forecast>? list, BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: 240,
@@ -139,7 +134,7 @@ class _TomorrowPageState extends State<TomorrowPage> {
     );
   }
 
-  SizedBox windGraph(List<Forecast>? list) {
+  SizedBox windGraph(List<Forecast>? list, BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: 240,
@@ -164,7 +159,7 @@ class _TomorrowPageState extends State<TomorrowPage> {
     );
   }
 
-  SizedBox pressureGraph(List<Forecast>? list) {
+  SizedBox pressureGraph(List<Forecast>? list, BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: 240,
@@ -189,7 +184,7 @@ class _TomorrowPageState extends State<TomorrowPage> {
     );
   }
 
-  SizedBox humidityGraph(List<Forecast>? list) {
+  SizedBox humidityGraph(List<Forecast>? list, BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: 240,
