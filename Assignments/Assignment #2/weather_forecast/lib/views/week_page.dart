@@ -3,7 +3,6 @@ import 'package:weather_forecast/models/weather_info.dart';
 import 'package:weather_forecast/models/forecast_info.dart';
 import 'package:intl/intl.dart';
 import 'package:collection/collection.dart';
-import 'package:dart_numerics/dart_numerics.dart';
 
 class WeekPage extends StatefulWidget {
   const WeekPage(
@@ -156,8 +155,8 @@ class _WeekPageState extends State<WeekPage> {
     var groupby = groupBy(daily, (DailyInfo di) => di.weekday);
 
     for (var day in groupby.keys) {
-      num maxTemp = int64MinValue;
-      num minTemp = int64MaxValue;
+      num maxTemp = -50;
+      num minTemp = 50;
       String? icon;
 
       var icons = {};
