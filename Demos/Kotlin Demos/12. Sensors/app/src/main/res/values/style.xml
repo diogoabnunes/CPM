@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<style name="apptext">
+		<item name="android:textSize">12sp</item>
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+	</style>
+
+	<style name="appbutton" parent="apptext">
+	</style>
+
+	<style name="line_separator">
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:layout_height">2dp</item>
+		<item name="android:color">@color/gray</item>
+		<item name="android:background">@color/gray</item>
+	</style>
+</resources>

@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Shake Detector</string>
+    <string name="main_instructions">Shake the phone\nand see the color change</string>
+</resources>

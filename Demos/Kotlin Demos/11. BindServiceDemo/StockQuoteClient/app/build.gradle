@@ -1,0 +1,24 @@
+apply plugin: 'com.android.application'
+android {
+  compileSdk 31
+  defaultConfig {
+        applicationId "org.feup.apm.stockclient"
+        minSdkVersion 19
+        targetSdkVersion 19
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+        }
+    }
+    buildToolsVersion '32.0.0'
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+}
